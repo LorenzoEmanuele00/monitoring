@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; background: #ECECEE; }
+  a { color: #0066CC; text-decoration: none; }
+  a:hover { color: #004C99; text-decoration: underline; }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#1E1E1E">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#1E1E1E"></rect>
+    <rect x="360" y="240" width="480" height="320" rx="48" fill="#2A2A2C" stroke="#3A3A3C" stroke-width="4"></rect>
+    <circle cx="760" cy="320" r="22" fill="#30D158"></circle>
+    <rect x="424" y="300" width="180" height="26" rx="13" fill="#8E8E93"></rect>
+    <rect x="424" y="392" width="260" height="52" rx="10" fill="#F5F5F7"></rect>
+    <rect x="424" y="480" width="352" height="18" rx="9" fill="#3A3A3C"></rect>
+    <rect x="424" y="480" width="220" height="18" rx="9" fill="#0A84FF"></rect>
+  </svg>
+</template>
+
+<div style="min-height: 100vh; background: #ECECEE; color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, sans-serif; padding: 48px 48px 96px; display: flex; flex-direction: column; gap: 56px; box-sizing: border-box; -webkit-font-smoothing: antialiased;">
+
+  <header style="display: flex; flex-direction: column; gap: 12px; max-width: 720px;">
+    <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">MCDesignTokens &nbsp;/&nbsp; v0.2 &nbsp;/&nbsp; native macOS pass</div>
+    <h1 style="margin: 0; font-size: 26px; line-height: 1.15; letter-spacing: 0.008em; font-weight: 700;">Monitoring Command Center</h1>
+    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: rgba(0,0,0,0.62); text-wrap: pretty;">Token e componenti mappati sui colori semantici di sistema, non su una palette di marca. San Francisco per l&rsquo;interfaccia, SF Mono per i dati. Ogni componente &egrave; mostrato alla densit&agrave; dell&rsquo;app e alla densit&agrave; che un widget small impone &mdash; se non regge a 170 punti, non entra nel set.</p>
+    <div style="display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap;">
+      <sc-for list="{{ principles }}" as="p" hint-placeholder-count="3">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 5px; font-size: 11px; background: rgba(255,255,255,0.9); border: 0.5px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.6);">{{ p }}</span>
+      </sc-for>
+    </div>
+  </header>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">01</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Colore</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">ogni token &egrave; un alias di un system color, cos&igrave; segue Increase Contrast e le apparenze</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Dark appearance</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <sc-for list="{{ darkSwatches }}" as="s" hint-placeholder-count="10">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <div style="width: 28px; height: 28px; border-radius: 5px; border: 0.5px solid rgba(255,255,255,0.18); flex: none; background: {{ s.hex }};"></div>
+              <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0;">
+                <div style="font-size: 11px; color: rgba(255,255,255,0.92); white-space: nowrap;">{{ s.name }}</div>
+                <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(255,255,255,0.42);">{{ s.sys }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light appearance</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <sc-for list="{{ lightSwatches }}" as="s" hint-placeholder-count="10">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <div style="width: 28px; height: 28px; border-radius: 5px; border: 0.5px solid rgba(0,0,0,0.14); flex: none; background: {{ s.hex }};"></div>
+              <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0;">
+                <div style="font-size: 11px; color: #000000; white-space: nowrap;">{{ s.name }}</div>
+                <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.45);">{{ s.sys }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Ruoli semantici &mdash; light / dark</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+        <sc-for list="{{ semantic }}" as="c" hint-placeholder-count="6">
+          <div style="display: flex; flex-direction: column; gap: 7px; padding: 12px; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px;">
+            <div style="display: flex; gap: 5px;">
+              <div style="height: 24px; flex: 1; border-radius: 4px; background: {{ c.light }};"></div>
+              <div style="height: 24px; flex: 1; border-radius: 4px; background: {{ c.dark }};"></div>
+            </div>
+            <div style="font-size: 12px; font-weight: 600;">{{ c.name }}</div>
+            <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.45);">{{ c.sys }}</div>
+            <div style="font-size: 11px; color: rgba(0,0,0,0.6); line-height: 1.4; text-wrap: pretty;">{{ c.use }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">02</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Tipografia e spazio</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">gli stili di testo di macOS; SF Mono con cifre tabulari per ogni numero</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start;">
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 13px;">
+        <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="9">
+          <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 0.5px solid rgba(0,0,0,0.07); padding-bottom: 12px;">
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.45); width: 150px; flex: none;">{{ t.token }}</span>
+            <span style="flex: 1; min-width: 0; font-size: {{ t.size }}; font-weight: {{ t.weight }}; font-family: {{ t.family }}; color: {{ t.color }}; letter-spacing: {{ t.tracking }};">{{ t.sample }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Spazio &mdash; base 4</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ spaceScale }}" as="sp" hint-placeholder-count="7">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.45); width: 34px; flex: none;">{{ sp.token }}</span>
+                <div style="height: 10px; border-radius: 2px; background: rgba(0,0,0,0.16); width: {{ sp.px }};"></div>
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.45);">{{ sp.px }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size: 11px; color: rgba(0,0,0,0.55); line-height: 1.45; border-top: 0.5px solid rgba(0,0,0,0.07); padding-top: 12px; text-wrap: pretty;">In-app il padding di card &egrave; s-4. Dentro un widget scende a s-3 su medium e s-3 su small: WidgetKit aggiunge gi&agrave; il suo margine di contenuto.</div>
+        </div>
+
+        <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Raggi</div>
+          <div style="display: flex; gap: 12px;">
+            <sc-for list="{{ radii }}" as="r" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 6px; align-items: center;">
+                <div style="width: 44px; height: 34px; background: #F2F2F4; border: 0.5px solid rgba(0,0,0,0.12); border-radius: {{ r.px }};"></div>
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.45);">{{ r.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">03</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Status pill</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">connected / degraded / error &mdash; punto + parola in-app, punto + glifo nei widget</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Dark &mdash; in-app 11px</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <sc-for list="{{ pillsDark }}" as="p" hint-placeholder-count="5">
+            <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 6px; border-radius: 5px; font-size: 11px; line-height: 1.45; background: {{ p.bg }}; color: {{ p.fg }};"><span style="width: 6px; height: 6px; border-radius: 50%; flex: none; background: {{ p.dot }};"></span>{{ p.label }}</span>
+          </sc-for>
+        </div>
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 2px;">Dark &mdash; widget 10px</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <sc-for list="{{ pillsDark }}" as="p" hint-placeholder-count="5">
+            <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px 1px 5px; border-radius: 4px; font-size: 10px; line-height: 1.5; background: {{ p.bg }}; color: {{ p.fg }};"><span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ p.dot }};"></span>{{ p.short }}</span>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light &mdash; in-app 11px</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <sc-for list="{{ pillsLight }}" as="p" hint-placeholder-count="5">
+            <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 6px; border-radius: 5px; font-size: 11px; line-height: 1.45; background: {{ p.bg }}; color: {{ p.fg }};"><span style="width: 6px; height: 6px; border-radius: 50%; flex: none; background: {{ p.dot }};"></span>{{ p.label }}</span>
+          </sc-for>
+        </div>
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-top: 2px;">Light &mdash; widget 10px</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <sc-for list="{{ pillsLight }}" as="p" hint-placeholder-count="5">
+            <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px 1px 5px; border-radius: 4px; font-size: 10px; line-height: 1.5; background: {{ p.bg }}; color: {{ p.fg }};"><span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ p.dot }};"></span>{{ p.short }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">04</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Staleness</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">tempo relativo che degrada visibilmente oltre soglia</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Dark &mdash; inline</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{ staleDark }}" as="s" hint-placeholder-count="3">
+            <div style="display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; padding: 2px 7px 2px 6px; border-radius: 4px; font-size: 11px; background: {{ s.bg }}; color: {{ s.fg }};">
+              <span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ s.dot }}; border: {{ s.ring }};"></span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-variant-numeric: tabular-nums;">{{ s.time }}</span>
+              <span style="opacity: 0.85;">{{ s.flag }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 2px;">Dark &mdash; su valore</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+          <sc-for list="{{ staleDark }}" as="s" hint-placeholder-count="3">
+            <div style="background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px; display: flex; flex-direction: column; gap: 5px;">
+              <div style="font-size: 10px; color: rgba(255,255,255,0.5);">Righe DB</div>
+              <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 19px; font-variant-numeric: tabular-nums; line-height: 1; color: {{ s.value }};">1.284</div>
+              <div style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: {{ s.metaOn }};"><span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ s.dot }}; border: {{ s.ring }};"></span>{{ s.time }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light &mdash; inline</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{ staleLight }}" as="s" hint-placeholder-count="3">
+            <div style="display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; padding: 2px 7px 2px 6px; border-radius: 4px; font-size: 11px; background: {{ s.bg }}; color: {{ s.fg }};">
+              <span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ s.dot }}; border: {{ s.ring }};"></span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-variant-numeric: tabular-nums;">{{ s.time }}</span>
+              <span style="opacity: 0.85;">{{ s.flag }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-top: 2px;">Light &mdash; su valore</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+          <sc-for list="{{ staleLight }}" as="s" hint-placeholder-count="3">
+            <div style="background: #F7F7F8; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 11px; display: flex; flex-direction: column; gap: 5px;">
+              <div style="font-size: 10px; color: rgba(0,0,0,0.5);">Righe DB</div>
+              <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 19px; font-variant-numeric: tabular-nums; line-height: 1; color: {{ s.value }};">1.284</div>
+              <div style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: {{ s.metaOn }};"><span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ s.dot }}; border: {{ s.ring }};"></span>{{ s.time }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+      <sc-for list="{{ stalenessRules }}" as="r" hint-placeholder-count="3">
+        <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 5px;">
+          <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: #0066CC;">{{ r.range }}</div>
+          <div style="font-size: 12px; font-weight: 600;">{{ r.name }}</div>
+          <div style="font-size: 11px; color: rgba(0,0,0,0.6); line-height: 1.45; text-wrap: pretty;">{{ r.rule }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">05</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Usage metric tile</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">consumo contro limite &mdash; la barra dice a colpo d&rsquo;occhio quanto margine resta</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+        <sc-for list="{{ usage }}" as="u" hint-placeholder-count="4">
+          <div style="background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 6px;">
+              <span style="font-size: 11px; color: rgba(255,255,255,0.55);">{{ u.label }}</span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums;">{{ u.pct }}</span>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 20px; line-height: 1; color: rgba(255,255,255,0.95); font-variant-numeric: tabular-nums;">{{ u.value }}</span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.4);">{{ u.limit }}</span>
+            </div>
+            <div style="height: 5px; border-radius: 3px; background: rgba(255,255,255,0.12); overflow: hidden;">
+              <div style="height: 100%; border-radius: 3px; width: {{ u.pct }}; background: {{ u.barDark }};"></div>
+            </div>
+            <div style="font-size: 10px; color: rgba(255,255,255,0.45);">{{ u.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+        <sc-for list="{{ usage }}" as="u" hint-placeholder-count="4">
+          <div style="background: #F7F7F8; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 6px;">
+              <span style="font-size: 11px; color: rgba(0,0,0,0.55);">{{ u.label }}</span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4); font-variant-numeric: tabular-nums;">{{ u.pct }}</span>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 20px; line-height: 1; color: #000000; font-variant-numeric: tabular-nums;">{{ u.value }}</span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">{{ u.limit }}</span>
+            </div>
+            <div style="height: 5px; border-radius: 3px; background: rgba(0,0,0,0.1); overflow: hidden;">
+              <div style="height: 100%; border-radius: 3px; width: {{ u.pct }}; background: {{ u.barLight }};"></div>
+            </div>
+            <div style="font-size: 10px; color: rgba(0,0,0,0.45);">{{ u.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">06</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Grafici di consumo</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">tre forme sole: area per il tempo, colonne per i cicli, barra impilata per la composizione</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Dark &mdash; area chart, traffico 24h</div>
+        <div style="background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 11px; color: rgba(255,255,255,0.55);">Traffico in uscita</span>
+              <div style="display: flex; align-items: baseline; gap: 4px;">
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 20px; line-height: 1; color: rgba(255,255,255,0.95); font-variant-numeric: tabular-nums;">8,4</span>
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.4);">GB / 24h</span>
+              </div>
+            </div>
+            <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px 1px 5px; border-radius: 4px; font-size: 10px; background: rgba(255,159,10,0.18); color: #FFC46B;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #FF9F0A;"></span>picco 1,2 GB/h</span>
+          </div>
+          <svg viewBox="0 0 320 72" preserveAspectRatio="none" style="width: 100%; height: 72px; display: block; overflow: visible;">
+            <path d="{{ trafficArea }}" fill="rgba(10,132,255,0.22)"></path>
+            <path d="{{ trafficLine }}" fill="none" stroke="#0A84FF" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+            <line x1="0" y1="{{ trafficThresholdY }}" x2="320" y2="{{ trafficThresholdY }}" stroke="#FF9F0A" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"></line>
+          </svg>
+          <div style="display: flex; justify-content: space-between; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(255,255,255,0.38);">
+            <sc-for list="{{ hourTicks }}" as="t" hint-placeholder-count="5"><span>{{ t }}</span></sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light &mdash; area chart, traffico 24h</div>
+        <div style="background: #F7F7F8; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 11px; color: rgba(0,0,0,0.55);">Traffico in uscita</span>
+              <div style="display: flex; align-items: baseline; gap: 4px;">
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 20px; line-height: 1; color: #000000; font-variant-numeric: tabular-nums;">8,4</span>
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">GB / 24h</span>
+              </div>
+            </div>
+            <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px 1px 5px; border-radius: 4px; font-size: 10px; background: rgba(201,52,0,0.12); color: #9C2800;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #C93400;"></span>picco 1,2 GB/h</span>
+          </div>
+          <svg viewBox="0 0 320 72" preserveAspectRatio="none" style="width: 100%; height: 72px; display: block; overflow: visible;">
+            <path d="{{ trafficArea }}" fill="rgba(0,64,221,0.14)"></path>
+            <path d="{{ trafficLine }}" fill="none" stroke="#0040DD" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+            <line x1="0" y1="{{ trafficThresholdY }}" x2="320" y2="{{ trafficThresholdY }}" stroke="#C93400" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"></line>
+          </svg>
+          <div style="display: flex; justify-content: space-between; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.38);">
+            <sc-for list="{{ hourTicks }}" as="t" hint-placeholder-count="5"><span>{{ t }}</span></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Dark &mdash; column chart, richieste per ora</div>
+        <div style="background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <span style="font-size: 11px; color: rgba(255,255,255,0.55);">Richieste API</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums;">max 4,1k/h</span>
+          </div>
+          <div style="display: flex; align-items: flex-end; gap: 3px; height: 64px;">
+            <sc-for list="{{ requests }}" as="b" hint-placeholder-count="14">
+              <div style="flex: 1; border-radius: 2px 2px 1px 1px; height: {{ b.h }}; background: {{ b.dark }};"></div>
+            </sc-for>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; font-size: 10px; color: rgba(255,255,255,0.45);">
+            <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 2px; background: #0A84FF;"></span>nella norma</span>
+            <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 2px; background: #FF9F0A;"></span>oltre soglia</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light &mdash; column chart, richieste per ora</div>
+        <div style="background: #F7F7F8; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <span style="font-size: 11px; color: rgba(0,0,0,0.55);">Richieste API</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4); font-variant-numeric: tabular-nums;">max 4,1k/h</span>
+          </div>
+          <div style="display: flex; align-items: flex-end; gap: 3px; height: 64px;">
+            <sc-for list="{{ requests }}" as="b" hint-placeholder-count="14">
+              <div style="flex: 1; border-radius: 2px 2px 1px 1px; height: {{ b.h }}; background: {{ b.light }};"></div>
+            </sc-for>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; font-size: 10px; color: rgba(0,0,0,0.45);">
+            <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 2px; background: #0040DD;"></span>nella norma</span>
+            <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 2px; background: #C93400;"></span>oltre soglia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Dark &mdash; barra impilata, memoria</div>
+        <div style="background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <span style="font-size: 11px; color: rgba(255,255,255,0.55);">Memoria istanza</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums;">1,6 / 2,0 GB</span>
+          </div>
+          <div style="display: flex; height: 10px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,0.1);">
+            <sc-for list="{{ memory }}" as="m" hint-placeholder-count="3">
+              <div style="width: {{ m.pct }}; background: {{ m.dark }};"></div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <sc-for list="{{ memory }}" as="m" hint-placeholder-count="3">
+              <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: rgba(255,255,255,0.55);"><span style="width: 7px; height: 7px; border-radius: 2px; flex: none; background: {{ m.dark }};"></span>{{ m.label }}<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: rgba(255,255,255,0.38); font-variant-numeric: tabular-nums;">{{ m.value }}</span></span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light &mdash; barra impilata, memoria</div>
+        <div style="background: #F7F7F8; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <span style="font-size: 11px; color: rgba(0,0,0,0.55);">Memoria istanza</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4); font-variant-numeric: tabular-nums;">1,6 / 2,0 GB</span>
+          </div>
+          <div style="display: flex; height: 10px; border-radius: 3px; overflow: hidden; background: rgba(0,0,0,0.08);">
+            <sc-for list="{{ memory }}" as="m" hint-placeholder-count="3">
+              <div style="width: {{ m.pct }}; background: {{ m.light }};"></div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <sc-for list="{{ memory }}" as="m" hint-placeholder-count="3">
+              <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: rgba(0,0,0,0.55);"><span style="width: 7px; height: 7px; border-radius: 2px; flex: none; background: {{ m.light }};"></span>{{ m.label }}<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: rgba(0,0,0,0.38); font-variant-numeric: tabular-nums;">{{ m.value }}</span></span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);">Riduzione a taglia widget &mdash; 78 pt di larghezza, niente assi, niente legenda</div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <div style="width: 78px; background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px; display: flex; flex-direction: column; gap: 5px;">
+          <span style="font-size: 9px; color: rgba(255,255,255,0.5);">Traffico</span>
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 14px; line-height: 1; color: rgba(255,255,255,0.95); font-variant-numeric: tabular-nums;">8,4</span>
+          <svg viewBox="0 0 320 72" preserveAspectRatio="none" style="width: 100%; height: 22px; display: block;">
+            <path d="{{ trafficArea }}" fill="rgba(10,132,255,0.24)"></path>
+            <path d="{{ trafficLine }}" fill="none" stroke="#0A84FF" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+          </svg>
+        </div>
+        <div style="width: 78px; background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px; display: flex; flex-direction: column; gap: 5px;">
+          <span style="font-size: 9px; color: rgba(255,255,255,0.5);">Richieste</span>
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 14px; line-height: 1; color: rgba(255,255,255,0.95); font-variant-numeric: tabular-nums;">4,1k</span>
+          <div style="display: flex; align-items: flex-end; gap: 2px; height: 22px;">
+            <sc-for list="{{ requestsMini }}" as="b" hint-placeholder-count="7">
+              <div style="flex: 1; border-radius: 1px; height: {{ b.h }}; background: {{ b.dark }};"></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="width: 78px; background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px; display: flex; flex-direction: column; gap: 5px;">
+          <span style="font-size: 9px; color: rgba(255,255,255,0.5);">Memoria</span>
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 14px; line-height: 1; color: rgba(255,255,255,0.95); font-variant-numeric: tabular-nums;">80%</span>
+          <div style="display: flex; height: 6px; border-radius: 2px; overflow: hidden; background: rgba(255,255,255,0.1); margin-top: 8px;">
+            <sc-for list="{{ memory }}" as="m" hint-placeholder-count="3">
+              <div style="width: {{ m.pct }}; background: {{ m.dark }};"></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">07</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Event row</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">glifo + testo breve + tempo relativo &mdash; una riga, 22 punti di altezza</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column;">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="5">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid rgba(255,255,255,0.08);">
+            <span style="width: 16px; height: 16px; border-radius: 4px; flex: none; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; font-weight: 600; background: {{ e.glyphBgDark }}; color: {{ e.glyphFgDark }};">{{ e.glyph }}</span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.9); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ e.text }}</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.42); font-variant-numeric: tabular-nums; flex: none;">{{ e.time }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column;">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="5">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid rgba(0,0,0,0.07);">
+            <span style="width: 16px; height: 16px; border-radius: 4px; flex: none; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; font-weight: 600; background: {{ e.glyphBgLight }}; color: {{ e.glyphFgLight }};">{{ e.glyph }}</span>
+            <span style="font-size: 11px; color: rgba(0,0,0,0.88); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ e.text }}</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.42); font-variant-numeric: tabular-nums; flex: none;">{{ e.time }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">08</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Project summary card</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">nome, integrazioni attaccate, salute complessiva &mdash; l&rsquo;unit&agrave; della lista progetti</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: #1E1E1E; border: 0.5px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+          <div style="background: #2A2A2C; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 13px 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+              <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                <div style="font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.95);">{{ p.name }}</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.45);">{{ p.subtitle }}</div>
+              </div>
+              <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 6px; border-radius: 5px; font-size: 11px; flex: none; background: {{ p.pillBgDark }}; color: {{ p.pillFgDark }};"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ p.dotDark }};"></span>{{ p.health }}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <sc-for list="{{ p.integrations }}" as="i" hint-placeholder-count="3">
+                <span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 5px; font-size: 10px; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ i.dotDark }};"></span>{{ i.name }}</span>
+              </sc-for>
+              <span style="margin-left: auto; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.38); font-variant-numeric: tabular-nums;">{{ p.updated }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+          <div style="background: #F7F7F8; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 13px 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+              <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                <div style="font-size: 13px; font-weight: 600; color: #000000;">{{ p.name }}</div>
+                <div style="font-size: 11px; color: rgba(0,0,0,0.5);">{{ p.subtitle }}</div>
+              </div>
+              <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 6px; border-radius: 5px; font-size: 11px; flex: none; background: {{ p.pillBgLight }}; color: {{ p.pillFgLight }};"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ p.dotLight }};"></span>{{ p.health }}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <sc-for list="{{ p.integrations }}" as="i" hint-placeholder-count="3">
+                <span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 5px; font-size: 10px; background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.7);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: none; background: {{ i.dotLight }};"></span>{{ i.name }}</span>
+              </sc-for>
+              <span style="margin-left: auto; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.38); font-variant-numeric: tabular-nums;">{{ p.updated }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.14); padding-bottom: 8px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.4);">09</span>
+      <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Prova a dimensione WidgetKit</h2>
+      <span style="font-size: 12px; color: rgba(0,0,0,0.5);">small 170&times;170 e medium 364&times;170 punti, su materiale translucido sopra la scrivania</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="border-radius: 10px; padding: 26px; background: linear-gradient(150deg, #2B3A52 0%, #4A3A55 55%, #6B4A48 100%); display: flex; flex-direction: column; gap: 18px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6);">Dark desktop</div>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="width: 170px; height: 170px; border-radius: 18px; padding: 14px; box-sizing: border-box; background: rgba(38,38,40,0.72); backdrop-filter: blur(28px) saturate(150%); -webkit-backdrop-filter: blur(28px) saturate(150%); border: 0.5px solid rgba(255,255,255,0.14); box-shadow: 0 8px 26px rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: space-between; color: #FFFFFF;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+                <span style="font-size: 12px; font-weight: 600;">mise_pwa</span>
+                <span style="width: 7px; height: 7px; border-radius: 50%; background: #30D158; flex: none;"></span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1px;">
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums;">14m</span>
+                <span style="font-size: 11px; color: rgba(255,255,255,0.55);">ultimo deploy · master</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 5px;">
+                <div style="height: 4px; border-radius: 2px; background: rgba(255,255,255,0.14); overflow: hidden;"><div style="height: 100%; width: 62%; border-radius: 2px; background: #30D158;"></div></div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; color: rgba(255,255,255,0.5);"><span>Hosting 6,2 GB</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace;">62%</span></div>
+              </div>
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(255,255,255,0.55); text-align: center;">systemSmall</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="width: 364px; height: 170px; border-radius: 18px; padding: 14px; box-sizing: border-box; background: rgba(38,38,40,0.72); backdrop-filter: blur(28px) saturate(150%); -webkit-backdrop-filter: blur(28px) saturate(150%); border: 0.5px solid rgba(255,255,255,0.14); box-shadow: 0 8px 26px rgba(0,0,0,0.4); display: flex; gap: 14px; color: #FFFFFF;">
+              <div style="width: 116px; flex: none; display: flex; flex-direction: column; justify-content: space-between; border-right: 0.5px solid rgba(255,255,255,0.12); padding-right: 12px;">
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <span style="font-size: 12px; font-weight: 600;">mise_pwa</span>
+                  <span style="font-size: 10px; color: rgba(255,255,255,0.5);">Gestione Mezzi</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px 1px 5px; border-radius: 4px; font-size: 10px; background: rgba(48,209,88,0.2); color: #6DE49A; align-self: flex-start;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #30D158;"></span>3 servizi OK</span>
+                  <div style="height: 4px; border-radius: 2px; background: rgba(255,255,255,0.14); overflow: hidden;"><div style="height: 100%; width: 62%; border-radius: 2px; background: #30D158;"></div></div>
+                  <span style="font-size: 10px; color: rgba(255,255,255,0.5);">Hosting 6,2 / 10 GB</span>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+                <sc-for list="{{ widgetEvents }}" as="e" hint-placeholder-count="4">
+                  <div style="display: flex; align-items: center; gap: 7px; padding: 5px 0; border-bottom: 0.5px solid rgba(255,255,255,0.08);">
+                    <span style="width: 15px; height: 15px; border-radius: 4px; flex: none; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 8px; font-weight: 600; background: {{ e.glyphBgDark }}; color: {{ e.glyphFgDark }};">{{ e.glyph }}</span>
+                    <span style="font-size: 11px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ e.text }}</span>
+                    <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(255,255,255,0.42); font-variant-numeric: tabular-nums; flex: none;">{{ e.time }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(255,255,255,0.55); text-align: center;">systemMedium</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-radius: 10px; padding: 26px; background: linear-gradient(150deg, #C9D6E8 0%, #DED2E0 55%, #EBD9CE 100%); display: flex; flex-direction: column; gap: 18px;">
+        <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0,0,0,0.5);">Light desktop</div>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="width: 170px; height: 170px; border-radius: 18px; padding: 14px; box-sizing: border-box; background: rgba(255,255,255,0.76); backdrop-filter: blur(28px) saturate(150%); -webkit-backdrop-filter: blur(28px) saturate(150%); border: 0.5px solid rgba(255,255,255,0.7); box-shadow: 0 8px 26px rgba(0,0,0,0.16); display: flex; flex-direction: column; justify-content: space-between; color: #000000;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+                <span style="font-size: 12px; font-weight: 600;">mise_pwa</span>
+                <span style="width: 7px; height: 7px; border-radius: 50%; background: #248A3D; flex: none;"></span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1px;">
+                <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums;">14m</span>
+                <span style="font-size: 11px; color: rgba(0,0,0,0.55);">ultimo deploy · master</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 5px;">
+                <div style="height: 4px; border-radius: 2px; background: rgba(0,0,0,0.12); overflow: hidden;"><div style="height: 100%; width: 62%; border-radius: 2px; background: #248A3D;"></div></div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; color: rgba(0,0,0,0.5);"><span>Hosting 6,2 GB</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace;">62%</span></div>
+              </div>
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.5); text-align: center;">systemSmall</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="width: 364px; height: 170px; border-radius: 18px; padding: 14px; box-sizing: border-box; background: rgba(255,255,255,0.76); backdrop-filter: blur(28px) saturate(150%); -webkit-backdrop-filter: blur(28px) saturate(150%); border: 0.5px solid rgba(255,255,255,0.7); box-shadow: 0 8px 26px rgba(0,0,0,0.16); display: flex; gap: 14px; color: #000000;">
+              <div style="width: 116px; flex: none; display: flex; flex-direction: column; justify-content: space-between; border-right: 0.5px solid rgba(0,0,0,0.1); padding-right: 12px;">
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <span style="font-size: 12px; font-weight: 600;">mise_pwa</span>
+                  <span style="font-size: 10px; color: rgba(0,0,0,0.5);">Gestione Mezzi</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px 1px 5px; border-radius: 4px; font-size: 10px; background: rgba(36,138,61,0.14); color: #1B6B2F; align-self: flex-start;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #248A3D;"></span>3 servizi OK</span>
+                  <div style="height: 4px; border-radius: 2px; background: rgba(0,0,0,0.12); overflow: hidden;"><div style="height: 100%; width: 62%; border-radius: 2px; background: #248A3D;"></div></div>
+                  <span style="font-size: 10px; color: rgba(0,0,0,0.5);">Hosting 6,2 / 10 GB</span>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+                <sc-for list="{{ widgetEvents }}" as="e" hint-placeholder-count="4">
+                  <div style="display: flex; align-items: center; gap: 7px; padding: 5px 0; border-bottom: 0.5px solid rgba(0,0,0,0.08);">
+                    <span style="width: 15px; height: 15px; border-radius: 4px; flex: none; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 8px; font-weight: 600; background: {{ e.glyphBgLight }}; color: {{ e.glyphFgLight }};">{{ e.glyph }}</span>
+                    <span style="font-size: 11px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ e.text }}</span>
+                    <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: rgba(0,0,0,0.42); font-variant-numeric: tabular-nums; flex: none;">{{ e.time }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: rgba(0,0,0,0.5); text-align: center;">systemMedium</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 10px; padding: 22px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 300px;">
+      <div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #0066CC;">Human-in-the-loop checkpoint</div>
+      <div style="font-size: 13px; font-weight: 600;">Nessun task frontend passa a <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px;">todo</span> finch&eacute; questo set non &egrave; firmato.</div>
+      <div style="font-size: 12px; color: rgba(0,0,0,0.6); line-height: 1.5; text-wrap: pretty;">Da confermare: i glifi SF Symbols definitivi per gli event row, e se il widget small debba mostrare il deploy o la salute aggregata del progetto.</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span style="padding: 5px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; background: #0A6CFF; color: #FFFFFF;">Approva v0.2</span>
+      <span style="padding: 5px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; background: #FFFFFF; border: 0.5px solid rgba(0,0,0,0.18); color: #000000; box-shadow: 0 0.5px 1px rgba(0,0,0,0.1);">Richiedi modifiche</span>
+    </div>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;warnMinutes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:1,&quot;max&quot;:120,&quot;unit&quot;:&quot;min&quot;,&quot;section&quot;:&quot;Failure policy&quot;},&quot;staleMinutes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:60,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:10,&quot;max&quot;:720,&quot;unit&quot;:&quot;min&quot;,&quot;section&quot;:&quot;Failure policy&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const warn = this.props.warnMinutes ?? 15;
+    const stale = this.props.staleMinutes ?? 60;
+    const MONO = "ui-monospace, 'SF Mono', Menlo, monospace";
+    const SANS = "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif";
+    const fmt = (m) => m >= 60 ? (m / 60) + "h" : m + " min";
+
+    const traffic = [0.18, 0.14, 0.11, 0.09, 0.12, 0.2, 0.34, 0.48, 0.62, 0.55, 0.7, 0.86, 0.74, 0.63, 0.71, 0.9, 1.0, 0.82, 0.66, 0.58, 0.47, 0.39, 0.3, 0.24];
+    const W = 320, H = 72, peak = 1.05, thresholdY = H - (0.85 / peak) * H;
+    const pts = traffic.map((v, i) => [
+      (i / (traffic.length - 1)) * W,
+      H - (v / peak) * H
+    ]);
+    const trafficLine = pts.map((p, i) =>
+      (i === 0 ? "M" : "L") + p[0].toFixed(1) + " " + p[1].toFixed(1)
+    ).join(" ");
+    const trafficArea = trafficLine + " L" + W + " " + H + " L0 " + H + " Z";
+
+    const reqVals = [0.32, 0.28, 0.41, 0.55, 0.48, 0.72, 0.86, 0.94, 0.68, 0.52, 0.61, 0.79, 1.0, 0.74, 0.45, 0.38];
+    const requests = reqVals.map(v => ({
+      h: Math.round(v * 100) + "%",
+      dark: v >= 0.85 ? "#FF9F0A" : "#0A84FF",
+      light: v >= 0.85 ? "#C93400" : "#0040DD"
+    }));
+
+    return {
+      principles: [
+        "System colors, non palette di marca",
+        "Stato = colore + parola",
+        "Se non regge a 170 pt, non entra",
+        "Cifre sempre tabulari"
+      ],
+
+      darkSwatches: [
+        { name: "window", hex: "#1E1E1E", sys: "windowBackground" },
+        { name: "content", hex: "#2A2A2C", sys: "controlBackground" },
+        { name: "raised", hex: "#323234", sys: "underPageBackground" },
+        { name: "separator", hex: "#3A3A3C", sys: "separatorColor" },
+        { name: "label", hex: "#F5F5F7", sys: "labelColor · 100%" },
+        { name: "secondaryLabel", hex: "#8E8E93", sys: "labelColor · 55%" },
+        { name: "tertiaryLabel", hex: "#636366", sys: "labelColor · 25%" },
+        { name: "accent", hex: "#0A84FF", sys: "controlAccentColor" }
+      ],
+      lightSwatches: [
+        { name: "window", hex: "#ECECEE", sys: "windowBackground" },
+        { name: "content", hex: "#FFFFFF", sys: "controlBackground" },
+        { name: "raised", hex: "#F7F7F8", sys: "underPageBackground" },
+        { name: "separator", hex: "#D8D8DA", sys: "separatorColor" },
+        { name: "label", hex: "#000000", sys: "labelColor · 100%" },
+        { name: "secondaryLabel", hex: "#8A8A8E", sys: "labelColor · 55%" },
+        { name: "tertiaryLabel", hex: "#B0B0B4", sys: "labelColor · 25%" },
+        { name: "accent", hex: "#0A6CFF", sys: "controlAccentColor" }
+      ],
+      semantic: [
+        { name: "accent", sys: "controlAccentColor", light: "#0A6CFF", dark: "#0A84FF", use: "selezione, focus ring, pulsante primario. L'utente pu\u00f2 cambiarlo dalle Impostazioni: non veicola mai stato." },
+        { name: "connected", sys: "systemGreen", light: "#248A3D", dark: "#30D158", use: "integrazione raggiungibile, ultimo poll riuscito." },
+        { name: "degraded", sys: "systemOrange", light: "#C93400", dark: "#FF9F0A", use: "latenza alta, quota vicina al limite, dato oltre " + fmt(warn) + "." },
+        { name: "error", sys: "systemRed", light: "#D70015", dark: "#FF453A", use: "servizio irraggiungibile, build fallita, credenziale rifiutata." },
+        { name: "running", sys: "systemBlue", light: "#0040DD", dark: "#0A84FF", use: "deploy in corso, build in coda. Distinto dall'accent per tinta pi\u00f9 satura." },
+        { name: "idle", sys: "systemGray", light: "#8A8A8E", dark: "#8E8E93", use: "non configurato, sconosciuto, oltre " + fmt(stale) + " senza aggiornamenti." }
+      ],
+      typeScale: [
+        { token: "title1 / 22 · bold", sample: "mise_pwa", size: "22px", weight: "700", family: SANS, color: "#000000", tracking: "0.004em" },
+        { token: "title3 / 15 · semibold", sample: "Integrazioni attive", size: "15px", weight: "600", family: SANS, color: "#000000", tracking: "0" },
+        { token: "headline / 13 · semibold", sample: "Firebase Hosting", size: "13px", weight: "600", family: SANS, color: "#000000", tracking: "0" },
+        { token: "body / 13 · regular", sample: "Deploy completato dal branch master, 4 file modificati.", size: "13px", weight: "400", family: SANS, color: "#000000", tracking: "0" },
+        { token: "subheadline / 11", sample: "aggiornato 2 minuti fa", size: "11px", weight: "400", family: SANS, color: "rgba(0,0,0,0.55)", tracking: "0" },
+        { token: "caption / 10 · widget", sample: "Hosting 6,2 / 10 GB", size: "10px", weight: "400", family: SANS, color: "rgba(0,0,0,0.55)", tracking: "0" },
+        { token: "mono-numeric / 20", sample: "1.284", size: "20px", weight: "400", family: MONO, color: "#000000", tracking: "0" },
+        { token: "mono-data / 11", sample: "a3f9c21 · master · 99,98%", size: "11px", weight: "400", family: MONO, color: "#000000", tracking: "0" },
+        { token: "mono-label / 10", sample: "ULTIMO DEPLOY", size: "10px", weight: "500", family: MONO, color: "rgba(0,0,0,0.5)", tracking: "0.08em" }
+      ],
+      spaceScale: [
+        { token: "s-1", px: "2px" }, { token: "s-2", px: "4px" }, { token: "s-3", px: "8px" },
+        { token: "s-4", px: "12px" }, { token: "s-5", px: "16px" }, { token: "s-6", px: "24px" }, { token: "s-7", px: "32px" }
+      ],
+      radii: [
+        { px: "4px", label: "4 pill" }, { px: "6px", label: "6 control" },
+        { px: "8px", label: "8 tile" }, { px: "10px", label: "10 card" }, { px: "18px", label: "18 widget" }
+      ],
+
+      pillsDark: [
+        { label: "Connesso", short: "OK", dot: "#30D158", fg: "#6DE49A", bg: "rgba(48,209,88,0.18)" },
+        { label: "Degradato", short: "Degr.", dot: "#FF9F0A", fg: "#FFC46B", bg: "rgba(255,159,10,0.18)" },
+        { label: "Errore", short: "Err.", dot: "#FF453A", fg: "#FF8A82", bg: "rgba(255,69,58,0.2)" },
+        { label: "Deploy in corso", short: "Deploy", dot: "#0A84FF", fg: "#7CB8FF", bg: "rgba(10,132,255,0.2)" },
+        { label: "Non configurato", short: "—", dot: "#8E8E93", fg: "#AEAEB2", bg: "rgba(142,142,147,0.2)" }
+      ],
+      pillsLight: [
+        { label: "Connesso", short: "OK", dot: "#248A3D", fg: "#1B6B2F", bg: "rgba(36,138,61,0.14)" },
+        { label: "Degradato", short: "Degr.", dot: "#C93400", fg: "#9C2800", bg: "rgba(201,52,0,0.12)" },
+        { label: "Errore", short: "Err.", dot: "#D70015", fg: "#A80010", bg: "rgba(215,0,21,0.1)" },
+        { label: "Deploy in corso", short: "Deploy", dot: "#0040DD", fg: "#0033B0", bg: "rgba(0,64,221,0.1)" },
+        { label: "Non configurato", short: "—", dot: "#8A8A8E", fg: "#5C5C60", bg: "rgba(138,138,142,0.14)" }
+      ],
+
+      staleDark: [
+        { time: "2m fa", flag: "", dot: "#30D158", ring: "none", bg: "transparent", fg: "rgba(255,255,255,0.5)", value: "#F5F5F7", metaOn: "rgba(255,255,255,0.5)" },
+        { time: "28m fa", flag: "in ritardo", dot: "#FF9F0A", ring: "none", bg: "rgba(255,159,10,0.16)", fg: "#FFC46B", value: "#D8D8DC", metaOn: "#FFC46B" },
+        { time: "3h fa", flag: "stale", dot: "transparent", ring: "1px solid #8E8E93", bg: "rgba(142,142,147,0.2)", fg: "#AEAEB2", value: "#8E8E93", metaOn: "#AEAEB2" }
+      ],
+      staleLight: [
+        { time: "2m fa", flag: "", dot: "#248A3D", ring: "none", bg: "transparent", fg: "rgba(0,0,0,0.5)", value: "#000000", metaOn: "rgba(0,0,0,0.5)" },
+        { time: "28m fa", flag: "in ritardo", dot: "#C93400", ring: "none", bg: "rgba(201,52,0,0.12)", fg: "#9C2800", value: "#3A3A3C", metaOn: "#9C2800" },
+        { time: "3h fa", flag: "stale", dot: "transparent", ring: "1px solid #8A8A8E", bg: "rgba(138,138,142,0.14)", fg: "#5C5C60", value: "#9A9A9E", metaOn: "#5C5C60" }
+      ],
+      stalenessRules: [
+        { range: "0 – " + fmt(warn), name: "Fresco", rule: "Tempo relativo in secondaryLabel, punto verde. Nessuna enfasi: il dato \u00e8 buono." },
+        { range: fmt(warn) + " – " + fmt(stale), name: "In ritardo", rule: "Pastiglia arancione con la parola \u00abin ritardo\u00bb. Il valore resta leggibile ma perde un gradino di contrasto." },
+        { range: "> " + fmt(stale), name: "Stale", rule: "Punto vuoto, pastiglia grigia, valore in tertiaryLabel. Resta l'ultimo valore noto: non si mostra mai un placeholder vuoto." }
+      ],
+
+      usage: [
+        { label: "Hosting", value: "6,2", limit: "/ 10 GB", pct: "62%", note: "reset fra 12 giorni", barDark: "#30D158", barLight: "#248A3D" },
+        { label: "DB rows", value: "1.284", limit: "/ 5.000", pct: "26%", note: "+42 nelle 24h", barDark: "#30D158", barLight: "#248A3D" },
+        { label: "Bandwidth", value: "8,4", limit: "/ 10 GB", pct: "84%", note: "soglia 80% superata", barDark: "#FF9F0A", barLight: "#C93400" },
+        { label: "Auth MAU", value: "37", limit: "/ 50.000", pct: "4%", note: "piano free", barDark: "#30D158", barLight: "#248A3D" }
+      ],
+
+      hourTicks: ["00", "06", "12", "18", "24"],
+      trafficLine: trafficLine,
+      trafficArea: trafficArea,
+      trafficThresholdY: thresholdY,
+      requests: requests,
+      requestsMini: requests.filter((_, i) => i % 2 === 0),
+      memory: [
+        { label: "App", value: "1,1 GB", pct: "55%", dark: "#0A84FF", light: "#0040DD" },
+        { label: "Cache", value: "0,5 GB", pct: "25%", dark: "#5E5CE6", light: "#3634A3" },
+        { label: "Libera", value: "0,4 GB", pct: "20%", dark: "rgba(255,255,255,0.16)", light: "rgba(0,0,0,0.14)" }
+      ],
+
+      events: [
+        { glyph: "↑", text: "Deploy su produzione completato", time: "14m", glyphBgDark: "rgba(48,209,88,0.2)", glyphFgDark: "#6DE49A", glyphBgLight: "rgba(36,138,61,0.14)", glyphFgLight: "#1B6B2F" },
+        { glyph: "⌥", text: "PR #41 unita in master", time: "26m", glyphBgDark: "rgba(191,90,242,0.2)", glyphFgDark: "#D8A0FA", glyphBgLight: "rgba(148,55,199,0.12)", glyphFgLight: "#7A2AA8" },
+        { glyph: "•", text: "PR #42 aperta da lorenzo", time: "3h", glyphBgDark: "rgba(10,132,255,0.2)", glyphFgDark: "#7CB8FF", glyphBgLight: "rgba(0,64,221,0.1)", glyphFgLight: "#0033B0" },
+        { glyph: "!", text: "Build fallita: test suite mezzi", time: "5h", glyphBgDark: "rgba(255,69,58,0.2)", glyphFgDark: "#FF8A82", glyphBgLight: "rgba(215,0,21,0.1)", glyphFgLight: "#A80010" },
+        { glyph: "↑", text: "Deploy su preview completato", time: "1g", glyphBgDark: "rgba(48,209,88,0.2)", glyphFgDark: "#6DE49A", glyphBgLight: "rgba(36,138,61,0.14)", glyphFgLight: "#1B6B2F" }
+      ],
+
+      projects: [
+        {
+          name: "mise_pwa", subtitle: "Gestione Mezzi", health: "Tutto ok", updated: "2m fa",
+          dotDark: "#30D158", dotLight: "#248A3D",
+          pillBgDark: "rgba(48,209,88,0.18)", pillFgDark: "#6DE49A",
+          pillBgLight: "rgba(36,138,61,0.14)", pillFgLight: "#1B6B2F",
+          integrations: [
+            { name: "GitHub", dotDark: "#30D158", dotLight: "#248A3D" },
+            { name: "Firebase Hosting", dotDark: "#30D158", dotLight: "#248A3D" },
+            { name: "Supabase", dotDark: "#30D158", dotLight: "#248A3D" }
+          ]
+        },
+        {
+          name: "obsidian_sync", subtitle: "Vault personale", health: "1 degradato", updated: "28m fa",
+          dotDark: "#FF9F0A", dotLight: "#C93400",
+          pillBgDark: "rgba(255,159,10,0.18)", pillFgDark: "#FFC46B",
+          pillBgLight: "rgba(201,52,0,0.12)", pillFgLight: "#9C2800",
+          integrations: [
+            { name: "GitHub", dotDark: "#30D158", dotLight: "#248A3D" },
+            { name: "Vercel", dotDark: "#FF9F0A", dotLight: "#C93400" }
+          ]
+        },
+        {
+          name: "listino_api", subtitle: "Servizio interno", health: "1 errore", updated: "3h fa",
+          dotDark: "#FF453A", dotLight: "#D70015",
+          pillBgDark: "rgba(255,69,58,0.2)", pillFgDark: "#FF8A82",
+          pillBgLight: "rgba(215,0,21,0.1)", pillFgLight: "#A80010",
+          integrations: [
+            { name: "GitHub", dotDark: "#30D158", dotLight: "#248A3D" },
+            { name: "Supabase", dotDark: "#FF453A", dotLight: "#D70015" },
+            { name: "Vercel", dotDark: "#8E8E93", dotLight: "#8A8A8E" }
+          ]
+        }
+      ],
+
+      widgetEvents: [
+        { glyph: "↑", text: "Deploy produzione ok", time: "14m", glyphBgDark: "rgba(48,209,88,0.2)", glyphFgDark: "#6DE49A", glyphBgLight: "rgba(36,138,61,0.14)", glyphFgLight: "#1B6B2F" },
+        { glyph: "⌥", text: "PR #41 unita in master", time: "26m", glyphBgDark: "rgba(191,90,242,0.2)", glyphFgDark: "#D8A0FA", glyphBgLight: "rgba(148,55,199,0.12)", glyphFgLight: "#7A2AA8" },
+        { glyph: "•", text: "PR #42 aperta", time: "3h", glyphBgDark: "rgba(10,132,255,0.2)", glyphFgDark: "#7CB8FF", glyphBgLight: "rgba(0,64,221,0.1)", glyphFgLight: "#0033B0" },
+        { glyph: "!", text: "Build fallita: test mezzi", time: "5h", glyphBgDark: "rgba(255,69,58,0.2)", glyphFgDark: "#FF8A82", glyphBgLight: "rgba(215,0,21,0.1)", glyphFgLight: "#A80010" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -48,3 +48,13 @@ by the walking skeleton's Desktop Widget, not just in the main app window.
 Every frontend-bearing BC's README must note this gate: no BC implements its UI before this task
 is done and signed off. `project-registry/README.md` and `widgets/README.md` already carry the
 "conformist to Design System" relationship note pointing back here.
+
+**Draft input captured 2026-08-07** (while waiting on the Apple Developer Program enrollment
+that gates the walking skeleton): a token/component direction produced via claude.ai/design is
+saved at `../references/mc-design-system-v1-draft.md` (plus the raw exported source alongside
+it). It covers semantic system colors, an SF Pro/SF Mono type scale, spacing/radii scales, and
+specs for the status pill, staleness indicator, usage tile, event row, and project card. Treat
+it as a starting point to validate against the real WidgetKit surface when this task actually
+runs — not a pre-approved final answer. One concrete conflict to resolve: its staleness
+thresholds (15min warn / 60min stale) differ from `infrastructure-mam0r`'s placeholder
+30min/2h guess.

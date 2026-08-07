@@ -39,3 +39,6 @@ None yet — this BC holds design tokens/components, not domain aggregates.
 
 ## Open questions
 - None yet — populated once the styleguide task (`design-system-001-styleguide`) is underway.
+- A draft token/component direction exists at `references/mc-design-system-v1-draft.md`
+  (external input from claude.ai/design, 2026-08-07) — treat as raw material for
+  `design-system-001-styleguide`, not a finalized decision.
