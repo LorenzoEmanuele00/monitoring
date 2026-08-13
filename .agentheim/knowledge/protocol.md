@@ -5,6 +5,22 @@ Newest entries on top.
 
 ---
 
+## 2026-08-14 01:30 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 1h48m
+**Completed:** 1 (first-try PASS: 0, re-dispatched: 1, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** infrastructure-001-walking-skeleton: 2
+**Commits:** 4 (batch start, verification-failure log, session commits) + 1 squash-merge completion commit
+**Vision-conformance:** none — batch aligns with vision (delivers exactly the "mise_pwa onboarded end-to-end" success criterion; no non-goal touched — architecture stays per-Integration/per-Project generic, not mise_pwa-hardcoded)
+**Batch mix:** 0% product-facing / 100% harness / 0% bookkeeping (1 task) — `type: spike` classifies as harness unconditionally under the batch-mix heuristic regardless of subject matter
+**Carry-over:** .agentheim/state/in-flight.json: left behind (owner: work skill's own Stop-hook heartbeat, ADR-0027 advisory artifact — meant to stay git-ignored, not project bookkeeping to commit)
+
+---
+
 ## 2026-08-14 01:22 -- Task verified and completed: infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
 
 **Type:** Work / Task completion
