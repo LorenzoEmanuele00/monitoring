@@ -5,6 +5,36 @@ Newest entries on top.
 
 ---
 
+## 2026-08-13 23:30 -- Decisions: closed all 9 architecture-foundation decision tasks
+
+**Type:** Decision review
+**Outcome:** 9 ADRs committed (ADR-0004 through ADR-0012), all 9 decision tasks moved todo → done
+**BCs affected:** infrastructure (8 decisions), service-integrations (1 decision)
+**Summary:** Walked the user through every decision task the 2026-08-07 architecture foundation
+pass had drafted, one at a time, with amendments where the user pushed back. 8 committed
+essentially as drafted: app architecture (ADR-0004), two-tier persistence (ADR-0005), resident-app
+polling topology (ADR-0006), Keychain credential storage (ADR-0007), failure/staleness policy
+(ADR-0008), App Sandbox + security-scoped bookmarks (ADR-0009), no-backend deployment (ADR-0011),
+and the service-integrations credential model (ADR-0012, GitHub PAT / Firebase service account /
+Supabase Management API PAT, OAuth deferred). One was materially amended: observability
+(ADR-0010) — the original "unified logging only, no telemetry" draft was changed to a hybrid: the
+user wants to standardize on PostHog for structured event/error tracking across their future
+personal apps, starting here, so `os.Logger` stays for local tracing (including inside the widget
+extension, which stays PostHog-free per ADR-0004's "extension links nothing heavy" rule) while
+PostHog is added in the main app only for a narrow set of structured domain events
+(crashes, credential-expired, deploy start/end).
+**Discovery surfaced, not resolved:** reviewing `infrastructure-pcmqh` (vault/sandbox access)
+surfaced a real, previously-undocumented gap — Project Registry has no defined answer for how the
+app should interpret a Vault Note's freeform prose content. Logged as an open question on
+`project-registry/README.md` rather than resolved on the spot; needs a proper modeling pass
+before the registration flow is built.
+**ADRs written:** 0004 (app architecture), 0005 (two-tier persistence), 0006 (refresh topology),
+0007 (Keychain storage), 0008 (failure/staleness policy), 0009 (sandbox/bookmarks), 0010
+(logging + PostHog, amended), 0011 (no backend), 0012 (service-integrations credential model)
+**Unblocked:** `infrastructure-001-walking-skeleton` — all 9 of its dependencies are now done.
+
+---
+
 ## 2026-08-07 20:45 -- Brainstorm: macOS personal cockpit dashboard
 
 **Type:** Brainstorm

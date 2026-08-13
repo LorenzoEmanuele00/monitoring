@@ -1,15 +1,15 @@
 ---
 id: service-integrations-n7s2k
 title: v1 uses manually-provisioned long-lived provider credentials; OAuth is deferred per provider
-status: todo
+status: done
 type: decision
 context: service-integrations
 created: 2026-08-07
-completed:
+completed: 2026-08-13
 depends_on: [infrastructure-hv013]
 blocks: []
 tags: [captured, architecture-foundation]
-related_adrs: []
+related_adrs: [0012]
 related_research: []
 prior_art: []
 ---
@@ -35,10 +35,10 @@ Full ADR draft is in Notes below.
 
 ## Acceptance criteria
 
-- [ ] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
+- [x] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
       `scope: service-integrations`, matching the draft in Notes (or a user-amended version,
-      amendments noted in the commit).
-- [ ] No code change required for this task itself.
+      amendments noted in the commit) — committed as ADR-0012, as drafted.
+- [x] No code change required for this task itself.
 
 ## Notes
 

@@ -1,15 +1,15 @@
 ---
 id: infrastructure-rxd87
 title: Observability is Apple unified logging only — no telemetry, no log files, no crash reporting
-status: todo
+status: done
 type: decision
 context: infrastructure
 created: 2026-08-07
-completed:
+completed: 2026-08-13
 depends_on: [infrastructure-x23a8]
 blocks: []
-tags: [captured, architecture-foundation]
-related_adrs: []
+tags: [captured, architecture-foundation, amended]
+related_adrs: [0010]
 related_research: []
 prior_art: []
 ---
@@ -33,10 +33,14 @@ Full ADR draft is in Notes below.
 
 ## Acceptance criteria
 
-- [ ] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
+- [x] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
       `scope: global`, matching the draft in Notes (or a user-amended version, amendments noted
-      in the commit).
-- [ ] No code change required for this task itself.
+      in the commit) — committed as ADR-0010, **amended**: the draft's "no telemetry" stance was
+      overridden per user intent to standardize on PostHog across future apps. Final decision is
+      a hybrid — `os.Logger` everywhere (including the widget extension) for local tracing, plus
+      PostHog in the main app only for a narrow set of structured domain events (crashes,
+      credential-expired, deploy start/end). See ADR-0010 for the full reasoning.
+- [x] No code change required for this task itself.
 
 ## Notes
 

@@ -1,15 +1,15 @@
 ---
 id: infrastructure-x23a8
 title: Native Swift/SwiftUI macOS app with a WidgetKit extension sharing an App Group and a local Swift package
-status: todo
+status: done
 type: decision
 context: infrastructure
 created: 2026-08-07
-completed:
+completed: 2026-08-13
 depends_on: []
 blocks: []
 tags: [captured, architecture-foundation]
-related_adrs: []
+related_adrs: [0004]
 related_research: []
 prior_art: []
 ---
@@ -36,10 +36,10 @@ Full ADR draft, ready to commit as-is or amended, is in Notes below.
 
 ## Acceptance criteria
 
-- [ ] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
+- [x] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
       `scope: global`, matching the draft in Notes (or a user-amended version, amendments noted
-      in the commit).
-- [ ] No code change required for this task itself.
+      in the commit) — committed as ADR-0004, as drafted.
+- [x] No code change required for this task itself.
 
 ## Notes
 

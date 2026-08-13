@@ -22,6 +22,14 @@ For BC-scoped artifacts, see each BC's `INDEX.md`.
 ## Global ADRs (scope: global)
 
 <!-- adr-global:start -->
+- **0011** — No backend — single locally-built signed macOS app bundle — 2026-08-13 — `knowledge/decisions/0011-no-backend-local-signed-app-bundle.md`
+- **0010** — Unified logging + PostHog for structured domain events (amended) — 2026-08-13 — `knowledge/decisions/0010-unified-logging-plus-posthog-for-structured-events.md`
+- **0009** — App Sandbox stays on; vault/source access via security-scoped bookmarks — 2026-08-13 — `knowledge/decisions/0009-sandbox-security-scoped-bookmarks.md`
+- **0008** — Failure policy: last-good-data-wins, visible staleness, rate-limit/backoff — 2026-08-13 — `knowledge/decisions/0008-failure-staleness-backoff-policy.md`
+- **0007** — Credentials in the macOS keychain behind a shared access group — 2026-08-13 — `knowledge/decisions/0007-keychain-secret-storage-shared-access-group.md`
+- **0006** — v1 refresh is polling from a single resident menu-bar app process — 2026-08-13 — `knowledge/decisions/0006-resident-app-polling-refresh-topology.md`
+- **0005** — Two-tier persistence: GRDB/SQLite + JSON snapshot files — 2026-08-13 — `knowledge/decisions/0005-two-tier-persistence-grdb-snapshot-files.md`
+- **0004** — Native Swift/SwiftUI app + WidgetKit extension sharing an App Group — 2026-08-13 — `knowledge/decisions/0004-native-swiftui-app-widgetkit-extension-app-group.md`
 - **0003** — Native macOS desktop widgets are a core product requirement — 2026-08-07 — `knowledge/decisions/0003-native-macos-desktop-widgets-are-core.md`
 - **0002** — Observe-first cockpit with narrow quick actions, not a control plane — 2026-08-07 — `knowledge/decisions/0002-observe-first-cockpit-not-a-control-plane.md`
 - **0001** — Permanent single-user, personal-tool scope — 2026-08-07 — `knowledge/decisions/0001-permanent-single-user-personal-tool.md`

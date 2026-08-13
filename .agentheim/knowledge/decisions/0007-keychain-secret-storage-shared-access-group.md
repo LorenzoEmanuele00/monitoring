@@ -1,64 +1,16 @@
 ---
-id: infrastructure-hv013
-title: Credentials live in the macOS data protection keychain behind a shared access group
-status: todo
-type: decision
-context: infrastructure
-created: 2026-08-07
-completed:
-depends_on: [infrastructure-x23a8]
-blocks: []
-tags: [captured, architecture-foundation]
-related_adrs: []
-related_research: []
-prior_art: []
----
-
-## Why
-
-Every Service Integration needs provider auth material that must survive reboots, be readable
-by a background poller without an interactive prompt, never appear in the SQLite store,
-snapshot files, logs, or version control, and be revocable per Integration.
-
-## What
-
-Store all credential material in the macOS data protection keychain as generic password items,
-keyed by Integration UUID, accessible after first unlock, behind a shared Keychain Access Group
-(entitled in both the app and the widget extension from day one — access groups are fixed at
-write time, so provisioning it now avoids re-entering every credential later). `MCSecrets`
-exposes a narrow `SecretStore` protocol; interpreting the blob per provider is the provider
-adapter's job (see the sibling `service-integrations` decision task). Credentials never enter
-Tier A, snapshot files, or logs.
-
-Full ADR draft is in Notes below.
-
-## Acceptance criteria
-
-- [ ] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
-      `scope: global`, matching the draft in Notes (or a user-amended version, amendments noted
-      in the commit).
-- [ ] No code change required for this task itself.
-
-## Notes
-
-Produced by the architecture foundation pass (architect specialist via orchestrator),
-2026-08-07. Shares the same paid-Apple-Developer-Program prerequisite as
-`infrastructure-x23a8` (keychain access groups, like App Groups, require it).
-
-```markdown
----
-id: TBD
+id: 0007
 title: Credentials live in the macOS data protection keychain behind a shared access group
 scope: global
-status: proposed
-date: 2026-08-07
+status: accepted
+date: 2026-08-13
 supersedes: []
 superseded_by: []
 related_tasks: [infrastructure-hv013]
 related_research: []
 ---
 
-# ADR TBD: Credentials live in the macOS data protection keychain behind a shared access group
+# ADR 0007: Credentials live in the macOS data protection keychain behind a shared access group
 
 ## Context
 Every Service Integration needs provider auth material. It must survive reboots, be readable by
@@ -121,4 +73,3 @@ credential is ever written to a file in the repo.
 - `.agentheim/knowledge/decisions/0001-permanent-single-user-personal-tool.md`
 - `.agentheim/contexts/service-integrations/README.md` — Credential.
 - Apple: Sharing access to keychain items among a collection of apps.
-```
