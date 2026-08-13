@@ -1,69 +1,16 @@
 ---
-id: infrastructure-mam0r
-title: Failure policy — last-good data wins, staleness is always visible, providers are treated as rate-limited and flaky
-status: todo
-type: decision
-context: infrastructure
-created: 2026-08-07
-completed:
-depends_on: [infrastructure-zznqh]
-blocks: []
-tags: [captured, architecture-foundation]
-related_adrs: []
-related_research: []
-prior_art: []
----
-
-## Why
-
-Every datum this product shows comes from a third-party API that will routinely be slow,
-rate-limited, or briefly unreachable — a continuous condition, not an edge case, given the
-polling architecture. The dangerous failure mode for a glanceable cockpit isn't an error message
-— it's a widget confidently showing hours-old data as if it were current, actively misleading
-the user about a production deploy's real state.
-
-## What
-
-Three rules for every provider interaction: (1) a failed refresh never overwrites a good
-snapshot — only `generatedAt`/success updates content; (2) every rendering surface shows
-freshness as relative time and visibly degrades past a threshold (subdued ~30 min, flagged
-~2 h); (3) providers are treated as rate-limited and flaky by default — conditional requests
-(ETag/Last-Modified), `Retry-After`-respecting exponential backoff with jitter, 401/403/404
-treated as terminal (raise the domain event once, stop retrying), and a per-credential circuit
-breaker after repeated hard failures.
-
-Full ADR draft is in Notes below.
-
-## Acceptance criteria
-
-- [ ] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
-      `scope: global`, matching the draft in Notes (or a user-amended version, amendments noted
-      in the commit).
-- [ ] No code change required for this task itself.
-
-## Notes
-
-Produced by the architecture foundation pass (architect specialist via orchestrator),
-2026-08-07. Concrete per-provider rate limits and ETag support, plus the staleness visual
-treatment, are follow-on decisions for `service-integrations` and `widgets`/`design-system`
-respectively — not fixed here. The architect flagged the quoted rate-limit specifics (e.g.
-GitHub's 304-exemption from primary rate limit) as design assumptions to reconfirm against
-current provider docs at implementation time.
-
-```markdown
----
-id: TBD
+id: 0008
 title: Failure policy — last-good data wins, staleness is always visible, providers are treated as rate-limited and flaky
 scope: global
-status: proposed
-date: 2026-08-07
+status: accepted
+date: 2026-08-13
 supersedes: []
 superseded_by: []
 related_tasks: [infrastructure-mam0r]
 related_research: []
 ---
 
-# ADR TBD: Failure policy — last-good data wins, staleness is always visible, providers are treated as rate-limited and flaky
+# ADR 0008: Failure policy — last-good data wins, staleness is always visible, providers are treated as rate-limited and flaky
 
 ## Context
 Every datum this product shows comes from a third-party API that will, routinely, be slow,
@@ -132,8 +79,7 @@ exactly once — deduped by Notifications, not by the adapter.
   from configuration.
 
 ## References
-- The background refresh ADR (polling topology and cadence).
+- `.agentheim/knowledge/decisions/0006-resident-app-polling-refresh-topology.md`
 - `.agentheim/contexts/service-integrations/README.md` — conformist to each platform's API and
   rate limits.
 - `.agentheim/contexts/widgets/README.md`.
-```

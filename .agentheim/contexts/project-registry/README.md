@@ -52,3 +52,11 @@ project, which local source path it maps to, which Service Integrations are atta
 ## Open questions
 - How does the app detect new/changed Projects in the vault — one-time import, watched folder,
   or manual "add project" only?
+- What does the app actually extract from a Vault Note? A note's body is freeform prose with no
+  guaranteed structure, so the app cannot reliably parse project metadata (repo URL, hosting
+  project ID, ...) out of it. Working assumption, not yet decided: the Vault Note serves as the
+  Project's identity/handle and a link back to the note, and Service Integrations are attached
+  by hand through the app's own UI (per `service-integrations-n7s2k`'s "Connect integration"
+  sheet) — optionally the app could read structured YAML frontmatter if the user chooses to add
+  it, but no prose-parsing/NLP is assumed. Needs a proper modeling pass before
+  `project-registry`'s registration flow is built. (open since 2026-08-13)

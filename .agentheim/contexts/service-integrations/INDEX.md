@@ -11,14 +11,13 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 0
-- **Todo:** 1
+- **Todo:** 0
 - **Doing:** 0
-- **Done:** 0
+- **Done:** 1
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **service-integrations-n7s2k** — v1 uses manually-provisioned long-lived provider credentials; OAuth deferred — depends_on: [infrastructure-hv013] — `todo/service-integrations-n7s2k-v1-static-credentials-oauth-deferred.md`
 <!-- todo-list:end -->
 
 ### Doing
@@ -27,6 +26,7 @@ research touching this BC, and concept synthesis pages.
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **service-integrations-n7s2k** — v1 uses manually-provisioned long-lived provider credentials; OAuth deferred — ADR-0012 — `done/service-integrations-n7s2k-v1-static-credentials-oauth-deferred.md`
 <!-- done-list:end -->
 
 ### Backlog
@@ -36,6 +36,7 @@ research touching this BC, and concept synthesis pages.
 ## ADRs scoped to this BC
 
 <!-- adr-local:start -->
+- **0012** — v1 uses manually-provisioned long-lived provider credentials; OAuth deferred — `../../knowledge/decisions/0012-v1-static-credentials-oauth-deferred.md`
 <!-- adr-local:end -->
 
 ## Research touching this BC

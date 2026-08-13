@@ -1,67 +1,16 @@
 ---
-id: infrastructure-fskyk
-title: Two-tier local persistence — GRDB/SQLite for domain state, JSON snapshot files for widgets
-status: todo
-type: decision
-context: infrastructure
-created: 2026-08-07
-completed:
-depends_on: [infrastructure-x23a8]
-blocks: []
-tags: [captured, architecture-foundation]
-related_adrs: []
-related_research: []
-prior_art: []
----
-
-## Why
-
-Two very different readers need local data: the main app needs queryable, durable, migratable
-domain state; the widget extension needs to render in a few milliseconds inside a tight memory
-budget, in a separate process, possibly while the main app isn't running. Serving both from one
-database risks booting a persistence stack — and a schema migration — inside the extension,
-which is the fragile part of every app-plus-widget design.
-
-## What
-
-Split persistence into two tiers, both inside the App Group container. Tier A: SQLite via GRDB
-(WAL mode) for durable domain state (Projects, Integration Bindings, Widget Configurations,
-Notification Rules, event dedupe keys, cached provider responses with ETag/Last-Modified
-validators) — written exclusively by the main app, behind per-BC repository protocols. Tier B:
-render-ready JSON snapshot files (plus a manifest) for widget consumption, written atomically by
-the app, read-only by the extension. The extension never opens the Tier A database — enforced
-structurally by not linking GRDB/`MCPersistence` into it.
-
-Full ADR draft is in Notes below.
-
-## Acceptance criteria
-
-- [ ] ADR committed to `.agentheim/knowledge/decisions/` with the next real sequential number,
-      `scope: global`, matching the draft in Notes (or a user-amended version, amendments noted
-      in the commit).
-- [ ] No code change required for this task itself.
-
-## Notes
-
-Produced by the architecture foundation pass (architect specialist via orchestrator),
-2026-08-07. Note the follow-on, BC-local decision this creates for `widgets`: the exact
-snapshot DTO payload contracts per Widget Kind are a consumer-driven contract owned by
-`widgets`, not decided here.
-
-```markdown
----
-id: TBD
+id: 0005
 title: Two-tier local persistence — GRDB/SQLite for domain state, JSON snapshot files for widgets
 scope: global
-status: proposed
-date: 2026-08-07
+status: accepted
+date: 2026-08-13
 supersedes: []
 superseded_by: []
 related_tasks: [infrastructure-fskyk]
 related_research: []
 ---
 
-# ADR TBD: Two-tier local persistence — GRDB/SQLite for domain state, JSON snapshot files for widgets
+# ADR 0005: Two-tier local persistence — GRDB/SQLite for domain state, JSON snapshot files for widgets
 
 ## Context
 The dataset is small and permanently single-user (ADR-0001): tens of Projects, low hundreds of
@@ -134,4 +83,3 @@ extension does not link `MCPersistence` or GRDB.
 - `.agentheim/knowledge/decisions/0001-permanent-single-user-personal-tool.md`
 - `.agentheim/contexts/widgets/README.md`
 - GRDB documentation — Concurrency, DatabaseMigrator.
-```
