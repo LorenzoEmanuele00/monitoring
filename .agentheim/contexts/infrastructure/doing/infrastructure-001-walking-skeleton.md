@@ -1,7 +1,7 @@
 ---
 id: infrastructure-001-walking-skeleton
 title: Walking skeleton — onboard mise_pwa end-to-end through the full stack
-status: todo
+status: doing
 type: spike
 context: infrastructure
 created: 2026-08-07

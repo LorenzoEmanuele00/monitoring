@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-14 00:30 -- Batch started: [infrastructure-001-walking-skeleton]
+
+**Type:** Work / Batch start
+**Tasks:** infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
+**Parallel:** no (1 worker)
+
+---
+
 ## 2026-08-13 23:30 -- Decisions: closed all 9 architecture-foundation decision tasks
 
 **Type:** Decision review
