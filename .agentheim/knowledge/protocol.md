@@ -5,6 +5,17 @@ Newest entries on top.
 
 ---
 
+## 2026-08-14 01:10 -- Verification failed: infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
+
+**Type:** Work / Verification failure
+**Task:** infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
+**Iteration:** 1 of 3
+**Reasons:** RetryPolicy built and unit-tested but never wired into PollingCoordinator.pollOne (ADR-0008 backoff not actually applied), Retry-After parsed by adapters but discarded (no hard-floor honoured), BC README and PollingCoordinator doc comment overclaim both as shipped, NSBackgroundActivityScheduler (ADR-0006's named scheduling mechanism) silently replaced by a bare Task/Task.sleep loop with no recorded deviation
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
 ## 2026-08-14 00:30 -- Batch started: [infrastructure-001-walking-skeleton]
 
 **Type:** Work / Batch start
