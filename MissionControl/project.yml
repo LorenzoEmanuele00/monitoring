@@ -1,0 +1,97 @@
+name: MissionControl
+options:
+  bundleIdPrefix: com.lorenzoemanuele
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    # Automatic signing, team selected per the environment facts in this task (a real,
+    # already-active paid Apple Developer Program membership) — NOT a hardcoded signing
+    # identity. Verify with `xcodebuild -showBuildSettings | grep -i team`.
+    DEVELOPMENT_TEAM: "2C553PK57P"
+    ENABLE_HARDENED_RUNTIME: YES
+
+packages:
+  MissionControlKit:
+    path: MissionControlKit
+
+targets:
+  MissionControl:
+    type: application
+    platform: macOS
+    sources:
+      - path: MissionControl
+        excludes:
+          - "MissionControl.entitlements"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lorenzoemanuele.missioncontrol
+        PRODUCT_NAME: MissionControl
+        CODE_SIGN_ENTITLEMENTS: MissionControl/MissionControl.entitlements
+        ENABLE_APP_SANDBOX: YES
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.developer-tools
+        GENERATE_INFOPLIST_FILE: YES
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/../Frameworks"
+    dependencies:
+      - target: MissionControlWidgets
+        embed: true
+      - package: MissionControlKit
+        product: MCDomain
+      - package: MissionControlKit
+        product: MCDesignTokens
+      - package: MissionControlKit
+        product: MCSnapshot
+      - package: MissionControlKit
+        product: MCSecrets
+      - package: MissionControlKit
+        product: MCPersistence
+      - package: MissionControlKit
+        product: MCProviders
+    info:
+      path: Generated/MissionControl-Info.plist
+      properties:
+        CFBundleDisplayName: Mission Control
+        LSApplicationCategoryType: public.app-category.developer-tools
+
+  MissionControlWidgets:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: MissionControlWidgets
+        excludes:
+          - "MissionControlWidgets.entitlements"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lorenzoemanuele.missioncontrol.widgets
+        PRODUCT_NAME: MissionControlWidgets
+        CODE_SIGN_ENTITLEMENTS: MissionControlWidgets/MissionControlWidgets.entitlements
+        ENABLE_APP_SANDBOX: YES
+        SKIP_INSTALL: YES
+        GENERATE_INFOPLIST_FILE: YES
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/../../../../Frameworks"
+    dependencies:
+      # ADR-0004: the widget extension links ONLY MCSnapshot + MCDesignTokens — no network,
+      # no DB, no credentials, no remote images. Structurally enforced here, not just by
+      # convention: MCPersistence/MCSecrets/MCProviders are simply not listed.
+      - package: MissionControlKit
+        product: MCSnapshot
+      - package: MissionControlKit
+        product: MCDesignTokens
+    info:
+      path: Generated/MissionControlWidgets-Info.plist
+      properties:
+        CFBundleDisplayName: Mission Control Widgets
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension

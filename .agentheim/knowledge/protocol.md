@@ -5,6 +5,19 @@ Newest entries on top.
 
 ---
 
+## 2026-08-14 01:22 -- Task verified and completed: infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
+
+**Type:** Work / Task completion
+**Task:** infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
+**Summary:** Scaffolded the full walking-skeleton stack (Xcode app + widget extension + MissionControlKit package) implementing ADR-0004..0012 end-to-end for mise_pwa, with two verifier-driven fix iterations
+**Duration:** 1h48m
+**Verification:** PASS (iteration 2)
+**Files changed:** 57
+**Tests added:** 22
+**ADRs written:** 0013
+
+---
+
 ## 2026-08-14 01:10 -- Verification failed: infrastructure-001-walking-skeleton - Walking skeleton — onboard mise_pwa end-to-end through the full stack
 
 **Type:** Work / Verification failure

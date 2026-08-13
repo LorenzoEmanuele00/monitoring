@@ -12,8 +12,8 @@ research touching this BC, and concept synthesis pages.
 <!-- task-counts:start -->
 - **Backlog:** 0
 - **Todo:** 0
-- **Doing:** 1
-- **Done:** 8
+- **Doing:** 0
+- **Done:** 9
 <!-- task-counts:end -->
 
 ### Todo
@@ -22,11 +22,11 @@ research touching this BC, and concept synthesis pages.
 
 ### Doing
 <!-- doing-list:start -->
-- **infrastructure-001-walking-skeleton** — Walking skeleton — onboard mise_pwa end-to-end through the full stack (spike) — `doing/infrastructure-001-walking-skeleton.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **infrastructure-001-walking-skeleton** — Walking skeleton — onboard mise_pwa end-to-end through the full stack (spike) — `done/infrastructure-001-walking-skeleton.md`
 - **infrastructure-wv33x** — No backend — single locally-built signed macOS app bundle — ADR-0011 — `done/infrastructure-wv33x-no-backend-local-signed-app-bundle.md`
 - **infrastructure-rxd87** — Observability: unified logging + PostHog for structured events (amended) — ADR-0010 — `done/infrastructure-rxd87-unified-logging-only-no-telemetry.md`
 - **infrastructure-pcmqh** — Keep the App Sandbox on; vault/source access via security-scoped bookmarks — ADR-0009 — `done/infrastructure-pcmqh-sandbox-security-scoped-bookmarks.md`
