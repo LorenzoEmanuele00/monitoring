@@ -1,0 +1,15 @@
+# Xcode
+xcuserdata/
+*.xcuserstate
+DerivedData/
+
+# SwiftPM local build cache (MissionControlKit's own `swift build`/`swift test` artifacts —
+# the Xcode project resolves the package independently into its own DerivedData)
+MissionControlKit/.build/
+MissionControlKit/.swiftpm/
+
+# `MissionControl.xcodeproj` and `Generated/*.plist` ARE committed (not gitignored):
+# ADR-0011's "Cmd-R is the whole deploy loop" means a fresh checkout must build without
+# requiring `xcodegen generate` first. `project.yml` stays the source of truth for
+# structural changes — regenerate with `xcodegen generate` after editing it, then commit
+# the result.

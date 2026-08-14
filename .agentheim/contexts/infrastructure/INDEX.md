@@ -10,15 +10,14 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 0
-- **Todo:** 1
+- **Backlog:** 2
+- **Todo:** 0
 - **Doing:** 0
-- **Done:** 8
+- **Done:** 10
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **infrastructure-001-walking-skeleton** — Walking skeleton — onboard mise_pwa end-to-end through the full stack — depends_on: [infrastructure-x23a8, infrastructure-fskyk, infrastructure-hv013, infrastructure-zznqh, infrastructure-wv33x, infrastructure-rxd87, infrastructure-pcmqh, infrastructure-mam0r, service-integrations-n7s2k] — `todo/infrastructure-001-walking-skeleton.md`
 <!-- todo-list:end -->
 
 ### Doing
@@ -27,6 +26,8 @@ research touching this BC, and concept synthesis pages.
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **infrastructure-w4dg3** — Desktop widget "No data yet" root-caused to a wildcard provisioning profile missing App Groups — `done/infrastructure-w4dg3-widget-shows-no-data-after-fix.md`
+- **infrastructure-001-walking-skeleton** — Walking skeleton — onboard mise_pwa end-to-end through the full stack (spike) — `done/infrastructure-001-walking-skeleton.md`
 - **infrastructure-wv33x** — No backend — single locally-built signed macOS app bundle — ADR-0011 — `done/infrastructure-wv33x-no-backend-local-signed-app-bundle.md`
 - **infrastructure-rxd87** — Observability: unified logging + PostHog for structured events (amended) — ADR-0010 — `done/infrastructure-rxd87-unified-logging-only-no-telemetry.md`
 - **infrastructure-pcmqh** — Keep the App Sandbox on; vault/source access via security-scoped bookmarks — ADR-0009 — `done/infrastructure-pcmqh-sandbox-security-scoped-bookmarks.md`
@@ -39,6 +40,8 @@ research touching this BC, and concept synthesis pages.
 
 ### Backlog
 <!-- backlog-list:start -->
+- **infrastructure-pht7k** — Wire real PostHog SDK (currently a stub) — `backlog/infrastructure-pht7k-wire-real-posthog-sdk.md`
+- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode — `backlog/infrastructure-b92mn-burst-polling-mode.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC

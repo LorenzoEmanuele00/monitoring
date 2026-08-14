@@ -1,0 +1,622 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C219825A0E7C145F644FADD /* PollingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428A49ABBA1C1D234622C4A /* PollingCoordinator.swift */; };
+		267811F83D52DB44E5DC51D9 /* MissionControlWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BDD22EA3BFBE455BA5F353 /* MissionControlWidgetsBundle.swift */; };
+		27D7D04A9CF879512BA742D1 /* MCPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 800F82B17CB642C4BFFD65E1 /* MCPersistence */; };
+		3993A51F2B972770469A04D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF2E71006669A5E0F8F2C9 /* ContentView.swift */; };
+		4D6E51FBA4CC9564906F6768 /* AddProjectSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7271FEB40642DFE80C61A /* AddProjectSheet.swift */; };
+		5330C852D09BB43E679EA616 /* MissionControlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3A0C88E4BC3F8B5E50F748 /* MissionControlApp.swift */; };
+		565585730CB0B83264335A9D /* BookmarkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC3E79939E8199F28DE12E /* BookmarkHelper.swift */; };
+		7718AE1CB4BCB6311CB83200 /* IntegrationStatusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09697B8E710535646DADD766 /* IntegrationStatusWidget.swift */; };
+		777E23954B9A979205410254 /* MissionControlWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 44CEA1EDBFD841E5127B0F5A /* MissionControlWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		87B7EEA44A9448E5C9AC2C0F /* ConnectIntegrationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B4F285616427B37242C5FF /* ConnectIntegrationSheet.swift */; };
+		9F18A7DA93BD4F4446A48FC0 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3DD8C520FB862875FBC15E /* ProjectDetailView.swift */; };
+		AB88E750A107ECABBF01EDE8 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8CE956A78BB458C9BA61F1 /* Logging.swift */; };
+		B3FAB054E9EE3D2A12B6DB51 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE99C53139CB877B30432A /* Logging.swift */; };
+		BF2E05B3AFB9336D61631CF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E8D1F310BFE905723BCD65 /* AppDelegate.swift */; };
+		C3F8BFECF80AACD21660C662 /* MCSnapshot in Frameworks */ = {isa = PBXBuildFile; productRef = D5EDF6F5EF8F4CF732EBD4B1 /* MCSnapshot */; };
+		C564787CBDB112F4F530E6A6 /* MCDesignTokens in Frameworks */ = {isa = PBXBuildFile; productRef = 5D7BD595EFBF0E12890BF5F0 /* MCDesignTokens */; };
+		CBE35AB65BB0C8383288EF4C /* MCSecrets in Frameworks */ = {isa = PBXBuildFile; productRef = 47050609E814A24C7EA269CA /* MCSecrets */; };
+		CDD02BDBCE0FE8C04FBB78BE /* MCDesignTokens in Frameworks */ = {isa = PBXBuildFile; productRef = A44955D49F146AFD41389274 /* MCDesignTokens */; };
+		E6D176706A3B991BB98F3626 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88862605552FED454B8C1B2 /* AppEnvironment.swift */; };
+		F1D50E0EB5CFD864A6905414 /* MCProviders in Frameworks */ = {isa = PBXBuildFile; productRef = 3CB470EBFE3024BCEAC47093 /* MCProviders */; };
+		F238F35747169307A7F9B705 /* MCSnapshot in Frameworks */ = {isa = PBXBuildFile; productRef = DEA83811967EAAB0AF1BDE2B /* MCSnapshot */; };
+		FE31930E72067174C4AEB72F /* MCDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 3F2BB246176D1C4E652E6C3E /* MCDomain */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		80BEF2D47BFA02741CB17A3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 208D6E4BAFD27F4031F64A88 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8852E665AF8DAC16EAD1D725;
+			remoteInfo = MissionControlWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7F2CF24B3AB941CD329F76CE /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				777E23954B9A979205410254 /* MissionControlWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		09697B8E710535646DADD766 /* IntegrationStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationStatusWidget.swift; sourceTree = "<group>"; };
+		0FD7271FEB40642DFE80C61A /* AddProjectSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectSheet.swift; sourceTree = "<group>"; };
+		3A8CE956A78BB458C9BA61F1 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		40B4F285616427B37242C5FF /* ConnectIntegrationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectIntegrationSheet.swift; sourceTree = "<group>"; };
+		44CEA1EDBFD841E5127B0F5A /* MissionControlWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MissionControlWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BF55F93FA2531E7F621514C /* MissionControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissionControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5326CDDBA6A31962B81C764F /* MissionControlKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MissionControlKit; sourceTree = SOURCE_ROOT; };
+		63BC3E79939E8199F28DE12E /* BookmarkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHelper.swift; sourceTree = "<group>"; };
+		8C3DD8C520FB862875FBC15E /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
+		8F3A0C88E4BC3F8B5E50F748 /* MissionControlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionControlApp.swift; sourceTree = "<group>"; };
+		9DBF2E71006669A5E0F8F2C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A5E8D1F310BFE905723BCD65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B88862605552FED454B8C1B2 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		B9EE99C53139CB877B30432A /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		C428A49ABBA1C1D234622C4A /* PollingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingCoordinator.swift; sourceTree = "<group>"; };
+		E4BDD22EA3BFBE455BA5F353 /* MissionControlWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionControlWidgetsBundle.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5F0AC38784F1B0688100900E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE31930E72067174C4AEB72F /* MCDomain in Frameworks */,
+				CDD02BDBCE0FE8C04FBB78BE /* MCDesignTokens in Frameworks */,
+				C3F8BFECF80AACD21660C662 /* MCSnapshot in Frameworks */,
+				CBE35AB65BB0C8383288EF4C /* MCSecrets in Frameworks */,
+				27D7D04A9CF879512BA742D1 /* MCPersistence in Frameworks */,
+				F1D50E0EB5CFD864A6905414 /* MCProviders in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8488BE48FAD7EC71F9DE8AEC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F238F35747169307A7F9B705 /* MCSnapshot in Frameworks */,
+				C564787CBDB112F4F530E6A6 /* MCDesignTokens in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EA4315847AB962AB1716FB7 /* Polling */ = {
+			isa = PBXGroup;
+			children = (
+				C428A49ABBA1C1D234622C4A /* PollingCoordinator.swift */,
+			);
+			path = Polling;
+			sourceTree = "<group>";
+		};
+		3B25E04B574036BA7A981D8A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BF55F93FA2531E7F621514C /* MissionControl.app */,
+				44CEA1EDBFD841E5127B0F5A /* MissionControlWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45A154D5D9642D2292041B20 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				5326CDDBA6A31962B81C764F /* MissionControlKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		679A8DA0AC938BDEA21A997A /* MissionControl */ = {
+			isa = PBXGroup;
+			children = (
+				A5E8D1F310BFE905723BCD65 /* AppDelegate.swift */,
+				B88862605552FED454B8C1B2 /* AppEnvironment.swift */,
+				63BC3E79939E8199F28DE12E /* BookmarkHelper.swift */,
+				3A8CE956A78BB458C9BA61F1 /* Logging.swift */,
+				8F3A0C88E4BC3F8B5E50F748 /* MissionControlApp.swift */,
+				0EA4315847AB962AB1716FB7 /* Polling */,
+				B94BFA24FB5CC3298603B329 /* Views */,
+			);
+			path = MissionControl;
+			sourceTree = "<group>";
+		};
+		B94BFA24FB5CC3298603B329 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0FD7271FEB40642DFE80C61A /* AddProjectSheet.swift */,
+				40B4F285616427B37242C5FF /* ConnectIntegrationSheet.swift */,
+				9DBF2E71006669A5E0F8F2C9 /* ContentView.swift */,
+				8C3DD8C520FB862875FBC15E /* ProjectDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6225A6F52A2317AEC5F4E35 = {
+			isa = PBXGroup;
+			children = (
+				679A8DA0AC938BDEA21A997A /* MissionControl */,
+				DDE05539446A2B942265A863 /* MissionControlWidgets */,
+				45A154D5D9642D2292041B20 /* Packages */,
+				3B25E04B574036BA7A981D8A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DDE05539446A2B942265A863 /* MissionControlWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				09697B8E710535646DADD766 /* IntegrationStatusWidget.swift */,
+				B9EE99C53139CB877B30432A /* Logging.swift */,
+				E4BDD22EA3BFBE455BA5F353 /* MissionControlWidgetsBundle.swift */,
+			);
+			path = MissionControlWidgets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		81E129A51BDC5064CE5423DA /* MissionControl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4F6813337605AD03FB1AF40 /* Build configuration list for PBXNativeTarget "MissionControl" */;
+			buildPhases = (
+				BD78A88B458121846C74AECF /* Sources */,
+				5F0AC38784F1B0688100900E /* Frameworks */,
+				7F2CF24B3AB941CD329F76CE /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4B819A119D3EB75DBDD5D224 /* PBXTargetDependency */,
+			);
+			name = MissionControl;
+			packageProductDependencies = (
+				3F2BB246176D1C4E652E6C3E /* MCDomain */,
+				A44955D49F146AFD41389274 /* MCDesignTokens */,
+				D5EDF6F5EF8F4CF732EBD4B1 /* MCSnapshot */,
+				47050609E814A24C7EA269CA /* MCSecrets */,
+				800F82B17CB642C4BFFD65E1 /* MCPersistence */,
+				3CB470EBFE3024BCEAC47093 /* MCProviders */,
+			);
+			productName = MissionControl;
+			productReference = 4BF55F93FA2531E7F621514C /* MissionControl.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8852E665AF8DAC16EAD1D725 /* MissionControlWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95B513210FABE22A4EE27C6E /* Build configuration list for PBXNativeTarget "MissionControlWidgets" */;
+			buildPhases = (
+				6A03D4E263A4F171F737CCCF /* Sources */,
+				8488BE48FAD7EC71F9DE8AEC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MissionControlWidgets;
+			packageProductDependencies = (
+				DEA83811967EAAB0AF1BDE2B /* MCSnapshot */,
+				5D7BD595EFBF0E12890BF5F0 /* MCDesignTokens */,
+			);
+			productName = MissionControlWidgets;
+			productReference = 44CEA1EDBFD841E5127B0F5A /* MissionControlWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		208D6E4BAFD27F4031F64A88 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					81E129A51BDC5064CE5423DA = {
+						DevelopmentTeam = 2C553PK57P;
+						ProvisioningStyle = Automatic;
+					};
+					8852E665AF8DAC16EAD1D725 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E702C94A16BB968CFA62C192 /* Build configuration list for PBXProject "MissionControl" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = D6225A6F52A2317AEC5F4E35;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2C32C9AE8A6AB6A8A8CC87D5 /* XCLocalSwiftPackageReference "MissionControlKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 3B25E04B574036BA7A981D8A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				81E129A51BDC5064CE5423DA /* MissionControl */,
+				8852E665AF8DAC16EAD1D725 /* MissionControlWidgets */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6A03D4E263A4F171F737CCCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7718AE1CB4BCB6311CB83200 /* IntegrationStatusWidget.swift in Sources */,
+				B3FAB054E9EE3D2A12B6DB51 /* Logging.swift in Sources */,
+				267811F83D52DB44E5DC51D9 /* MissionControlWidgetsBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD78A88B458121846C74AECF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D6E51FBA4CC9564906F6768 /* AddProjectSheet.swift in Sources */,
+				BF2E05B3AFB9336D61631CF8 /* AppDelegate.swift in Sources */,
+				E6D176706A3B991BB98F3626 /* AppEnvironment.swift in Sources */,
+				565585730CB0B83264335A9D /* BookmarkHelper.swift in Sources */,
+				87B7EEA44A9448E5C9AC2C0F /* ConnectIntegrationSheet.swift in Sources */,
+				3993A51F2B972770469A04D9 /* ContentView.swift in Sources */,
+				AB88E750A107ECABBF01EDE8 /* Logging.swift in Sources */,
+				5330C852D09BB43E679EA616 /* MissionControlApp.swift in Sources */,
+				1C219825A0E7C145F644FADD /* PollingCoordinator.swift in Sources */,
+				9F18A7DA93BD4F4446A48FC0 /* ProjectDetailView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4B819A119D3EB75DBDD5D224 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8852E665AF8DAC16EAD1D725 /* MissionControlWidgets */;
+			targetProxy = 80BEF2D47BFA02741CB17A3A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1B178B103A0A796792FA830C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MissionControlWidgets/MissionControlWidgets.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2C553PK57P;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Generated/MissionControlWidgets-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol.widgets;
+				PRODUCT_NAME = MissionControlWidgets;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1B40039A80F41135ACB16C0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MissionControl/MissionControl.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Generated/MissionControl-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol;
+				PRODUCT_NAME = MissionControl;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1B5C4A6A1B7CE9EBE1B91095 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2C553PK57P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		A0C9CBDC3F5D2E021AA2C810 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2C553PK57P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		C22B07B7B481D7894272B9B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MissionControlWidgets/MissionControlWidgets.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2C553PK57P;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Generated/MissionControlWidgets-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol.widgets;
+				PRODUCT_NAME = MissionControlWidgets;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F6FA3A7FD6D24EB27B2B2C0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MissionControl/MissionControl.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Generated/MissionControl-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol;
+				PRODUCT_NAME = MissionControl;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		95B513210FABE22A4EE27C6E /* Build configuration list for PBXNativeTarget "MissionControlWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C22B07B7B481D7894272B9B9 /* Debug */,
+				1B178B103A0A796792FA830C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B4F6813337605AD03FB1AF40 /* Build configuration list for PBXNativeTarget "MissionControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B40039A80F41135ACB16C0E /* Debug */,
+				F6FA3A7FD6D24EB27B2B2C0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E702C94A16BB968CFA62C192 /* Build configuration list for PBXProject "MissionControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0C9CBDC3F5D2E021AA2C810 /* Debug */,
+				1B5C4A6A1B7CE9EBE1B91095 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		2C32C9AE8A6AB6A8A8CC87D5 /* XCLocalSwiftPackageReference "MissionControlKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = MissionControlKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3CB470EBFE3024BCEAC47093 /* MCProviders */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCProviders;
+		};
+		3F2BB246176D1C4E652E6C3E /* MCDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCDomain;
+		};
+		47050609E814A24C7EA269CA /* MCSecrets */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCSecrets;
+		};
+		5D7BD595EFBF0E12890BF5F0 /* MCDesignTokens */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCDesignTokens;
+		};
+		800F82B17CB642C4BFFD65E1 /* MCPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCPersistence;
+		};
+		A44955D49F146AFD41389274 /* MCDesignTokens */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCDesignTokens;
+		};
+		D5EDF6F5EF8F4CF732EBD4B1 /* MCSnapshot */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCSnapshot;
+		};
+		DEA83811967EAAB0AF1BDE2B /* MCSnapshot */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCSnapshot;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 208D6E4BAFD27F4031F64A88 /* Project object */;
+}
