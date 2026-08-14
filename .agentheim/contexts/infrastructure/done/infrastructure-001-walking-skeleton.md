@@ -50,14 +50,18 @@ Feature-thin, architecture-thick: prove the whole stack runs, not that any featu
 
 ## Acceptance criteria
 
-- [ ] The app boots, the widget extension is discoverable in the macOS widget gallery, and a
+- [x] The app boots, the widget extension is discoverable in the macOS widget gallery, and a
       Desktop Widget for mise_pwa can be added to the desktop.
-      <!-- requires manual verification by user: needs a one-time interactive Xcode Accounts
-      sign-in first (see Outcome) plus the widget-gallery drag, neither scriptable here. -->
-- [ ] mise_pwa is registered as a Project with all three Integrations (GitHub, Firebase Hosting,
+      Confirmed 2026-08-15: was blocked by a stale duplicate WidgetKit registration (a
+      diagnostic-tooling side effect, fixed via `lsregister -u`) and then by a wildcard
+      provisioning profile lacking App Groups (`infrastructure-w4dg3`) — both resolved, widget
+      renders normally in the gallery and on the desktop.
+- [x] mise_pwa is registered as a Project with all three Integrations (GitHub, Firebase Hosting,
       Supabase) attached and authenticated.
-      <!-- requires manual verification by user: needs the real local folder path (NSOpenPanel)
-      and the three real credentials pasted by hand into Connect Integration, per ADR-0009. -->
+      Confirmed 2026-08-15: all three connected via the Connect Integration sheet, after fixing
+      a security-scoped-bookmark timing bug (`AddProjectSheet`), a Keychain access-group prefix
+      bug (`KeychainSecretStore`), and a Connect Integration sheet layout bug — see commits
+      d5f5134 and the sheet/keychain fixes on `develop`.
 - [ ] With the main app closed, the placed Desktop Widget still renders the last-polled data
       (not empty, not a crash) — proves the App Group + Tier B snapshot path works standalone.
       <!-- requires manual verification by user: observing a live desktop widget with the app
