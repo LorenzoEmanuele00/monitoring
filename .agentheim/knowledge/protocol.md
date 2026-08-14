@@ -5,6 +5,30 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 01:10 -- Bug resolved: infrastructure-w4dg3 - widget "No data yet" root-caused
+
+**Type:** Manual verification / interactive bugfix (resolution)
+**Task:** infrastructure-w4dg3 - Desktop widget still renders "No data yet" after fixing the
+.atomic cross-process read bug
+**Summary:** Continued the previous session's open bug. Ruled out two more hypotheses by direct
+testing — `com.apple.quarantine` (fully quit the app, stripped the xattr, verified clean, widget
+still failed identically) and stale files/inodes — before finding the real root cause: xcodegen
+writes `com.apple.security.application-groups` directly into the `.entitlements` files, bypassing
+Xcode's Signing & Capabilities UI, which is what actually registers the capability with the Apple
+Developer Portal. Automatic Signing had silently fallen back to a generic wildcard `Mac Team
+Provisioning Profile: *` that cannot carry App Groups (confirmed by decoding the profile via
+`security cms -D -i`). Visiting each target's Signing & Capabilities tab in Xcode triggered proper
+re-provisioning; two new app-ID-specific profiles were generated, both carrying the capability,
+and the widget started reading real data immediately — with quarantine still present, confirming
+it was never the blocker.
+**Fixed:** `SnapshotStore`'s doc comment corrected to record the true root cause (the quarantine
+explanation from the prior session was wrong); `clearQuarantine` kept as harmless hygiene, not
+removed. Infrastructure BC README gained a second "Provisioning caveat" entry generalizing this
+finding for any future xcodegen-authored capability needing portal registration.
+**Task closed:** `infrastructure-w4dg3` moved backlog → done, both acceptance criteria met.
+
+---
+
 ## 2026-08-14 12:35 -- Manual verification: 3 real bugs found and fixed, 1 flagged unresolved
 
 **Type:** Manual verification / interactive bugfix

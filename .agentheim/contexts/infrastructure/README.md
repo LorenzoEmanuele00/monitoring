@@ -107,3 +107,26 @@ under Xcode → Settings → Accounts once, interactively — no CLI/agent path 
 The app + widget extension both compile cleanly with signing disabled
 (`CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO`), confirming the code itself is correct; the
 one-time Accounts sign-in is a manual prerequisite before a real signed build/run.
+
+**Second provisioning caveat, found chasing the widget's "No data yet" bug
+(`infrastructure-w4dg3`):** a capability declared only in a hand-authored `.entitlements` file —
+which is what `project.yml`/xcodegen does for `com.apple.security.application-groups` — is
+necessary but **not sufficient** for capabilities that require Apple Developer Portal
+registration, App Groups among them. The compiled binary's entitlements blob will claim the
+capability regardless, and *local* uses of it (a process reading/writing its own App Group
+container) will work fine — but genuine *cross-process* sandbox enforcement checks the actual
+provisioning profile, not just the binary's entitlements XML. Symptom: the widget extension got
+`NSPOSIXErrorDomain Code=1 "Operation not permitted"` opening files the app itself wrote and
+could read fine, across many red herrings (atomic vs. non-atomic writes, the
+`com.apple.quarantine` extended attribute, freshly-recreated files) that all turned out
+irrelevant. Confirmed root cause by decoding the actual `.provisionprofile` file (`security
+cms -D -i ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/*.provisionprofile`):
+Automatic Signing had fallen back to a generic wildcard `Mac Team Provisioning Profile: *`
+(`application-identifier: TEAMID.*`), which by Apple's own rules can never carry App Groups.
+**Fix:** open each target's Signing & Capabilities tab in Xcode at least once (App Groups was
+already listed there, reading the `.entitlements` file — the fix was Xcode actually re-running
+its provisioning/registration flow, which the mere presence of the capability in the UI doesn't
+guarantee has happened). This regenerated two proper, app-ID-specific profiles that do carry the
+capability. Worth checking first, before deep debugging, for any future target that adds a
+portal-registered capability (App Groups, Keychain Sharing, Push Notifications, ...) via
+xcodegen-authored entitlements rather than Xcode's UI.

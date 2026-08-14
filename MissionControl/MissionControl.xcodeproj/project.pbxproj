@@ -62,7 +62,7 @@
 		40B4F285616427B37242C5FF /* ConnectIntegrationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectIntegrationSheet.swift; sourceTree = "<group>"; };
 		44CEA1EDBFD841E5127B0F5A /* MissionControlWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MissionControlWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF55F93FA2531E7F621514C /* MissionControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissionControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5326CDDBA6A31962B81C764F /* MissionControlKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MissionControlKit; path = MissionControlKit; sourceTree = SOURCE_ROOT; };
+		5326CDDBA6A31962B81C764F /* MissionControlKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MissionControlKit; sourceTree = SOURCE_ROOT; };
 		63BC3E79939E8199F28DE12E /* BookmarkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHelper.swift; sourceTree = "<group>"; };
 		8C3DD8C520FB862875FBC15E /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		8F3A0C88E4BC3F8B5E50F748 /* MissionControlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionControlApp.swift; sourceTree = "<group>"; };
@@ -226,14 +226,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					81E129A51BDC5064CE5423DA = {
 						DevelopmentTeam = 2C553PK57P;
 						ProvisioningStyle = Automatic;
 					};
 					8852E665AF8DAC16EAD1D725 = {
-						DevelopmentTeam = 2C553PK57P;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -305,7 +304,19 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MissionControlWidgets/MissionControlWidgets.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2C553PK57P;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Generated/MissionControlWidgets-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -314,6 +325,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol.widgets;
 				PRODUCT_NAME = MissionControlWidgets;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -325,6 +337,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MissionControl/MissionControl.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Generated/MissionControl-Info.plist";
@@ -336,6 +349,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol;
 				PRODUCT_NAME = MissionControl;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -376,11 +390,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2C553PK57P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -395,6 +411,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 6.0;
@@ -437,11 +454,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2C553PK57P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -463,6 +482,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
@@ -474,7 +494,19 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MissionControlWidgets/MissionControlWidgets.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2C553PK57P;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Generated/MissionControlWidgets-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -483,6 +515,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol.widgets;
 				PRODUCT_NAME = MissionControlWidgets;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -494,6 +527,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MissionControl/MissionControl.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Generated/MissionControl-Info.plist";
@@ -505,6 +539,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoemanuele.missioncontrol;
 				PRODUCT_NAME = MissionControl;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
