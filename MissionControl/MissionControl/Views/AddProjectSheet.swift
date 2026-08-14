@@ -13,6 +13,7 @@ struct AddProjectSheet: View {
     @State private var vaultNoteRelativePath = ""
     @State private var isPickingSourceFolder = false
     @State private var pickedSourceURL: URL?
+    @State private var pickedSourceBookmark: Data?
     @State private var errorMessage: String?
 
     var body: some View {
@@ -52,27 +53,31 @@ struct AddProjectSheet: View {
     private func handleFolderPick(_ result: Result<URL, Error>) {
         switch result {
         case .success(let url):
-            pickedSourceURL = url
+            // The .fileImporter access grant is only guaranteed open for the duration of this
+            // completion handler — the bookmark MUST be created here, wrapped in
+            // start/stopAccessingSecurityScopedResource, not deferred to a later Add tap.
+            // Deferring it produces NSCocoaErrorDomain Code=256 "Could not open() the item".
+            do {
+                pickedSourceBookmark = try BookmarkHelper.withAccess(to: url) {
+                    try BookmarkHelper.makeBookmark(for: url)
+                }
+                pickedSourceURL = url
+                errorMessage = nil
+            } catch {
+                errorMessage = "Could not create a security-scoped bookmark: \(error)"
+                pickedSourceURL = nil
+                pickedSourceBookmark = nil
+            }
         case .failure(let error):
             errorMessage = "\(error)"
         }
     }
 
     private func addProject() {
-        var bookmark: Data?
-        if let pickedSourceURL {
-            do {
-                bookmark = try BookmarkHelper.makeBookmark(for: pickedSourceURL)
-            } catch {
-                errorMessage = "Could not create a security-scoped bookmark: \(error)"
-                return
-            }
-        }
-
         let project = Project(
             name: name,
             vaultNoteRelativePath: vaultNoteRelativePath,
-            sourcePathBookmark: bookmark
+            sourcePathBookmark: pickedSourceBookmark
         )
         do {
             try environment.addProject(project)

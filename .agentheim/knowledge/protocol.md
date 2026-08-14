@@ -5,6 +5,42 @@ Newest entries on top.
 
 ---
 
+## 2026-08-14 12:35 -- Manual verification: 3 real bugs found and fixed, 1 flagged unresolved
+
+**Type:** Manual verification / interactive bugfix
+**Task:** infrastructure-001-walking-skeleton (post-merge manual verification pass)
+**Summary:** User worked through the walking-skeleton spike's manual verification checklist.
+Found and fixed three real bugs interactively (not through the `work` worker/verifier pipeline —
+direct fixes, verified via `swift test` and system-log inspection):
+1. `AddProjectSheet` never called `startAccessingSecurityScopedResource()` before creating the
+   source-path bookmark, deferring bookmark creation past the `.fileImporter` access window —
+   fixed by creating the bookmark immediately in the completion handler via
+   `BookmarkHelper.withAccess`.
+2. `ConnectIntegrationSheet` used a macOS `Form`, whose automatic label/control column layout
+   compressed/overflowed unlabeled rows (the instructions paragraph, the Firebase hint text) —
+   replaced with an explicit leading-aligned `VStack` in a fixed-size sheet.
+3. `KeychainSecretStore` passed the bare (non-Team-ID-prefixed) access group string as
+   `kSecAttrAccessGroup`, never matching the entitlements' `$(AppIdentifierPrefix)`-resolved
+   value — fixed by resolving the real Team ID prefix at runtime via a throwaway-keychain-item
+   probe.
+Also fixed, but did NOT resolve the reported symptom: `SnapshotStore` wrote Tier B files with
+`Data.write(options: .atomic)`, which — confirmed via new `.error`-level `os.Logger` output added
+to `readManifest()`/`readSnapshot()` — left files unreadable by the widget extension process
+(`NSPOSIXErrorDomain Code=1 "Operation not permitted"`), a documented App Sandbox quirk with
+atomic writes in shared App Group containers. Switched to non-atomic writes; confirmed via
+`swift test` (22/22 passing) that nothing regressed. The desktop widget still shows "No data yet"
+after this fix — root cause not fully found before the user asked to stop.
+**Discovered, not fixed:** two backlog items from the original walking-skeleton worker session
+(`infrastructure-pht7k`, `infrastructure-b92mn`) were never inserted into this BC's `INDEX.md`
+backlog list during that session's end-of-run reporting — a bookkeeping gap, corrected now
+alongside filing the widget bug.
+**Filed:** `infrastructure-w4dg3` (bug, backlog) — desktop widget renders no data despite a
+confirmed-correct write/reload pipeline; investigation notes and next steps recorded on the task.
+**Not part of `work`'s worktree/verifier pipeline** — these are direct commits reviewed and
+tested inline during the session, per the user's explicit "commit all the correct code" request.
+
+---
+
 ## 2026-08-14 01:30 -- Work session ended
 
 **Type:** Work / Session end

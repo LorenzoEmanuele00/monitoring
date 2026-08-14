@@ -27,47 +27,70 @@ struct ConnectIntegrationSheet: View {
         }
     }
 
+    // A macOS `Form` lays out standalone (unlabeled) rows — like the instructions paragraph
+    // below — using its automatic label/control column split, which compresses anything that
+    // isn't a real "Label: Control" pair into a narrow trailing column. That's what produced
+    // the squeezed/overflowing text. A plain leading-aligned VStack sizes every row to the
+    // sheet's full width instead, and wraps naturally as the sheet is resized.
     var body: some View {
-        Form {
-            Section {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
                 Text(instructions)
                     .font(.callout)
                     .foregroundStyle(.secondary)
-            }
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-            Section("Reference") {
-                TextField(externalRefLabel, text: $externalRef, prompt: Text(externalRefPlaceholder))
-            }
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(externalRefLabel)
+                        .font(.headline)
+                    TextField(externalRefLabel, text: $externalRef, prompt: Text(externalRefPlaceholder))
+                        .textFieldStyle(.roundedBorder)
+                }
 
-            Section("Credential") {
-                switch providerKind {
-                case .githubRepository, .supabaseProject:
-                    SecureField("Paste from Keychain Access → \(keychainItemName)", text: $staticToken)
-                case .firebaseHosting:
-                    Text("Paste from Keychain Access → \(keychainItemName) (Secure Note contents)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    TextEditor(text: $serviceAccountJSON)
-                        .frame(minHeight: 120)
-                        .font(.system(.body, design: .monospaced))
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Credential")
+                        .font(.headline)
+                    switch providerKind {
+                    case .githubRepository, .supabaseProject:
+                        SecureField("Paste from Keychain Access → \(keychainItemName)", text: $staticToken)
+                            .textFieldStyle(.roundedBorder)
+                    case .firebaseHosting:
+                        Text("Paste from Keychain Access → \(keychainItemName) (Secure Note contents)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        TextEditor(text: $serviceAccountJSON)
+                            .font(.system(.body, design: .monospaced))
+                            .frame(maxWidth: .infinity, minHeight: 140, maxHeight: 240)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 6)
+                                    .stroke(.separator, lineWidth: 1)
+                            )
+                    }
+                }
+
+                if let errorMessage {
+                    Text(errorMessage)
+                        .foregroundStyle(.red)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                HStack {
+                    Spacer()
+                    Button("Cancel", role: .cancel) { dismiss() }
+                    Button(isValidating ? "Validating…" : "Connect") {
+                        Task { await connect() }
+                    }
+                    .keyboardShortcut(.defaultAction)
+                    .disabled(isValidating || externalRef.isEmpty || credentialData == nil)
                 }
             }
-
-            if let errorMessage {
-                Text(errorMessage).foregroundStyle(.red)
-            }
-
-            HStack {
-                Spacer()
-                Button("Cancel", role: .cancel) { dismiss() }
-                Button(isValidating ? "Validating…" : "Connect") {
-                    Task { await connect() }
-                }
-                .disabled(isValidating || externalRef.isEmpty || credentialData == nil)
-            }
+            .padding(20)
         }
-        .padding()
-        .frame(minWidth: 480)
+        .frame(width: 520, height: 420)
     }
 
     private var credentialData: Data? {

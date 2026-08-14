@@ -10,7 +10,7 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 0
+- **Backlog:** 3
 - **Todo:** 0
 - **Doing:** 0
 - **Done:** 9
@@ -39,6 +39,9 @@ research touching this BC, and concept synthesis pages.
 
 ### Backlog
 <!-- backlog-list:start -->
+- **infrastructure-w4dg3** — Desktop widget still renders "No data yet" after fixing the .atomic cross-process read bug (bug) — `backlog/infrastructure-w4dg3-widget-shows-no-data-after-fix.md`
+- **infrastructure-pht7k** — Wire real PostHog SDK (currently a stub) — `backlog/infrastructure-pht7k-wire-real-posthog-sdk.md`
+- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode — `backlog/infrastructure-b92mn-burst-polling-mode.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC
