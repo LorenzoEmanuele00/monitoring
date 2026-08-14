@@ -16,7 +16,7 @@ For BC-scoped artifacts, see each BC's `INDEX.md`.
 - **notifications** — watches Events from Service Integrations and Project Registry, raises macOS Notification Center alerts — `contexts/notifications/INDEX.md`
 - **widgets** — configurable views of Project/Integration data, in-app and as native macOS desktop widgets — `contexts/widgets/INDEX.md`
 - **service-integrations** — connects to GitHub, Firebase Hosting, Supabase, Vercel and future providers; normalizes status/usage/events — `contexts/service-integrations/INDEX.md`
-- **project-registry** — registers Projects from the Obsidian vault's `Progetti` folder and owns their attached Service Integrations — `contexts/project-registry/INDEX.md`
+- **project-registry** — registers Projects by name, optionally linked to a source folder and/or an Obsidian note, and owns their attached Service Integrations — `contexts/project-registry/INDEX.md`
 <!-- bc-list:end -->
 
 ## Global ADRs (scope: global)

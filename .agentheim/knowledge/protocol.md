@@ -5,6 +5,27 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 01:50 -- Modeling / Captured: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Modeling / Capture (with decision)
+**BC:** project-registry
+**Filed to:** backlog (blocked from todo by the styleguide gate — auto-promotable once
+`design-system-001-styleguide` ships)
+**Summary:** Following the user's hands-on experience with the walking skeleton, decided the
+Obsidian vault link should never be a registration requirement — it becomes a fully optional,
+unparsed per-Project pointer driving exactly one behavior, an "Open in Obsidian" action via the
+`obsidian://` URL scheme. No filesystem access to the vault, no security-scoped bookmark for it
+(narrows ADR-0009's bookmark requirement to Source Path only). Resolves both of Project
+Registry's long-open questions (vault-note parsing, vault-based Project discovery) at once.
+**ADRs written:** 0014 (new); ADR-0009's `superseded_by` frontmatter updated to point here for
+the vault-bookmark claim specifically (body left untouched as historical record).
+**Also updated:** `vision.md` ("What success looks like" registration bullet, ubiquitous
+language, one open question resolved), `context-map.md` (Project Registry purpose/core
+language), `project-registry/README.md` (purpose, ubiquitous language, aggregate invariant, both
+open questions resolved), `knowledge/index.md` (BC one-liner).
+
+---
+
 ## 2026-08-15 01:10 -- Bug resolved: infrastructure-w4dg3 - widget "No data yet" root-caused
 
 **Type:** Manual verification / interactive bugfix (resolution)
