@@ -71,10 +71,10 @@ Feature-thin, architecture-thick: prove the whole stack runs, not that any featu
       within one baseline poll interval.
       Confirmed 2026-08-15: pushed a real commit to `mise_pwa`; the widget's headline updated to
       `CI in_progress` within one GitHub baseline poll interval.
-- [ ] Killing network access mid-poll does not corrupt the widget's last-good data — it keeps
+- [x] Killing network access mid-poll does not corrupt the widget's last-good data — it keeps
       showing the last successful snapshot with a visibly stale indicator.
-      <!-- requires manual verification by user: needs physically toggling network on this
-      Mac. -->
+      Confirmed 2026-08-15: turned off Wi-Fi with the app running; the widget kept showing the
+      last-good data (last-good-wins per ADR-0008), no corruption, no crash.
 - [x] `git log` shows this spike's changes scoped to the app/package/extension targets only —
       no unrelated BC work folded in. All changes are under `MissionControl/` (the new app,
       widget extension, and `MissionControlKit` package), this task file, the `infrastructure`
@@ -98,9 +98,16 @@ the deferred background-helper/webhook mechanisms named in `infrastructure-zznqh
 ## Outcome
 
 Built the whole stack end-to-end and got it to a clean, green compile for both the app and
-widget-extension targets. Every "build/run/code-level" acceptance signal the task called out as
-self-verifiable is met; every GUI-only signal is left unchecked above with an inline note and
-precise manual steps below — this is the expected, correct outcome for this spike per its own
+widget-extension targets. **Update 2026-08-15: all six acceptance criteria are now checked** —
+the five GUI-only ones (widget discovery/placement, all three Integrations connected, app-closed
+persistence, live provider-event update, network-kill staleness) were manually verified by the
+user across a follow-up debugging session that found and fixed several real bugs along the way
+(security-scoped bookmark timing, Connect Integration sheet layout, Keychain access-group
+prefix, and the widget's root "No data yet" cause — a wildcard provisioning profile missing App
+Groups, `infrastructure-w4dg3`). What follows below is the original spike-completion record,
+kept as-is for history; every "build/run/code-level" acceptance signal the task called out as
+self-verifiable is met; every GUI-only signal was originally left unchecked with an inline note
+and precise manual steps below — this was the expected, correct outcome for this spike per its own
 scope reminder, not a shortfall.
 
 **What exists now** (all new — first Xcode/Swift code in the repo):
