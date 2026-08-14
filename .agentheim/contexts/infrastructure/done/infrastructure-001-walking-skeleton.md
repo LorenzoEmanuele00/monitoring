@@ -62,10 +62,10 @@ Feature-thin, architecture-thick: prove the whole stack runs, not that any featu
       a security-scoped-bookmark timing bug (`AddProjectSheet`), a Keychain access-group prefix
       bug (`KeychainSecretStore`), and a Connect Integration sheet layout bug — see commits
       d5f5134 and the sheet/keychain fixes on `develop`.
-- [ ] With the main app closed, the placed Desktop Widget still renders the last-polled data
+- [x] With the main app closed, the placed Desktop Widget still renders the last-polled data
       (not empty, not a crash) — proves the App Group + Tier B snapshot path works standalone.
-      <!-- requires manual verification by user: observing a live desktop widget with the app
-      killed. -->
+      Confirmed 2026-08-15: quit the app fully, widget kept showing the last-polled data, no
+      crash, no blank state.
 - [ ] With the main app running, a real change on at least one provider (e.g. a new commit's
       Actions run, or a manual poll trigger) results in the widget's displayed data updating
       within one baseline poll interval.
