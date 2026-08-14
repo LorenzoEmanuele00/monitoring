@@ -11,18 +11,18 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 0
-- **Todo:** 1
-- **Doing:** 0
+- **Todo:** 0
+- **Doing:** 1
 - **Done:** 0
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **design-system-001-styleguide** — Styleguide — tokens/components, human-reviewed before any BC builds frontend — depends_on: [infrastructure-001-walking-skeleton] — `todo/design-system-001-styleguide.md`
 <!-- todo-list:end -->
 
 ### Doing
 <!-- doing-list:start -->
+- **design-system-001-styleguide** — Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend (feature) — `doing/design-system-001-styleguide.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)

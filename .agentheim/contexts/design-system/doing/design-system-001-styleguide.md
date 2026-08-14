@@ -1,7 +1,7 @@
 ---
 id: design-system-001-styleguide
 title: Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
-status: todo
+status: doing
 type: feature
 context: design-system
 created: 2026-08-07

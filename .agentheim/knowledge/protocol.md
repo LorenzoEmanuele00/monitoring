@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 01:53 -- Batch started: [design-system-001-styleguide]
+
+**Type:** Work / Batch start
+**Tasks:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Parallel:** no (1 worker)
+
+---
+
 ## 2026-08-15 01:50 -- Modeling / Captured: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
 
 **Type:** Modeling / Capture (with decision)
