@@ -66,10 +66,11 @@ Feature-thin, architecture-thick: prove the whole stack runs, not that any featu
       (not empty, not a crash) — proves the App Group + Tier B snapshot path works standalone.
       Confirmed 2026-08-15: quit the app fully, widget kept showing the last-polled data, no
       crash, no blank state.
-- [ ] With the main app running, a real change on at least one provider (e.g. a new commit's
+- [x] With the main app running, a real change on at least one provider (e.g. a new commit's
       Actions run, or a manual poll trigger) results in the widget's displayed data updating
       within one baseline poll interval.
-      <!-- requires manual verification by user: needs a real provider-side event. -->
+      Confirmed 2026-08-15: pushed a real commit to `mise_pwa`; the widget's headline updated to
+      `CI in_progress` within one GitHub baseline poll interval.
 - [ ] Killing network access mid-poll does not corrupt the widget's last-good data — it keeps
       showing the last successful snapshot with a visibly stale indicator.
       <!-- requires manual verification by user: needs physically toggling network on this
