@@ -5,6 +5,19 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:22 -- Task verified and completed: design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+
+**Type:** Work / Task completion
+**Task:** design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+**Summary:** Added the four remaining design-draft components (MCUsageMetricTile, MCUsageGraph, MCEventRow/MCEventKind, MCProjectCard) to MCDesignTokens/Components/, each with light/dark #Preview against sample data, plus one new MCColor.merged token; usage-tile 80%-degraded-threshold rule covered by a new unit test suite.
+**Duration:** ~7m
+**Verification:** PASS (iteration 1)
+**Files changed:** 8
+**Tests added:** 5
+**ADRs written:** none
+
+---
+
 ## 2026-08-15 03:10 -- Batch started: [design-system-q9vhm]
 
 **Type:** Work / Batch start

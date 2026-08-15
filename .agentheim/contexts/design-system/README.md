@@ -67,6 +67,32 @@ built successfully via `xcodebuild`, both carrying light/dark SwiftUI previews.
 - **`MCStalenessIndicator`** (Component) — relative-time label + a dot whose shape/color encodes
   `MCStaleness.Level`; always renders alongside the last-known value, never an empty placeholder.
 
+## Remaining draft components (v1.1, `design-system-q9vhm`)
+
+Four more components from the claude.ai/design draft, built against sample/placeholder data
+(`#Preview` only — not wired into any screen/widget yet, that's `widgets-w4tqx` and a future
+task once real provider data exists). All four use only the existing token set, extended with
+one new color:
+
+- **`MCColor.merged`** (`systemPurple`) — added because none of the existing state tones fit a
+  "PR merged" event; same dynamic-system-color rule as every other `MCColor` token.
+- **`MCUsageMetricTile`** (Component) — label/value/limit/percentage/contextual-note tile. The
+  bar switches from `MCStatusTone.positive` to `.warning` once consumption exceeds 80% of the
+  limit — pure logic exposed as `MCUsageMetricTile.barTone(forFraction:)` /
+  `.degradedThreshold` so it's unit-testable without rendering (see `MCUsageMetricTileTests`).
+- **`MCUsageGraph`** (Component) — small sparkline area chart (normalized `0...1` samples) with
+  an optional dashed threshold line and an hour-tick axis; only the draft's area-chart variant,
+  not its column/stacked-bar siblings (out of this task's scope).
+- **`MCEventKind`** (design-system vocabulary, like `MCStatusTone`) + **`MCEventRow`**
+  (Component) — glyph + text + relative time, one row. Four kinds (`deployOK`/`prMerged`/
+  `prOpened`/`buildFailed`), each with a color and an SF Symbol; the draft left the exact SF
+  Symbols "to be confirmed" — this task's choice (`arrow.up.circle.fill` /
+  `arrow.triangle.merge` / `plus.circle.fill` / `exclamationmark.triangle.fill`) is this v1's
+  resolved answer, revisit if it reads wrong in the Xcode Canvas review.
+- **`MCProjectCard`** (Component) — name, subtitle, health pill (via `MCStatusPill`), a row of
+  per-integration status dots (`MCProjectCard.Integration`), and updated-time — matches the
+  `Project` x `Service Integration` shape.
+
 ## Resolved decision — staleness thresholds
 
 `infrastructure-mam0r`'s ADR-0008 left staleness thresholds as a placeholder ("suggested: ~30

@@ -25,6 +25,12 @@ public enum MCColor {
     public static let idle = Color(nsColor: .systemGray)
     public static let accent = Color(nsColor: .controlAccentColor)
 
+    /// Added for `MCEventRow`'s "PR merged" event glyph (`design-system-q9vhm`) — none of the
+    /// existing state tones fit a merge event, and the draft's sample data uses a purple swatch
+    /// for it, so this extends the token set with one more real AppKit semantic color rather
+    /// than hand-maintaining a hex pair.
+    public static let merged = Color(nsColor: .systemPurple)
+
     /// Pre-styleguide aliases, kept so the walking skeleton's existing call sites
     /// (`MenuBarContentView`, `IntegrationStatusWidgetView`) keep compiling unchanged where they
     /// haven't yet been migrated to `MCStatusPill`/`MCStalenessIndicator`.

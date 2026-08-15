@@ -1,7 +1,7 @@
 ---
 id: design-system-q9vhm
 title: Build the design draft's remaining components — usage tile, usage graph, event row, project card
-status: doing
+status: done
 type: feature
 context: design-system
 created: 2026-08-15
