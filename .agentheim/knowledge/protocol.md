@@ -16,6 +16,17 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 02:20 -- Verification failed: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Verification failure
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Iteration:** 2 of 3
+**Reasons:** the iteration-1 provisioning regression is genuinely fixed (independently re-verified against the pre-regression commit) — but the fix's own `project.yml` comment cites "ADR-0016 (regeneration-losslessness)", an ADR that was never written; the task file explicitly says no new ADR was needed, so the comment asserts a decision record that doesn't exist. Secondary: a `LastUpgradeCheck` hand-patch in `project.pbxproj` contradicts the same comment's stated policy that the field should be left to drift.
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker (final iteration, 3 of 3)
+
+---
+
 ## 2026-08-15 01:53 -- Batch started: [design-system-001-styleguide]
 
 **Type:** Work / Batch start
