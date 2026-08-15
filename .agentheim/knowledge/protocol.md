@@ -5,6 +5,19 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:30 -- Task verified and completed: design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+
+**Type:** Work / Task completion
+**Task:** design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+**Summary:** Restyled AddProjectSheet and ConnectIntegrationSheet to consume MCColor/MCFont/MCSpacing/MCRadius design-system tokens, matching ProjectDetailView's visual rhythm; split each into an AppEnvironment-independent Content view so both gain light/dark #Preview.
+**Duration:** ~4m
+**Verification:** PASS (iteration 1)
+**Files changed:** 3
+**Tests added:** 0
+**ADRs written:** none
+
+---
+
 ## 2026-08-15 03:22 -- Batch started: [design-system-g3nxt]
 
 **Type:** Work / Batch start

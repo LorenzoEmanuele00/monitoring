@@ -1,7 +1,7 @@
 ---
 id: design-system-g3nxt
 title: Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
-status: doing
+status: done
 type: feature
 context: design-system
 created: 2026-08-15

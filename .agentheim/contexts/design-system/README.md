@@ -45,6 +45,15 @@ extension, per `infrastructure-x23a8`). Validated against the real WidgetKit ren
 `ProjectDetailView.swift`) and `MissionControlWidgets` (`IntegrationStatusWidgetView`), both
 built successfully via `xcodebuild`, both carrying light/dark SwiftUI previews.
 
+`design-system-g3nxt` extended token adoption to the app's two remaining unstyled screens —
+`AddProjectSheet.swift` and `ConnectIntegrationSheet.swift` — which previously rendered with
+plain default SwiftUI styling (no `MCColor`/`MCFont`/`MCSpacing`/`MCRadius` at all). No new
+tokens/components were introduced; both sheets now apply `MCFont`/`MCColor`/`MCSpacing`, and
+`ConnectIntegrationSheet`'s JSON credential editor's corner radius uses `MCRadius.control`. Each
+sheet's visual content is split into a private, `AppEnvironment`-independent `…Content` view (the
+same split `MenuBarContentView`/`IntegrationRow` already used) so both carry light/dark
+`#Preview`s without bootstrapping the real Tier A database/Keychain.
+
 - **`MCColor`** — state tones (`connected`/`degraded`/`error`/`running`/`idle`/`accent`) and
   surface/label tones (`windowBackground`/`contentBackground`/`raisedBackground`/`separator`/
   `label`/`secondaryLabel`/`tertiaryLabel`), every one mapped to a real AppKit semantic

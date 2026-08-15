@@ -12,8 +12,8 @@ research touching this BC, and concept synthesis pages.
 <!-- task-counts:start -->
 - **Backlog:** 0
 - **Todo:** 0
-- **Doing:** 1
-- **Done:** 2
+- **Doing:** 0
+- **Done:** 3
 <!-- task-counts:end -->
 
 ### Todo
@@ -22,11 +22,11 @@ research touching this BC, and concept synthesis pages.
 
 ### Doing
 <!-- doing-list:start -->
-- **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet (feature) — `doing/design-system-g3nxt-restyle-remaining-screens.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet (feature) — `done/design-system-g3nxt-restyle-remaining-screens.md`
 - **design-system-q9vhm** — Build the design draft's remaining components — usage tile, usage graph, event row, project card (feature) — `done/design-system-q9vhm-remaining-draft-components.md`
 - **design-system-001-styleguide** — Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend (feature) — `done/design-system-001-styleguide.md`
 <!-- done-list:end -->
