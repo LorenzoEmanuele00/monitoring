@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:10 -- Batch started: [design-system-q9vhm]
+
+**Type:** Work / Batch start
+**Tasks:** design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+**Parallel:** no (1 worker — user requested sequential execution, one task at a time)
+
+---
+
 ## 2026-08-15 03:07 -- Modeling / Promoted: design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
 
 **Type:** Modeling / Promote
