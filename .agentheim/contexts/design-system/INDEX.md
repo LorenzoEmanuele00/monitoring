@@ -10,14 +10,15 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 2
-- **Todo:** 0
+- **Backlog:** 1
+- **Todo:** 1
 - **Doing:** 0
 - **Done:** 1
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
+- **design-system-q9vhm** — Build the design draft's remaining components — usage tile, usage graph, event row, project card (feature) — `todo/design-system-q9vhm-remaining-draft-components.md`
 <!-- todo-list:end -->
 
 ### Doing
@@ -31,7 +32,6 @@ research touching this BC, and concept synthesis pages.
 
 ### Backlog
 <!-- backlog-list:start -->
-- **design-system-q9vhm** — Build the design draft's remaining components — usage tile, usage graph, event row, project card — `backlog/design-system-q9vhm-remaining-draft-components.md`
 - **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet — `backlog/design-system-g3nxt-restyle-remaining-screens.md`
 <!-- backlog-list:end -->
 

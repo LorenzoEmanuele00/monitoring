@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:06 -- Modeling / Promoted: design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+
+**Type:** Modeling / Promote
+**BC:** design-system
+**From → To:** backlog → todo
+
+---
+
 ## 2026-08-15 03:10 -- Modeling / Refined: design-system-d7fk2 - Bring the app's actual look in line with the claude.ai/design draft
 
 **Type:** Modeling / Refine
