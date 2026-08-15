@@ -5,6 +5,24 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:00 -- Capture / Captured: widgets-w4tqx - Real-data graph widgets for every provider, authored once and reused app+desktop
+
+**Type:** Capture
+**BC:** widgets
+**Filed to:** backlog
+**Summary:** User wants live widgets for every provider (Supabase/Firebase/Vercel, not just GitHub) with graphs, and wants a graph built once in-app to be reusable as a desktop widget cheaply.
+
+---
+
+## 2026-08-15 03:00 -- Capture / Captured: design-system-d7fk2 - Bring the app's actual look in line with the claude.ai/design draft
+
+**Type:** Capture
+**BC:** design-system
+**Filed to:** backlog
+**Summary:** User says the shipped app doesn't resemble their claude.ai/design draft — remaining draft components (usage tile, sparkline graph, event row, project card) never built, and two screens use zero design-system tokens.
+
+---
+
 ## 2026-08-15 02:33 -- Task completed (verification skipped): design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
 
 **Type:** Work / Task completion
