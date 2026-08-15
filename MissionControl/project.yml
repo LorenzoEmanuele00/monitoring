@@ -5,6 +5,27 @@ options:
     macOS: "14.0"
   createIntermediateGroups: true
 
+# ADR-0013 ("Two files must stay in sync ... a project.yml edit without a re-generate
+# silently does nothing"): `xcodegen generate` overwrites project.pbxproj from this file. The
+# same risk runs in reverse too — any setting that only lives hand-added in the committed
+# pbxproj, never added here, is silently dropped on the next regeneration (this is exactly
+# what happened to design-system-001-styleguide's iteration 1, see that task's `## Verifier
+# note (iteration 1)`). Every setting below (each target's REGISTER_APP_GROUPS /
+# DEVELOPMENT_TEAM / sandbox entries, DEAD_CODE_STRIPPING, ENABLE_USER_SCRIPT_SANDBOXING,
+# STRING_CATALOG_GENERATE_SYMBOLS) exists here specifically so regeneration is lossless — do
+# not remove without checking the pbxproj diff.
+#
+# One exception this file CANNOT cover: PBXProject's `LastUpgradeCheck` attribute (the
+# "Xcode version that last upgraded this project" marker). xcodegen computes and writes that
+# value unconditionally from the locally installed Xcode/xcodegen toolchain at generation
+# time — there is no known project.yml key that overrides it (tested empirically: an
+# `attributes: {LastUpgradeCheck: ...}` top-level block round-trips with zero effect on the
+# generated pbxproj). It is purely cosmetic (drives Xcode's "recommended settings" banner,
+# has no effect on build/provisioning behavior) and will legitimately drift to whatever the
+# generating machine's Xcode reports on every future regeneration, on any machine. That is
+# expected xcodegen behavior, not a regression to fix here — the committed pbxproj's current
+# value is left exactly as the local `xcodegen generate` produces it, not hand-patched.
+
 settings:
   base:
     SWIFT_VERSION: "6.0"
@@ -17,6 +38,9 @@ settings:
     # identity. Verify with `xcodebuild -showBuildSettings | grep -i team`.
     DEVELOPMENT_TEAM: "2C553PK57P"
     ENABLE_HARDENED_RUNTIME: YES
+    DEAD_CODE_STRIPPING: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    STRING_CATALOG_GENERATE_SYMBOLS: YES
 
 packages:
   MissionControlKit:
@@ -39,6 +63,11 @@ targets:
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.developer-tools
         GENERATE_INFOPLIST_FILE: YES
+        DEAD_CODE_STRIPPING: YES
+        # infrastructure-w4dg3: required for the app group entitlement to actually take
+        # effect under a real (non-wildcard) provisioning profile — without this the widget
+        # shows "No data yet" because the shared app-group container is never registered.
+        REGISTER_APP_GROUPS: YES
         LD_RUNPATH_SEARCH_PATHS:
           - "$(inherited)"
           - "@executable_path/../Frameworks"
@@ -78,6 +107,24 @@ targets:
         ENABLE_APP_SANDBOX: YES
         SKIP_INSTALL: YES
         GENERATE_INFOPLIST_FILE: YES
+        DEAD_CODE_STRIPPING: YES
+        DEVELOPMENT_TEAM: "2C553PK57P"
+        # infrastructure-w4dg3: same app-group registration fix as the app target — the
+        # widget extension is the side that actually reads the shared container.
+        REGISTER_APP_GROUPS: YES
+        # Widget extension App Sandbox capability entries, mirrored from what Xcode's
+        # Signing & Capabilities UI writes when "Outgoing/Incoming Connections" and the
+        # resource-access toggles are all left off for this target.
+        ENABLE_INCOMING_NETWORK_CONNECTIONS: NO
+        ENABLE_OUTGOING_NETWORK_CONNECTIONS: NO
+        ENABLE_RESOURCE_ACCESS_AUDIO_INPUT: NO
+        ENABLE_RESOURCE_ACCESS_BLUETOOTH: NO
+        ENABLE_RESOURCE_ACCESS_CALENDARS: NO
+        ENABLE_RESOURCE_ACCESS_CAMERA: NO
+        ENABLE_RESOURCE_ACCESS_CONTACTS: NO
+        ENABLE_RESOURCE_ACCESS_LOCATION: NO
+        ENABLE_RESOURCE_ACCESS_PRINTING: NO
+        ENABLE_RESOURCE_ACCESS_USB: NO
         LD_RUNPATH_SEARCH_PATHS:
           - "$(inherited)"
           - "@executable_path/../../../../Frameworks"

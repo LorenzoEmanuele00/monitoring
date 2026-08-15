@@ -22,6 +22,7 @@ For BC-scoped artifacts, see each BC's `INDEX.md`.
 ## Global ADRs (scope: global)
 
 <!-- adr-global:start -->
+- **0015** — Staleness thresholds resolved at 15 min (subdued) / 60 min (flagged), overriding ADR-0008's placeholder — 2026-08-15 — `knowledge/decisions/0015-staleness-thresholds-15-60-minutes.md`
 - **0011** — No backend — single locally-built signed macOS app bundle — 2026-08-13 — `knowledge/decisions/0011-no-backend-local-signed-app-bundle.md`
 - **0010** — Unified logging + PostHog for structured domain events (amended) — 2026-08-13 — `knowledge/decisions/0010-unified-logging-plus-posthog-for-structured-events.md`
 - **0009** — App Sandbox stays on; vault/source access via security-scoped bookmarks — 2026-08-13 — `knowledge/decisions/0009-sandbox-security-scoped-bookmarks.md`

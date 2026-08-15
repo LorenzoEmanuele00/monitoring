@@ -44,6 +44,7 @@ let package = Package(
         .target(name: "MCProviders", dependencies: ["MCDomain", "MCSecrets"]),
 
         .testTarget(name: "MCDomainTests", dependencies: ["MCDomain"]),
+        .testTarget(name: "MCDesignTokensTests", dependencies: ["MCDesignTokens"]),
         .testTarget(name: "MCSnapshotTests", dependencies: ["MCSnapshot"]),
         .testTarget(name: "MCSecretsTests", dependencies: ["MCSecrets"]),
         .testTarget(

@@ -5,6 +5,20 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 02:27 -- Task verified, held pending human sign-off: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Task completion (partial — human gate pending)
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Summary:** Defined the design-system v1 token set (`MCColor`/`MCSpacing`/`MCRadius`/`MCFont`/`MCStaleness`) and two components (`MCStatusPill`, `MCStalenessIndicator`) in `MCDesignTokens`; wired both into the in-app dashboard and the Desktop Widget with light/dark SwiftUI previews; resolved the staleness-threshold conflict as ADR-0015 (15min/60min). Acceptance criteria 1 and 2 are met and verified. Iteration 1's `xcodegen generate` regenerated `project.pbxproj` and silently dropped `infrastructure-w4dg3`'s App Groups provisioning fix — caught by the verifier, fixed in iteration 2 by adding the missing settings to `project.yml` (the xcodegen source of truth) so regeneration is now lossless, and independently re-confirmed genuine. Iteration 3 fixed a dangling `ADR-0016` citation left in that fix's own comment (re-pointed to the real, applicable ADR-0013) and a `LastUpgradeCheck` hand-patch that contradicted it.
+**Duration:** 34m (01:53 batch start -> 02:27 final PASS)
+**Verification:** PASS (iteration 3) — two prior FAILs, both on scope/documentation defects in the fix itself, never on the design-system substance
+**Files changed:** 15
+**Tests added:** 11
+**ADRs written:** 0015
+**Criterion 3 (human sign-off) intentionally NOT met** — this is the task's designed shape, not an incomplete run. The task file stays in `doing/` (not moved to `done/`) with a `## Ready for human review` section naming exactly what to look at and sign off on: `.agentheim/contexts/design-system/doing/design-system-001-styleguide.md`. Once sign-off is recorded there, a follow-up `modeling` or `work` pass should move it to `done/` and this becomes the styleguide gate's release, auto-promoting `project-registry-vnk4t` (and any other frontend-bearing backlog blocked on this gate) from `backlog/` to `todo/`.
+
+---
+
 ## 2026-08-15 02:10 -- Verification failed: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
 
 **Type:** Work / Verification failure
