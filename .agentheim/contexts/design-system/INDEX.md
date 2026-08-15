@@ -11,18 +11,18 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 0
-- **Todo:** 1
-- **Doing:** 0
+- **Todo:** 0
+- **Doing:** 1
 - **Done:** 2
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet (feature) — `todo/design-system-g3nxt-restyle-remaining-screens.md`
 <!-- todo-list:end -->
 
 ### Doing
 <!-- doing-list:start -->
+- **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet (feature) — `doing/design-system-g3nxt-restyle-remaining-screens.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)

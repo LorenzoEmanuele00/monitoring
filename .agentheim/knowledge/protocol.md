@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:22 -- Batch started: [design-system-g3nxt]
+
+**Type:** Work / Batch start
+**Tasks:** design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+**Parallel:** no (1 worker — user requested sequential execution, one task at a time)
+
+---
+
 ## 2026-08-15 03:22 -- Task verified and completed: design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
 
 **Type:** Work / Task completion
