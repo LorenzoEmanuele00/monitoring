@@ -5,6 +5,17 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 02:10 -- Verification failed: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Verification failure
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Iteration:** 1 of 3
+**Reasons:** `xcodegen generate` silently dropped provisioning settings (`REGISTER_APP_GROUPS` and others) from `project.pbxproj` that a prior session (infrastructure-w4dg3) specifically added to fix the widget's "No data yet" bug — a real regression, not a false positive; `CODE_SIGNING_ALLOWED=NO` builds can't detect it since that's the only place the setting has effect
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
 ## 2026-08-15 01:53 -- Batch started: [design-system-001-styleguide]
 
 **Type:** Work / Batch start
