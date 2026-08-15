@@ -5,6 +5,17 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:10 -- Modeling / Refined: design-system-d7fk2 - Bring the app's actual look in line with the claude.ai/design draft
+
+**Type:** Modeling / Refine
+**BC:** design-system
+**Status after:** split (parent removed)
+**Summary:** Resolved the color-fidelity question (keep dynamic system colors, don't hardcode the draft's hex pairs) and split into two independently-workable tasks: building the draft's 4 remaining components, and restyling the two screens that still use zero design-system tokens.
+**Split into:** design-system-q9vhm, design-system-g3nxt
+**ADRs written:** none
+
+---
+
 ## 2026-08-15 03:00 -- Capture / Captured: widgets-w4tqx - Real-data graph widgets for every provider, authored once and reused app+desktop
 
 **Type:** Capture

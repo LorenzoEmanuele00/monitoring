@@ -10,7 +10,7 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 1
+- **Backlog:** 2
 - **Todo:** 0
 - **Doing:** 0
 - **Done:** 1
@@ -31,7 +31,8 @@ research touching this BC, and concept synthesis pages.
 
 ### Backlog
 <!-- backlog-list:start -->
-- **design-system-d7fk2** — Bring the app's actual look in line with the claude.ai/design draft — `backlog/design-system-d7fk2-visual-fidelity-to-draft.md`
+- **design-system-q9vhm** — Build the design draft's remaining components — usage tile, usage graph, event row, project card — `backlog/design-system-q9vhm-remaining-draft-components.md`
+- **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet — `backlog/design-system-g3nxt-restyle-remaining-screens.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC
