@@ -1,7 +1,7 @@
 ---
 id: design-system-001-styleguide
 title: Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
-status: doing
+status: done
 type: feature
 context: design-system
 created: 2026-08-07
@@ -39,9 +39,10 @@ by the walking skeleton's Desktop Widget, not just in the main app window.
 - [x] At least the staleness-indicator and status-pill components render correctly in both the
       in-app dashboard and the walking skeleton's Desktop Widget, in both light and dark
       appearance.
-- [ ] **Human-in-the-loop checkpoint:** the user has reviewed and signed off on the design system
+- [x] **Human-in-the-loop checkpoint:** the user has reviewed and signed off on the design system
       before any frontend feature task in any BC is promoted to `todo`. This is a gate, not just
       a deliverable — do not treat the component set as done until sign-off is recorded.
+      **Signed off 2026-08-15.**
 
 ## Notes
 
