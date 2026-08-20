@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import MCDomain
 import MCDesignTokens
 
@@ -16,8 +17,8 @@ struct ProjectDetailView: View {
         Form {
             Section("Project") {
                 LabeledContent("Name", value: project.name)
-                LabeledContent("Vault note", value: project.vaultNoteRelativePath)
                 sourcePathRow
+                openInObsidianRow
             }
 
             Section("Integrations") {
@@ -37,6 +38,20 @@ struct ProjectDetailView: View {
         .navigationTitle(project.name)
         .sheet(isPresented: $isShowingConnectSheet) {
             ConnectIntegrationSheet(project: project, providerKind: providerToConnect)
+        }
+    }
+
+    /// "Open in Obsidian" is the only behavior a Project's Obsidian link drives (ADR-0014): a
+    /// URL-scheme handoff via `NSWorkspace`, never a filesystem read. Shown only when a link is
+    /// set — no disabled/greyed-out placeholder when it's absent, since the field is optional,
+    /// not incomplete.
+    @ViewBuilder
+    private var openInObsidianRow: some View {
+        if let url = project.obsidianOpenURL {
+            Button("Open in Obsidian") {
+                NSWorkspace.shared.open(url)
+            }
+            .font(MCFont.body)
         }
     }
 

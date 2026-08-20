@@ -11,7 +11,7 @@ struct AddProjectSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var name = ""
-    @State private var vaultNoteRelativePath = ""
+    @State private var obsidianNoteLink = ""
     @State private var isPickingSourceFolder = false
     @State private var pickedSourceURL: URL?
     @State private var pickedSourceBookmark: Data?
@@ -20,7 +20,7 @@ struct AddProjectSheet: View {
     var body: some View {
         AddProjectSheetContent(
             name: $name,
-            vaultNoteRelativePath: $vaultNoteRelativePath,
+            obsidianNoteLink: $obsidianNoteLink,
             pickedSourceURL: pickedSourceURL,
             errorMessage: errorMessage,
             onChooseFolder: { isPickingSourceFolder = true },
@@ -60,7 +60,7 @@ struct AddProjectSheet: View {
     private func addProject() {
         let project = Project(
             name: name,
-            vaultNoteRelativePath: vaultNoteRelativePath,
+            obsidianNoteLink: obsidianNoteLink.isEmpty ? nil : obsidianNoteLink,
             sourcePathBookmark: pickedSourceBookmark
         )
         do {
@@ -77,7 +77,7 @@ struct AddProjectSheet: View {
 /// `MenuBarPreviewContent` split in `ContentView.swift`.
 private struct AddProjectSheetContent: View {
     @Binding var name: String
-    @Binding var vaultNoteRelativePath: String
+    @Binding var obsidianNoteLink: String
     let pickedSourceURL: URL?
     let errorMessage: String?
     let onChooseFolder: () -> Void
@@ -90,8 +90,8 @@ private struct AddProjectSheetContent: View {
                 TextField("Project name", text: $name)
                     .font(MCFont.body)
                 TextField(
-                    "Vault note path (relative)",
-                    text: $vaultNoteRelativePath,
+                    "Obsidian note link (optional)",
+                    text: $obsidianNoteLink,
                     prompt: Text("Progetti/Gestione Mezzi.md")
                 )
                 .font(MCFont.body)
@@ -116,7 +116,7 @@ private struct AddProjectSheetContent: View {
                 Spacer()
                 Button("Cancel", role: .cancel, action: onCancel)
                 Button("Add", action: onAdd)
-                    .disabled(name.isEmpty || vaultNoteRelativePath.isEmpty)
+                    .disabled(name.isEmpty)
             }
         }
         .padding(MCSpacing.s5)
@@ -136,12 +136,12 @@ private struct AddProjectSheetContent: View {
 
 private struct AddProjectSheetPreviewContent: View {
     @State private var name = "mise_pwa"
-    @State private var vaultNoteRelativePath = "Progetti/Gestione Mezzi.md"
+    @State private var obsidianNoteLink = "Progetti/Gestione Mezzi.md"
 
     var body: some View {
         AddProjectSheetContent(
             name: $name,
-            vaultNoteRelativePath: $vaultNoteRelativePath,
+            obsidianNoteLink: $obsidianNoteLink,
             pickedSourceURL: URL(fileURLWithPath: "/Users/lorenzo/Developer/mise_pwa"),
             errorMessage: nil,
             onChooseFolder: {},

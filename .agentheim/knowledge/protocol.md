@@ -5,6 +5,30 @@ Newest entries on top.
 
 ---
 
+## 2026-08-21 00:31 -- Task verified and completed: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Work / Task completion
+**Task:** project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+**Summary:** Made a Project's Obsidian note link fully optional (Project.obsidianNoteLink: String?, GRDB column made nullable), removed the Add-button non-empty requirement, and replaced the always-visible Vault note row with a conditional Open in Obsidian button driven by a new obsidianOpenURL computed property, per ADR-0014
+**Duration:** ~9m39s
+**Verification:** PASS (iteration 2)
+**Files changed:** 7
+**Tests added:** 6
+**ADRs written:** none
+
+---
+
+## 2026-08-21 00:26 -- Verification failed: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Work / Verification failure
+**Task:** project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+**Iteration:** 1 of 3
+**Reasons:** acceptance criterion 1 (name-only registration succeeds) has no covering test — the schema's NOT NULL removal on `obsidianNoteLink` is untested through the repository layer, criterion 2 (Obsidian link stored/read back unchanged) has no covering test — the modified RepositoryTests call site never asserts the stored link value
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
 ## 2026-08-21 00:16 -- Batch started: [project-registry-vnk4t]
 
 **Type:** Work / Batch start
