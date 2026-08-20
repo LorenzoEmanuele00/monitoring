@@ -16,12 +16,13 @@ For BC-scoped artifacts, see each BC's `INDEX.md`.
 - **notifications** — watches Events from Service Integrations and Project Registry, raises macOS Notification Center alerts — `contexts/notifications/INDEX.md`
 - **widgets** — configurable views of Project/Integration data, in-app and as native macOS desktop widgets — `contexts/widgets/INDEX.md`
 - **service-integrations** — connects to GitHub, Firebase Hosting, Supabase, Vercel and future providers; normalizes status/usage/events — `contexts/service-integrations/INDEX.md`
-- **project-registry** — registers Projects from the Obsidian vault's `Progetti` folder and owns their attached Service Integrations — `contexts/project-registry/INDEX.md`
+- **project-registry** — registers Projects by name, optionally linked to a source folder and/or an Obsidian note, and owns their attached Service Integrations — `contexts/project-registry/INDEX.md`
 <!-- bc-list:end -->
 
 ## Global ADRs (scope: global)
 
 <!-- adr-global:start -->
+- **0015** — Staleness thresholds resolved at 15 min (subdued) / 60 min (flagged), overriding ADR-0008's placeholder — 2026-08-15 — `knowledge/decisions/0015-staleness-thresholds-15-60-minutes.md`
 - **0011** — No backend — single locally-built signed macOS app bundle — 2026-08-13 — `knowledge/decisions/0011-no-backend-local-signed-app-bundle.md`
 - **0010** — Unified logging + PostHog for structured domain events (amended) — 2026-08-13 — `knowledge/decisions/0010-unified-logging-plus-posthog-for-structured-events.md`
 - **0009** — App Sandbox stays on; vault/source access via security-scoped bookmarks — 2026-08-13 — `knowledge/decisions/0009-sandbox-security-scoped-bookmarks.md`

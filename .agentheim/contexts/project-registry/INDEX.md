@@ -10,7 +10,7 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 0
+- **Backlog:** 1
 - **Todo:** 0
 - **Doing:** 0
 - **Done:** 0
@@ -30,11 +30,13 @@ research touching this BC, and concept synthesis pages.
 
 ### Backlog
 <!-- backlog-list:start -->
+- **project-registry-vnk4t** — Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action (feature) — `backlog/project-registry-vnk4t-optional-obsidian-link.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC
 
 <!-- adr-local:start -->
+- **0014** — Obsidian link is a fully optional, unparsed pointer; no vault security-scoped bookmark — `../../knowledge/decisions/0014-obsidian-link-optional-no-vault-bookmark.md`
 <!-- adr-local:end -->
 
 ## Research touching this BC

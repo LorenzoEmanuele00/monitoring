@@ -5,6 +5,201 @@ Newest entries on top.
 
 ---
 
+## 2026-08-15 03:31 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 21m (03:10 first batch start -> 03:31)
+**Completed:** 2 (first-try PASS: 2, re-dispatched: 0, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** design-system-q9vhm: 1, design-system-g3nxt: 1
+**Commits:** 6
+**Vision-conformance:** none — batch aligns with vision (both tasks round out the shared design-system component set and apply it to app screens, in service of "Widgets rendering Project/Integration data" and the general glanceable-cockpit polish; touches no non-goal)
+**Batch mix:** 100% product-facing / 0% harness / 0% bookkeeping (2 tasks)
+**Carry-over:** `.agentheim/state/in-flight.json`: left behind (owner: `work` skill's own Stop-hook heartbeat artifact, ADR-0043 — advisory, meant to be git-ignored, not this session's to commit or remove); `.agentheim/.dashboard/` (runtime.json, last-port.json): left behind (owner: the `/agentheim:dashboard` launcher run earlier this session — advisory runtime state, not project bookkeeping); left behind (user WIP, 1 file: `MissionControl/.DS_Store`, macOS Finder metadata, non-`.agentheim`)
+
+---
+
+## 2026-08-15 03:30 -- Task verified and completed: design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+
+**Type:** Work / Task completion
+**Task:** design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+**Summary:** Restyled AddProjectSheet and ConnectIntegrationSheet to consume MCColor/MCFont/MCSpacing/MCRadius design-system tokens, matching ProjectDetailView's visual rhythm; split each into an AppEnvironment-independent Content view so both gain light/dark #Preview.
+**Duration:** ~4m
+**Verification:** PASS (iteration 1)
+**Files changed:** 3
+**Tests added:** 0
+**ADRs written:** none
+
+---
+
+## 2026-08-15 03:22 -- Batch started: [design-system-g3nxt]
+
+**Type:** Work / Batch start
+**Tasks:** design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+**Parallel:** no (1 worker — user requested sequential execution, one task at a time)
+
+---
+
+## 2026-08-15 03:22 -- Task verified and completed: design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+
+**Type:** Work / Task completion
+**Task:** design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+**Summary:** Added the four remaining design-draft components (MCUsageMetricTile, MCUsageGraph, MCEventRow/MCEventKind, MCProjectCard) to MCDesignTokens/Components/, each with light/dark #Preview against sample data, plus one new MCColor.merged token; usage-tile 80%-degraded-threshold rule covered by a new unit test suite.
+**Duration:** ~7m
+**Verification:** PASS (iteration 1)
+**Files changed:** 8
+**Tests added:** 5
+**ADRs written:** none
+
+---
+
+## 2026-08-15 03:10 -- Batch started: [design-system-q9vhm]
+
+**Type:** Work / Batch start
+**Tasks:** design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+**Parallel:** no (1 worker — user requested sequential execution, one task at a time)
+
+---
+
+## 2026-08-15 03:07 -- Modeling / Promoted: design-system-g3nxt - Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet
+
+**Type:** Modeling / Promote
+**BC:** design-system
+**From → To:** backlog → todo
+
+---
+
+## 2026-08-15 03:06 -- Modeling / Promoted: design-system-q9vhm - Build the design draft's remaining components — usage tile, usage graph, event row, project card
+
+**Type:** Modeling / Promote
+**BC:** design-system
+**From → To:** backlog → todo
+
+---
+
+## 2026-08-15 03:10 -- Modeling / Refined: design-system-d7fk2 - Bring the app's actual look in line with the claude.ai/design draft
+
+**Type:** Modeling / Refine
+**BC:** design-system
+**Status after:** split (parent removed)
+**Summary:** Resolved the color-fidelity question (keep dynamic system colors, don't hardcode the draft's hex pairs) and split into two independently-workable tasks: building the draft's 4 remaining components, and restyling the two screens that still use zero design-system tokens.
+**Split into:** design-system-q9vhm, design-system-g3nxt
+**ADRs written:** none
+
+---
+
+## 2026-08-15 03:00 -- Capture / Captured: widgets-w4tqx - Real-data graph widgets for every provider, authored once and reused app+desktop
+
+**Type:** Capture
+**BC:** widgets
+**Filed to:** backlog
+**Summary:** User wants live widgets for every provider (Supabase/Firebase/Vercel, not just GitHub) with graphs, and wants a graph built once in-app to be reusable as a desktop widget cheaply.
+
+---
+
+## 2026-08-15 03:00 -- Capture / Captured: design-system-d7fk2 - Bring the app's actual look in line with the claude.ai/design draft
+
+**Type:** Capture
+**BC:** design-system
+**Filed to:** backlog
+**Summary:** User says the shipped app doesn't resemble their claude.ai/design draft — remaining draft components (usage tile, sparkline graph, event row, project card) never built, and two screens use zero design-system tokens.
+
+---
+
+## 2026-08-15 02:33 -- Task completed (verification skipped): design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Task completion
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Summary:** Human sign-off recorded on the v1 design-system token/component set; the styleguide gate is now released.
+**Duration:** n/a (interactive sign-off, not a work-skill batch)
+**Verification:** SKIPPED — human-in-the-loop checkpoint recorded interactively, not a worker/verifier run
+**Files changed:** 1
+
+---
+
+## 2026-08-15 02:29 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 36m
+**Completed:** 1 (first-try PASS: 0, re-dispatched: 1, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** design-system-001-styleguide: 3
+**Commits:** 4
+**Vision-conformance:** none — batch aligns with vision (design-system-001-styleguide ships the shared token/component vocabulary as a generic BC upstream of every frontend-bearing context, not mise_pwa-specific; touches no non-goal)
+**Batch mix:** 100% product-facing / 0% harness / 0% bookkeeping (1 task)
+**Carry-over:** `.agentheim/state/in-flight.json`: left behind (owner: `work` skill's own Stop-hook heartbeat artifact, ADR-0043 — advisory, meant to be git-ignored though this repo has no `.gitignore` yet to enforce it; not this session's to commit or remove); left behind (user WIP, 1 file: `MissionControl/.DS_Store`, macOS Finder metadata, non-`.agentheim`)
+
+---
+
+## 2026-08-15 02:27 -- Task verified, held pending human sign-off: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Task completion (partial — human gate pending)
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Summary:** Defined the design-system v1 token set (`MCColor`/`MCSpacing`/`MCRadius`/`MCFont`/`MCStaleness`) and two components (`MCStatusPill`, `MCStalenessIndicator`) in `MCDesignTokens`; wired both into the in-app dashboard and the Desktop Widget with light/dark SwiftUI previews; resolved the staleness-threshold conflict as ADR-0015 (15min/60min). Acceptance criteria 1 and 2 are met and verified. Iteration 1's `xcodegen generate` regenerated `project.pbxproj` and silently dropped `infrastructure-w4dg3`'s App Groups provisioning fix — caught by the verifier, fixed in iteration 2 by adding the missing settings to `project.yml` (the xcodegen source of truth) so regeneration is now lossless, and independently re-confirmed genuine. Iteration 3 fixed a dangling `ADR-0016` citation left in that fix's own comment (re-pointed to the real, applicable ADR-0013) and a `LastUpgradeCheck` hand-patch that contradicted it.
+**Duration:** 34m (01:53 batch start -> 02:27 final PASS)
+**Verification:** PASS (iteration 3) — two prior FAILs, both on scope/documentation defects in the fix itself, never on the design-system substance
+**Files changed:** 15
+**Tests added:** 11
+**ADRs written:** 0015
+**Criterion 3 (human sign-off) intentionally NOT met** — this is the task's designed shape, not an incomplete run. The task file stays in `doing/` (not moved to `done/`) with a `## Ready for human review` section naming exactly what to look at and sign off on: `.agentheim/contexts/design-system/doing/design-system-001-styleguide.md`. Once sign-off is recorded there, a follow-up `modeling` or `work` pass should move it to `done/` and this becomes the styleguide gate's release, auto-promoting `project-registry-vnk4t` (and any other frontend-bearing backlog blocked on this gate) from `backlog/` to `todo/`.
+
+---
+
+## 2026-08-15 02:10 -- Verification failed: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Verification failure
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Iteration:** 1 of 3
+**Reasons:** `xcodegen generate` silently dropped provisioning settings (`REGISTER_APP_GROUPS` and others) from `project.pbxproj` that a prior session (infrastructure-w4dg3) specifically added to fix the widget's "No data yet" bug — a real regression, not a false positive; `CODE_SIGNING_ALLOWED=NO` builds can't detect it since that's the only place the setting has effect
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
+## 2026-08-15 02:20 -- Verification failed: design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+
+**Type:** Work / Verification failure
+**Task:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Iteration:** 2 of 3
+**Reasons:** the iteration-1 provisioning regression is genuinely fixed (independently re-verified against the pre-regression commit) — but the fix's own `project.yml` comment cites "ADR-0016 (regeneration-losslessness)", an ADR that was never written; the task file explicitly says no new ADR was needed, so the comment asserts a decision record that doesn't exist. Secondary: a `LastUpgradeCheck` hand-patch in `project.pbxproj` contradicts the same comment's stated policy that the field should be left to drift.
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker (final iteration, 3 of 3)
+
+---
+
+## 2026-08-15 01:53 -- Batch started: [design-system-001-styleguide]
+
+**Type:** Work / Batch start
+**Tasks:** design-system-001-styleguide - Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend
+**Parallel:** no (1 worker)
+
+---
+
+## 2026-08-15 01:50 -- Modeling / Captured: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Modeling / Capture (with decision)
+**BC:** project-registry
+**Filed to:** backlog (blocked from todo by the styleguide gate — auto-promotable once
+`design-system-001-styleguide` ships)
+**Summary:** Following the user's hands-on experience with the walking skeleton, decided the
+Obsidian vault link should never be a registration requirement — it becomes a fully optional,
+unparsed per-Project pointer driving exactly one behavior, an "Open in Obsidian" action via the
+`obsidian://` URL scheme. No filesystem access to the vault, no security-scoped bookmark for it
+(narrows ADR-0009's bookmark requirement to Source Path only). Resolves both of Project
+Registry's long-open questions (vault-note parsing, vault-based Project discovery) at once.
+**ADRs written:** 0014 (new); ADR-0009's `superseded_by` frontmatter updated to point here for
+the vault-bookmark claim specifically (body left untouched as historical record).
+**Also updated:** `vision.md` ("What success looks like" registration bullet, ubiquitous
+language, one open question resolved), `context-map.md` (Project Registry purpose/core
+language), `project-registry/README.md` (purpose, ubiquitous language, aggregate invariant, both
+open questions resolved), `knowledge/index.md` (BC one-liner).
+
+---
+
 ## 2026-08-15 01:10 -- Bug resolved: infrastructure-w4dg3 - widget "No data yet" root-caused
 
 **Type:** Manual verification / interactive bugfix (resolution)

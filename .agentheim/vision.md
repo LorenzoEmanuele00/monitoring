@@ -19,8 +19,9 @@ answers "here's the state of everything I'm running" at a glance, and no way to 
 without deliberately opening several different tools.
 
 ## What success looks like
-- A Project can be registered from the `Progetti` folder of the Obsidian vault, optionally
-  linked to a local source-code folder on disk.
+- A Project can be registered by name, optionally linked to a local source-code folder on disk
+  and/or an Obsidian note for one-click "open in Obsidian" access — neither link is required
+  (ADR-0014).
 - One or more Service Integrations (GitHub, Firebase Hosting, Supabase, Vercel, ...) can be
   attached to a Project.
 - Widgets rendering Project/Integration data are configurable from the app, and at least a
@@ -45,11 +46,11 @@ without deliberately opening several different tools.
   one project (mise_pwa) or a small fixed set.
 
 ## Ubiquitous language (seed)
-- **Project** — a unit of work registered in the app, rooted in a note/folder inside the
-  Obsidian vault's `Progetti` folder; optionally linked to a local source-code folder on disk;
-  owns a set of attached Service Integrations.
+- **Project** — a unit of work registered in the app by name; optionally linked to a local
+  source-code folder on disk and/or an Obsidian note (an unparsed pointer used only for a
+  one-click "open in Obsidian" action, ADR-0014); owns a set of attached Service Integrations.
 - **Vault** — the user's Obsidian vault on this Mac; `Progetti` is the folder within it where
-  Projects are documented.
+  Projects are typically documented, when a Project has a linked Obsidian note at all.
 - **Service Integration** — a typed connection from a Project to an external platform (GitHub,
   Firebase Hosting, Supabase, Vercel, ...) that exposes status, usage metrics, and events
   through that platform's API.
@@ -70,7 +71,10 @@ without deliberately opening several different tools.
   2026-08-07)
 - What credential storage / auth flow will each provider integration use (personal access
   tokens vs OAuth), and where are secrets kept? (open since 2026-08-07)
-- How does the app detect new/changed Projects in the Obsidian vault — a one-time import, a
-  watched folder, or manual "add project" only? (open since 2026-08-07)
+- ~~How does the app detect new/changed Projects in the Obsidian vault — a one-time import, a
+  watched folder, or manual "add project" only?~~ Resolved (ADR-0014, 2026-08-15): it doesn't —
+  there is no vault-scanning/discovery mechanism; registration is always manual "Add Project",
+  and the Obsidian link (when present) is an unparsed pointer, never a source of truth for which
+  Projects exist. (open 2026-08-07 → resolved 2026-08-15)
 - What's the refresh/polling cadence for each integration, given WidgetKit's OS-managed
   timeline budget versus the desire for near-real-time notifications? (open since 2026-08-07)

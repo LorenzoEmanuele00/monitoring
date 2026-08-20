@@ -10,7 +10,7 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 0
+- **Backlog:** 1
 - **Todo:** 0
 - **Doing:** 0
 - **Done:** 0
@@ -30,6 +30,7 @@ research touching this BC, and concept synthesis pages.
 
 ### Backlog
 <!-- backlog-list:start -->
+- **widgets-w4tqx** — Real-data graph widgets for every provider, authored once and reused app+desktop — `backlog/widgets-w4tqx-multi-provider-graph-widgets.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC

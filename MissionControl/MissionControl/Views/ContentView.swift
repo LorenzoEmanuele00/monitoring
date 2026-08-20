@@ -57,13 +57,11 @@ struct MenuBarContentView: View {
             }
             ForEach(environment.integrations) { integration in
                 HStack {
-                    Circle()
-                        .fill(statusColor(integration.status))
-                        .frame(width: 8, height: 8)
                     Text(integration.displayName)
                     Spacer()
                     Text(integration.providerKind.displayName)
                         .foregroundStyle(.secondary)
+                    MCStatusPill(integration.status.pillLabel, tone: integration.status.pillTone)
                 }
             }
             Divider()
@@ -77,12 +75,39 @@ struct MenuBarContentView: View {
         .padding(8)
         .frame(minWidth: 220)
     }
+}
 
-    private func statusColor(_ status: IntegrationStatus) -> Color {
-        switch status {
-        case .connected: return MCColor.connected
-        case .degraded: return MCColor.degraded
-        case .credentialExpired, .disconnected: return MCColor.disconnected
+#Preview("Menu bar — light") {
+    MenuBarPreviewContent()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Menu bar — dark") {
+    MenuBarPreviewContent()
+        .preferredColorScheme(.dark)
+}
+
+/// Renders the same status-pill row `MenuBarContentView` uses, without depending on
+/// `AppEnvironment`'s full polling/persistence bootstrap — this task's previews validate the
+/// design-system components, not the menu bar's live data plumbing.
+private struct MenuBarPreviewContent: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            ForEach(IntegrationStatus.allPreviewCases, id: \.self) { status in
+                HStack {
+                    Text("mise_pwa")
+                    Spacer()
+                    Text("GitHub")
+                        .foregroundStyle(.secondary)
+                    MCStatusPill(status.pillLabel, tone: status.pillTone)
+                }
+            }
         }
+        .padding(8)
+        .frame(minWidth: 260)
     }
+}
+
+private extension IntegrationStatus {
+    static let allPreviewCases: [IntegrationStatus] = [.connected, .degraded, .credentialExpired, .disconnected]
 }

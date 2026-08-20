@@ -11,14 +11,13 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 0
-- **Todo:** 1
+- **Todo:** 0
 - **Doing:** 0
-- **Done:** 0
+- **Done:** 3
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **design-system-001-styleguide** — Styleguide — tokens/components, human-reviewed before any BC builds frontend — depends_on: [infrastructure-001-walking-skeleton] — `todo/design-system-001-styleguide.md`
 <!-- todo-list:end -->
 
 ### Doing
@@ -27,6 +26,9 @@ research touching this BC, and concept synthesis pages.
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **design-system-g3nxt** — Apply design-system tokens to AddProjectSheet and ConnectIntegrationSheet (feature) — `done/design-system-g3nxt-restyle-remaining-screens.md`
+- **design-system-q9vhm** — Build the design draft's remaining components — usage tile, usage graph, event row, project card (feature) — `done/design-system-q9vhm-remaining-draft-components.md`
+- **design-system-001-styleguide** — Styleguide — tokens and components for the app and its widgets, human-reviewed before any BC builds frontend (feature) — `done/design-system-001-styleguide.md`
 <!-- done-list:end -->
 
 ### Backlog

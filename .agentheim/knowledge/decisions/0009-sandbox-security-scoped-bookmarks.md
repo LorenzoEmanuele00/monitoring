@@ -5,12 +5,18 @@ scope: global
 status: accepted
 date: 2026-08-13
 supersedes: []
-superseded_by: []
+superseded_by: [0014]
 related_tasks: [infrastructure-pcmqh]
 related_research: []
 ---
 
 # ADR 0009: Keep the App Sandbox on; reach the Obsidian vault and source folders via security-scoped bookmarks
+
+**Note (2026-08-15):** ADR-0014 narrows this ADR's scope. The security-scoped-bookmark machinery
+described below applies to **Source Path only** — the Obsidian vault link no longer needs it
+(it's an optional, unparsed pointer handed off via the `obsidian://` URL scheme, never read as a
+file). The rest of this ADR (App Sandbox stays on; Source Path bookmarks work as described)
+still holds. Left unedited below as the historical record of the original, broader reasoning.
 
 ## Context
 Project Registry roots every Project in a folder inside the user's Obsidian vault, and optionally

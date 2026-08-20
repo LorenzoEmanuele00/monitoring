@@ -61,13 +61,60 @@ private struct IntegrationRow: View {
         HStack {
             Text(integration.providerKind.displayName)
             Spacer()
-            Text(integration.status.rawValue)
-                .foregroundStyle(.secondary)
+            if let lastSuccessAt = integration.lastSuccessAt {
+                MCStalenessIndicator(generatedAt: lastSuccessAt)
+            }
+            MCStatusPill(integration.status.pillLabel, tone: integration.status.pillTone)
             if let lastError = integration.lastError {
                 Image(systemName: "exclamationmark.triangle")
-                    .foregroundStyle(MCColor.disconnected)
+                    .foregroundStyle(MCColor.error)
                     .help(lastError)
             }
         }
+    }
+}
+
+#Preview("Integration row — light") {
+    IntegrationRowPreviewList()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Integration row — dark") {
+    IntegrationRowPreviewList()
+        .preferredColorScheme(.dark)
+}
+
+private struct IntegrationRowPreviewList: View {
+    var body: some View {
+        Form {
+            Section("Integrations") {
+                IntegrationRow(integration: .preview(status: .connected, minutesSinceSuccess: 2))
+                IntegrationRow(integration: .preview(status: .degraded, minutesSinceSuccess: 25))
+                IntegrationRow(
+                    integration: .preview(status: .disconnected, minutesSinceSuccess: 90, lastError: "401 Unauthorized")
+                )
+            }
+        }
+        .padding()
+        .frame(width: 420)
+    }
+}
+
+private extension ServiceIntegration {
+    static func preview(
+        status: IntegrationStatus,
+        minutesSinceSuccess: Double,
+        lastError: String? = nil
+    ) -> ServiceIntegration {
+        ServiceIntegration(
+            projectID: UUID(),
+            providerKind: .githubRepository,
+            credentialKind: .staticToken,
+            displayName: "mise_pwa",
+            externalRef: "LorenzoEmanuele00/mise_pwa",
+            status: status,
+            lastSuccessAt: Date().addingTimeInterval(-minutesSinceSuccess * 60),
+            lastError: lastError
+        )
     }
 }

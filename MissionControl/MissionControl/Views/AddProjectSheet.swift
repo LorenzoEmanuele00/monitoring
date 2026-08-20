@@ -1,5 +1,6 @@
 import SwiftUI
 import MCDomain
+import MCDesignTokens
 
 /// Manual "add project" flow (task's What item 5: "manual 'add project' flow is enough for
 /// this spike — Project Registry's discovery-mode open question stays open"). Source path is
@@ -17,32 +18,15 @@ struct AddProjectSheet: View {
     @State private var errorMessage: String?
 
     var body: some View {
-        Form {
-            TextField("Project name", text: $name)
-            TextField("Vault note path (relative)", text: $vaultNoteRelativePath, prompt: Text("Progetti/Gestione Mezzi.md"))
-
-            HStack {
-                Text(pickedSourceURL?.path ?? "No source folder selected")
-                    .foregroundStyle(pickedSourceURL == nil ? .secondary : .primary)
-                Spacer()
-                Button("Choose Folder…") {
-                    isPickingSourceFolder = true
-                }
-            }
-
-            if let errorMessage {
-                Text(errorMessage).foregroundStyle(.red)
-            }
-
-            HStack {
-                Spacer()
-                Button("Cancel", role: .cancel) { dismiss() }
-                Button("Add") { addProject() }
-                    .disabled(name.isEmpty || vaultNoteRelativePath.isEmpty)
-            }
-        }
-        .padding()
-        .frame(minWidth: 420)
+        AddProjectSheetContent(
+            name: $name,
+            vaultNoteRelativePath: $vaultNoteRelativePath,
+            pickedSourceURL: pickedSourceURL,
+            errorMessage: errorMessage,
+            onChooseFolder: { isPickingSourceFolder = true },
+            onCancel: { dismiss() },
+            onAdd: addProject
+        )
         .fileImporter(
             isPresented: $isPickingSourceFolder,
             allowedContentTypes: [.folder],
@@ -85,5 +69,84 @@ struct AddProjectSheet: View {
         } catch {
             errorMessage = "\(error)"
         }
+    }
+}
+
+/// The sheet's visual content, split out from `AddProjectSheet` so it can be previewed without
+/// bootstrapping `AppEnvironment`'s real Tier A database/Keychain — mirrors the
+/// `MenuBarPreviewContent` split in `ContentView.swift`.
+private struct AddProjectSheetContent: View {
+    @Binding var name: String
+    @Binding var vaultNoteRelativePath: String
+    let pickedSourceURL: URL?
+    let errorMessage: String?
+    let onChooseFolder: () -> Void
+    let onCancel: () -> Void
+    let onAdd: () -> Void
+
+    var body: some View {
+        Form {
+            Section("New Project") {
+                TextField("Project name", text: $name)
+                    .font(MCFont.body)
+                TextField(
+                    "Vault note path (relative)",
+                    text: $vaultNoteRelativePath,
+                    prompt: Text("Progetti/Gestione Mezzi.md")
+                )
+                .font(MCFont.body)
+
+                HStack(spacing: MCSpacing.s3) {
+                    Text(pickedSourceURL?.path ?? "No source folder selected")
+                        .font(MCFont.body)
+                        .foregroundStyle(pickedSourceURL == nil ? MCColor.secondaryLabel : MCColor.label)
+                    Spacer()
+                    Button("Choose Folder…", action: onChooseFolder)
+                        .font(MCFont.body)
+                }
+            }
+
+            if let errorMessage {
+                Text(errorMessage)
+                    .font(MCFont.subheadline)
+                    .foregroundStyle(MCColor.error)
+            }
+
+            HStack(spacing: MCSpacing.s4) {
+                Spacer()
+                Button("Cancel", role: .cancel, action: onCancel)
+                Button("Add", action: onAdd)
+                    .disabled(name.isEmpty || vaultNoteRelativePath.isEmpty)
+            }
+        }
+        .padding(MCSpacing.s5)
+        .frame(minWidth: 420)
+    }
+}
+
+#Preview("Add Project — light") {
+    AddProjectSheetPreviewContent()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Add Project — dark") {
+    AddProjectSheetPreviewContent()
+        .preferredColorScheme(.dark)
+}
+
+private struct AddProjectSheetPreviewContent: View {
+    @State private var name = "mise_pwa"
+    @State private var vaultNoteRelativePath = "Progetti/Gestione Mezzi.md"
+
+    var body: some View {
+        AddProjectSheetContent(
+            name: $name,
+            vaultNoteRelativePath: $vaultNoteRelativePath,
+            pickedSourceURL: URL(fileURLWithPath: "/Users/lorenzo/Developer/mise_pwa"),
+            errorMessage: nil,
+            onChooseFolder: {},
+            onCancel: {},
+            onAdd: {}
+        )
     }
 }

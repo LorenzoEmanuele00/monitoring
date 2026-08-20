@@ -3,9 +3,11 @@
 ## Contexts
 
 ### Project Registry
-- **Purpose:** register Projects sourced from the Obsidian vault's `Progetti` folder (and an
-  optional local source path), and own which Service Integrations are attached to each Project.
-- **Core language:** Project, Vault Note, Progetti Folder, Source Path, Integration Binding.
+- **Purpose:** register Projects by name, optionally linked to a local source path and/or an
+  Obsidian note (ADR-0014 — an unparsed pointer, not a root), and own which Service Integrations
+  are attached to each Project.
+- **Core language:** Project, Obsidian Note Link, Vault, Progetti Folder, Source Path,
+  Integration Binding.
 - **Classification:** core — this is the aggregate root the rest of the product organizes
   around.
 - **Key actors:** the user (registering and configuring Projects).
