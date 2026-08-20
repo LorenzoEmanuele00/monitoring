@@ -5,6 +5,13 @@ Newest entries on top.
 
 ---
 
+## 2026-08-21 00:35 -- Work session ended
+
+**Type:** Work / Session end
+**Completed:** 1 — project-registry-vnk4t (first-try PASS: 0, re-dispatched: 1, skipped: 0); board then empty — vacuum guard exit (no ready tasks; open vision questions surfaced above: Service Integration provider scope, credential storage/auth flow, refresh/polling cadence — all open since 2026-08-07)
+
+---
+
 ## 2026-08-21 00:31 -- Task verified and completed: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
 
 **Type:** Work / Task completion
