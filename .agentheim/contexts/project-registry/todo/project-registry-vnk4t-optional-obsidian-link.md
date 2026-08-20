@@ -1,7 +1,7 @@
 ---
 id: project-registry-vnk4t
 title: Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
-status: backlog
+status: todo
 type: feature
 context: project-registry
 created: 2026-08-15

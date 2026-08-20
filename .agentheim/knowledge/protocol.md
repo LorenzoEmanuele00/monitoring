@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-21 00:15 -- Modeling / Promoted: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Modeling / Promote
+**BC:** project-registry
+**From → To:** backlog → todo
+
+---
+
 ## 2026-08-15 03:31 -- Work session ended
 
 **Type:** Work / Session end
