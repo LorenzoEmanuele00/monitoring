@@ -11,18 +11,18 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 0
-- **Todo:** 1
-- **Doing:** 0
+- **Todo:** 0
+- **Doing:** 1
 - **Done:** 0
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **project-registry-vnk4t** — Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action (feature) — `todo/project-registry-vnk4t-optional-obsidian-link.md`
 <!-- todo-list:end -->
 
 ### Doing
 <!-- doing-list:start -->
+- **project-registry-vnk4t** — Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action (feature) — `doing/project-registry-vnk4t-optional-obsidian-link.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)

@@ -5,6 +5,15 @@ Newest entries on top.
 
 ---
 
+## 2026-08-21 00:16 -- Batch started: [project-registry-vnk4t]
+
+**Type:** Work / Batch start
+**Tasks:** project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+**Parallel:** no (1 worker — only one task ready this batch)
+**Planning advisory:** whats-next (current): promote project-registry-vnk4t — unblocked by the styleguide shipping, continues the AddProjectSheet/token-restyle thread
+
+---
+
 ## 2026-08-21 00:15 -- Modeling / Promoted: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
 
 **Type:** Modeling / Promote
