@@ -5,6 +5,22 @@ Newest entries on top.
 
 ---
 
+## 2026-08-22 18:19 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 23m (17:56 first batch start -> 18:19)
+**Completed:** 1 (first-try PASS: 0, re-dispatched: 1, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** infrastructure-b92mn: 2
+**Commits:** 3
+**Vision-conformance:** none — batch aligns with vision (burst-mode polling hardens the refresh-cadence mechanism ADR-0006 already committed to, in service of the near-real-time-notifications success criterion; touches no non-goal)
+**Batch mix:** 0% product-facing / 100% harness / 0% bookkeeping (1 task)
+**Carry-over:** `.agentheim/.dashboard/` (runtime.json, last-port.json): left behind (owner: the `/agentheim:dashboard` launcher run earlier this session — advisory runtime state, not project bookkeeping); `.agentheim/state/` (in-flight.json, whats-next.md): left behind (owner: `work`'s own Stop-hook heartbeat, ADR-0043, plus the prior session's whats-next advisory — both advisory-write artifacts, not this session's to commit); left behind (user WIP, 1 file: `MissionControl/.DS_Store`, macOS Finder metadata, non-`.agentheim`)
+
+---
+
 ## 2026-08-22 18:18 -- Task verified and completed: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
 
 **Type:** Work / Task completion
