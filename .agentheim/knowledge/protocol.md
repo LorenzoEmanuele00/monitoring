@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-22 17:55 -- Modeling / Promoted: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+
+**Type:** Modeling / Promote
+**BC:** infrastructure
+**From → To:** backlog → todo
+
+---
+
 ## 2026-08-21 00:35 -- Work session ended
 
 **Type:** Work / Session end

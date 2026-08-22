@@ -10,14 +10,15 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 2
-- **Todo:** 0
+- **Backlog:** 1
+- **Todo:** 1
 - **Doing:** 0
 - **Done:** 10
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
+- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min) (task) — `todo/infrastructure-b92mn-burst-polling-mode.md`
 <!-- todo-list:end -->
 
 ### Doing
@@ -41,7 +42,6 @@ research touching this BC, and concept synthesis pages.
 ### Backlog
 <!-- backlog-list:start -->
 - **infrastructure-pht7k** — Wire real PostHog SDK (currently a stub) — `backlog/infrastructure-pht7k-wire-real-posthog-sdk.md`
-- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode — `backlog/infrastructure-b92mn-burst-polling-mode.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC
