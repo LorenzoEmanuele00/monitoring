@@ -14,7 +14,7 @@ import Foundation
         let manager = try DatabaseManager(inMemory: true)
         let projectRepo = GRDBProjectRepository(dbQueue: manager.dbQueue)
 
-        let project = Project(name: "mise_pwa", vaultNoteRelativePath: "Progetti/Gestione Mezzi.md")
+        let project = Project(name: "mise_pwa", obsidianNoteLink: "Progetti/Gestione Mezzi.md")
         try projectRepo.insert(project)
 
         let fetched = try projectRepo.fetch(id: project.id)
@@ -24,12 +24,45 @@ import Foundation
         #expect(all.count == 1)
     }
 
+    /// Covers acceptance criterion 1 of project-registry-vnk4t: registering a Project with only
+    /// a name (no Obsidian link, no Source Path) must succeed all the way through the schema —
+    /// this is the test that would have caught a missed `.notNull()` removal on the
+    /// `obsidianNoteLink` column (`DatabaseManager`'s `v1_initial` migration), which the earlier
+    /// in-memory-only `ProjectTests` coverage could not catch.
+    @Test func projectWithNoObsidianLinkInsertsAndFetchesAsNil() throws {
+        let manager = try DatabaseManager(inMemory: true)
+        let projectRepo = GRDBProjectRepository(dbQueue: manager.dbQueue)
+
+        let project = Project(name: "name-only")
+        try projectRepo.insert(project)
+
+        let fetched = try projectRepo.fetch(id: project.id)
+        #expect(fetched?.name == "name-only")
+        #expect(fetched?.obsidianNoteLink == nil)
+    }
+
+    /// Covers acceptance criterion 2 of project-registry-vnk4t: a Project's Obsidian link, when
+    /// set, is stored and read back unchanged. This exercises the actual GRDB Codable column
+    /// mapping (`GRDBRecordConformances.swift`), unlike the earlier `JSONEncoder`/`JSONDecoder`
+    /// round-trip test, which never touched storage.
+    @Test func projectWithObsidianLinkRoundTripsThroughStorageUnchanged() throws {
+        let manager = try DatabaseManager(inMemory: true)
+        let projectRepo = GRDBProjectRepository(dbQueue: manager.dbQueue)
+
+        let link = "Progetti/Gestione Mezzi.md"
+        let project = Project(name: "mise_pwa", obsidianNoteLink: link)
+        try projectRepo.insert(project)
+
+        let fetched = try projectRepo.fetch(id: project.id)
+        #expect(fetched?.obsidianNoteLink == link)
+    }
+
     @Test func integrationLifecycleAndLastGoodWins() throws {
         let manager = try DatabaseManager(inMemory: true)
         let projectRepo = GRDBProjectRepository(dbQueue: manager.dbQueue)
         let integrationRepo = GRDBServiceIntegrationRepository(dbQueue: manager.dbQueue)
 
-        let project = Project(name: "mise_pwa", vaultNoteRelativePath: "Progetti/Gestione Mezzi.md")
+        let project = Project(name: "mise_pwa", obsidianNoteLink: "Progetti/Gestione Mezzi.md")
         try projectRepo.insert(project)
 
         var integration = ServiceIntegration(

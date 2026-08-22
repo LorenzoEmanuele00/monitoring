@@ -36,10 +36,21 @@ public final class DatabaseManager: Sendable {
             // `DatabaseValueConvertible` conformance stores UUIDs as their 16-byte raw
             // representation, not a string — the column type must match that encoding for
             // `fetchOne(db, key:)`/`filter(Column(...) == uuid)` lookups to hit.
+            //
+            // Migration-strategy note (project-registry-vnk4t, ADR-0014 follow-through): this
+            // column was originally `vaultNoteRelativePath TEXT NOT NULL` and was renamed/made
+            // nullable **in place** here — inside the already-registered `v1_initial` step —
+            // rather than via a new `v2` migration step. That is only safe because this is a
+            // pre-release walking-skeleton spike with zero installed/shipped databases; a real
+            // migration would need a `v2_makeObsidianLinkOptional` step (ALTER/rebuild + backfill)
+            // so an existing install's schema advances instead of silently mismatching code that
+            // now reads `obsidianNoteLink`. If this project ever ships a build with `v1_initial`
+            // already applied on a user's machine, this in-place rewrite must not be repeated —
+            // add a proper versioned migration instead.
             try db.create(table: "project") { t in
                 t.column("id", .blob).primaryKey()
                 t.column("name", .text).notNull()
-                t.column("vaultNoteRelativePath", .text).notNull()
+                t.column("obsidianNoteLink", .text)
                 t.column("sourcePathBookmark", .blob)
                 t.column("createdAt", .datetime).notNull()
             }

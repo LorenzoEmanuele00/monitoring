@@ -5,6 +5,110 @@ Newest entries on top.
 
 ---
 
+## 2026-08-22 18:19 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 23m (17:56 first batch start -> 18:19)
+**Completed:** 1 (first-try PASS: 0, re-dispatched: 1, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** infrastructure-b92mn: 2
+**Commits:** 3
+**Vision-conformance:** none — batch aligns with vision (burst-mode polling hardens the refresh-cadence mechanism ADR-0006 already committed to, in service of the near-real-time-notifications success criterion; touches no non-goal)
+**Batch mix:** 0% product-facing / 100% harness / 0% bookkeeping (1 task)
+**Carry-over:** `.agentheim/.dashboard/` (runtime.json, last-port.json): left behind (owner: the `/agentheim:dashboard` launcher run earlier this session — advisory runtime state, not project bookkeeping); `.agentheim/state/` (in-flight.json, whats-next.md): left behind (owner: `work`'s own Stop-hook heartbeat, ADR-0043, plus the prior session's whats-next advisory — both advisory-write artifacts, not this session's to commit); left behind (user WIP, 1 file: `MissionControl/.DS_Store`, macOS Finder metadata, non-`.agentheim`)
+
+---
+
+## 2026-08-22 18:18 -- Task verified and completed: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+
+**Type:** Work / Task completion
+**Task:** infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+**Summary:** Implemented ADR-0006 burst polling mode with a pure, package-testable BurstPolling.decide function (MCDomain), GitHubActionsAdapter work-in-flight signal, and PollingCoordinator wiring; iteration-1 verifier FAIL (non-optional isWorkInFlight field broke Decodable for pre-existing snapshots, violating ADR-0008 last-good-wins) fixed in iteration 2 with a tolerant custom Decodable initializer and regression tests
+**Duration:** ~19m (17:58 dispatch -> 18:17 PASS)
+**Verification:** PASS (iteration 2)
+**Files changed:** 9
+**Tests added:** 17
+**ADRs written:** 0016
+
+---
+
+## 2026-08-22 18:10 -- Verification failed: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+
+**Type:** Work / Verification failure
+**Task:** infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+**Iteration:** 1 of 3
+**Reasons:** adding `IntegrationPayload.isWorkInFlight` as a non-optional `Codable` field breaks decoding of every pre-existing App Group snapshot (confirmed against a live snapshot file), collapsing to `nil` in `SnapshotStore` and violating ADR-0008 last-good-wins (acceptance criterion 2); a `.notModified` Integration whose ETag still matches would then never regenerate a new-format snapshot; secondary: ADR-0016 cites a nonexistent ADR-0008 filename
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
+## 2026-08-22 17:56 -- Batch started: [infrastructure-b92mn]
+
+**Type:** Work / Batch start
+**Tasks:** infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+**Parallel:** no (1 worker — only one task ready this batch)
+
+---
+
+## 2026-08-22 17:55 -- Modeling / Promoted: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+
+**Type:** Modeling / Promote
+**BC:** infrastructure
+**From → To:** backlog → todo
+
+---
+
+## 2026-08-21 00:35 -- Work session ended
+
+**Type:** Work / Session end
+**Completed:** 1 — project-registry-vnk4t (first-try PASS: 0, re-dispatched: 1, skipped: 0); board then empty — vacuum guard exit (no ready tasks; open vision questions surfaced above: Service Integration provider scope, credential storage/auth flow, refresh/polling cadence — all open since 2026-08-07)
+
+---
+
+## 2026-08-21 00:31 -- Task verified and completed: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Work / Task completion
+**Task:** project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+**Summary:** Made a Project's Obsidian note link fully optional (Project.obsidianNoteLink: String?, GRDB column made nullable), removed the Add-button non-empty requirement, and replaced the always-visible Vault note row with a conditional Open in Obsidian button driven by a new obsidianOpenURL computed property, per ADR-0014
+**Duration:** ~9m39s
+**Verification:** PASS (iteration 2)
+**Files changed:** 7
+**Tests added:** 6
+**ADRs written:** none
+
+---
+
+## 2026-08-21 00:26 -- Verification failed: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Work / Verification failure
+**Task:** project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+**Iteration:** 1 of 3
+**Reasons:** acceptance criterion 1 (name-only registration succeeds) has no covering test — the schema's NOT NULL removal on `obsidianNoteLink` is untested through the repository layer, criterion 2 (Obsidian link stored/read back unchanged) has no covering test — the modified RepositoryTests call site never asserts the stored link value
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
+## 2026-08-21 00:16 -- Batch started: [project-registry-vnk4t]
+
+**Type:** Work / Batch start
+**Tasks:** project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+**Parallel:** no (1 worker — only one task ready this batch)
+**Planning advisory:** whats-next (current): promote project-registry-vnk4t — unblocked by the styleguide shipping, continues the AddProjectSheet/token-restyle thread
+
+---
+
+## 2026-08-21 00:15 -- Modeling / Promoted: project-registry-vnk4t - Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action
+
+**Type:** Modeling / Promote
+**BC:** project-registry
+**From → To:** backlog → todo
+
+---
+
 ## 2026-08-15 03:31 -- Work session ended
 
 **Type:** Work / Session end

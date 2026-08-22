@@ -35,9 +35,31 @@ public struct IntegrationPayload: Codable, Equatable, Sendable {
     /// lets rendering surfaces flag it distinctly from a merely-stale-but-fine snapshot.
     public var isAttentionNeeded: Bool
 
-    public init(headline: String, detail: String, isAttentionNeeded: Bool = false) {
+    /// True when the provider reports work still in progress for this resource (e.g. a
+    /// GitHub Actions run `queued`/`in_progress`) — the burst-mode signal per ADR-0006. Every
+    /// adapter defaults this to `false`; only adapters that can actually observe an in-flight
+    /// state (currently `GitHubActionsAdapter`) set it.
+    public var isWorkInFlight: Bool
+
+    public init(headline: String, detail: String, isAttentionNeeded: Bool = false, isWorkInFlight: Bool = false) {
         self.headline = headline
         self.detail = detail
         self.isAttentionNeeded = isAttentionNeeded
+        self.isWorkInFlight = isWorkInFlight
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case headline, detail, isAttentionNeeded, isWorkInFlight
+    }
+
+    /// Custom decode so snapshots written before `isWorkInFlight` existed (everything persisted
+    /// by the walking-skeleton spike) still decode instead of failing and falling back to
+    /// `nil` in `SnapshotStore.readSnapshot`, which would break ADR-0008's last-good-wins rule.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        headline = try container.decode(String.self, forKey: .headline)
+        detail = try container.decode(String.self, forKey: .detail)
+        isAttentionNeeded = try container.decode(Bool.self, forKey: .isAttentionNeeded)
+        isWorkInFlight = try container.decodeIfPresent(Bool.self, forKey: .isWorkInFlight) ?? false
     }
 }

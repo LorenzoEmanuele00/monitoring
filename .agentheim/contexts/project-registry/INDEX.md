@@ -10,10 +10,10 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 1
+- **Backlog:** 0
 - **Todo:** 0
 - **Doing:** 0
-- **Done:** 0
+- **Done:** 1
 <!-- task-counts:end -->
 
 ### Todo
@@ -26,11 +26,11 @@ research touching this BC, and concept synthesis pages.
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **project-registry-vnk4t** — Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action (feature) — `done/project-registry-vnk4t-optional-obsidian-link.md`
 <!-- done-list:end -->
 
 ### Backlog
 <!-- backlog-list:start -->
-- **project-registry-vnk4t** — Make the Obsidian note link fully optional; replace it with a single "Open in Obsidian" action (feature) — `backlog/project-registry-vnk4t-optional-obsidian-link.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC

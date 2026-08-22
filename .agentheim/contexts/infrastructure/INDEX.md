@@ -10,10 +10,10 @@ research touching this BC, and concept synthesis pages.
 ## Tasks by status
 
 <!-- task-counts:start -->
-- **Backlog:** 2
+- **Backlog:** 1
 - **Todo:** 0
 - **Doing:** 0
-- **Done:** 10
+- **Done:** 11
 <!-- task-counts:end -->
 
 ### Todo
@@ -26,6 +26,7 @@ research touching this BC, and concept synthesis pages.
 
 ### Done (most recent first; older entries kept for prior-art search)
 <!-- done-list:start -->
+- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min) (task) — `done/infrastructure-b92mn-burst-polling-mode.md`
 - **infrastructure-w4dg3** — Desktop widget "No data yet" root-caused to a wildcard provisioning profile missing App Groups — `done/infrastructure-w4dg3-widget-shows-no-data-after-fix.md`
 - **infrastructure-001-walking-skeleton** — Walking skeleton — onboard mise_pwa end-to-end through the full stack (spike) — `done/infrastructure-001-walking-skeleton.md`
 - **infrastructure-wv33x** — No backend — single locally-built signed macOS app bundle — ADR-0011 — `done/infrastructure-wv33x-no-backend-local-signed-app-bundle.md`
@@ -41,7 +42,6 @@ research touching this BC, and concept synthesis pages.
 ### Backlog
 <!-- backlog-list:start -->
 - **infrastructure-pht7k** — Wire real PostHog SDK (currently a stub) — `backlog/infrastructure-pht7k-wire-real-posthog-sdk.md`
-- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode — `backlog/infrastructure-b92mn-burst-polling-mode.md`
 <!-- backlog-list:end -->
 
 ## ADRs scoped to this BC
@@ -58,6 +58,7 @@ BC-local) but originated from infrastructure's decision tasks — listed here fo
 - **0009** — App Sandbox stays on; vault/source access via security-scoped bookmarks — `../../knowledge/decisions/0009-sandbox-security-scoped-bookmarks.md`
 - **0010** — Unified logging + PostHog for structured domain events (amended from no-telemetry draft) — `../../knowledge/decisions/0010-unified-logging-plus-posthog-for-structured-events.md`
 - **0011** — No backend — single locally-built signed macOS app bundle — `../../knowledge/decisions/0011-no-backend-local-signed-app-bundle.md`
+- **0016** — Burst-mode enter/exit is a pure, package-testable decision function (`BurstPolling.decide`); Firebase Hosting burst detection deferred until the adapter models release status — `../../knowledge/decisions/0016-burst-mode-decision-logic-and-firebase-scope.md`
 <!-- adr-local:end -->
 
 ## Research touching this BC
