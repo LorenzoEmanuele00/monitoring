@@ -5,6 +5,17 @@ Newest entries on top.
 
 ---
 
+## 2026-08-22 18:10 -- Verification failed: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+
+**Type:** Work / Verification failure
+**Task:** infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+**Iteration:** 1 of 3
+**Reasons:** adding `IntegrationPayload.isWorkInFlight` as a non-optional `Codable` field breaks decoding of every pre-existing App Group snapshot (confirmed against a live snapshot file), collapsing to `nil` in `SnapshotStore` and violating ADR-0008 last-good-wins (acceptance criterion 2); a `.notModified` Integration whose ETag still matches would then never regenerate a new-format snapshot; secondary: ADR-0016 cites a nonexistent ADR-0008 filename
+**Iteration hint:** likely-fixable
+**Next:** re-dispatched worker
+
+---
+
 ## 2026-08-22 17:56 -- Batch started: [infrastructure-b92mn]
 
 **Type:** Work / Batch start
