@@ -5,6 +5,19 @@ Newest entries on top.
 
 ---
 
+## 2026-08-22 18:18 -- Task verified and completed: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+
+**Type:** Work / Task completion
+**Task:** infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+**Summary:** Implemented ADR-0006 burst polling mode with a pure, package-testable BurstPolling.decide function (MCDomain), GitHubActionsAdapter work-in-flight signal, and PollingCoordinator wiring; iteration-1 verifier FAIL (non-optional isWorkInFlight field broke Decodable for pre-existing snapshots, violating ADR-0008 last-good-wins) fixed in iteration 2 with a tolerant custom Decodable initializer and regression tests
+**Duration:** ~19m (17:58 dispatch -> 18:17 PASS)
+**Verification:** PASS (iteration 2)
+**Files changed:** 9
+**Tests added:** 17
+**ADRs written:** 0016
+
+---
+
 ## 2026-08-22 18:10 -- Verification failed: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
 
 **Type:** Work / Verification failure

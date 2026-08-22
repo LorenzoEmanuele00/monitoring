@@ -99,10 +99,14 @@ public struct GitHubActionsAdapter: ProviderAdapter {
             }
             let statusText = run.conclusion ?? run.status
             let needsAttention = run.conclusion == "failure" || run.conclusion == "cancelled" || run.conclusion == "timed_out"
+            // ADR-0006 burst-mode signal: no `conclusion` yet and `status` of `queued` or
+            // `in_progress` means this run is still in flight.
+            let workInFlight = run.conclusion == nil && (run.status == "queued" || run.status == "in_progress")
             let payload = IntegrationPayload(
                 headline: "CI \(statusText)",
                 detail: "\(run.headSha.prefix(7)) · \(run.updatedAt)",
-                isAttentionNeeded: needsAttention
+                isAttentionNeeded: needsAttention,
+                isWorkInFlight: workInFlight
             )
             return .success(payload: payload, etag: newETag)
         }

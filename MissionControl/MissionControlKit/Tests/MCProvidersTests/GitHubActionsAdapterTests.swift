@@ -120,6 +120,68 @@ final class StubURLProtocol: URLProtocol {
         #expect(retryAfter == 7)
     }
 
+    @Test func inProgressRunFlagsWorkInFlight() async {
+        // ADR-0006 burst-mode signal: a run still `in_progress` (no `conclusion` yet) means
+        // work is in flight for this Integration.
+        StubURLProtocol.handler = { _ in
+            let json = """
+            {"workflow_runs":[{"status":"in_progress","conclusion":null,"head_sha":"abcdef1234567","updated_at":"2026-08-14T00:00:00Z"}]}
+            """
+            return (200, [:], Data(json.utf8))
+        }
+        let adapter = GitHubActionsAdapter(session: stubbedSession())
+        let outcome = await adapter.poll(
+            externalRef: "LorenzoEmanuele00/mise_pwa",
+            credential: Data("ghp_test".utf8),
+            etag: nil
+        )
+        guard case .success(let payload, _) = outcome else {
+            Issue.record("expected success, got \(outcome)")
+            return
+        }
+        #expect(payload.isWorkInFlight == true)
+    }
+
+    @Test func queuedRunFlagsWorkInFlight() async {
+        StubURLProtocol.handler = { _ in
+            let json = """
+            {"workflow_runs":[{"status":"queued","conclusion":null,"head_sha":"abcdef1234567","updated_at":"2026-08-14T00:00:00Z"}]}
+            """
+            return (200, [:], Data(json.utf8))
+        }
+        let adapter = GitHubActionsAdapter(session: stubbedSession())
+        let outcome = await adapter.poll(
+            externalRef: "LorenzoEmanuele00/mise_pwa",
+            credential: Data("ghp_test".utf8),
+            etag: nil
+        )
+        guard case .success(let payload, _) = outcome else {
+            Issue.record("expected success, got \(outcome)")
+            return
+        }
+        #expect(payload.isWorkInFlight == true)
+    }
+
+    @Test func completedRunDoesNotFlagWorkInFlight() async {
+        StubURLProtocol.handler = { _ in
+            let json = """
+            {"workflow_runs":[{"status":"completed","conclusion":"success","head_sha":"abcdef1234567","updated_at":"2026-08-14T00:00:00Z"}]}
+            """
+            return (200, [:], Data(json.utf8))
+        }
+        let adapter = GitHubActionsAdapter(session: stubbedSession())
+        let outcome = await adapter.poll(
+            externalRef: "LorenzoEmanuele00/mise_pwa",
+            credential: Data("ghp_test".utf8),
+            etag: nil
+        )
+        guard case .success(let payload, _) = outcome else {
+            Issue.record("expected success, got \(outcome)")
+            return
+        }
+        #expect(payload.isWorkInFlight == false)
+    }
+
     @Test func failedRunFlagsAttentionNeeded() async {
         StubURLProtocol.handler = { _ in
             let json = """

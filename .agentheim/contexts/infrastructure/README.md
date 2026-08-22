@@ -100,6 +100,26 @@ from `PollingCoordinator.baselineIntervals`; jitter is expressed as the schedule
 (±15% of the interval) rather than a manually-computed sleep offset, letting the OS itself do the
 coalescing/jitter ADR-0006 asks for.
 
+**Burst mode mechanism (ADR-0006):** the enter/stay/exit decision itself is a pure function,
+`BurstPolling.decide` (`MCDomain/BurstPolling.swift`), taking the current burst state plus a
+per-cycle "work in flight?" signal (`Bool?` — `nil` when a transient/terminal failure carried no
+new signal, per ADR-0008 last-good-wins) and the ADR-0008 circuit-breaker state, and returning
+`.enterBurst` / `.remainInBurst` / `.exitBurst(reason:)` / `.remainBaseline`. It's provider- and
+scheduler-agnostic on purpose, so it's unit-tested at package level (`swift test`,
+`BurstPollingTests`) independent of `PollingCoordinator`, which is app-target-only code (see
+"Target/package layout" below) and wires the actual mechanism around that decision:
+`PollingCoordinator.pollAndAdapt` runs one `pollOne` cycle, derives the work-in-flight signal
+(`GitHubActionsAdapter` sets `IntegrationPayload.isWorkInFlight` for a run `status` of
+`queued`/`in_progress` with no `conclusion` yet — the only adapter that currently surfaces this;
+Firebase Hosting/Supabase adapters default it to `false`), then feeds `BurstPolling.decide` and
+acts on the result — `enterBurstMode` invalidates that Integration's baseline
+`NSBackgroundActivityScheduler` activity and starts a plain `Task` polling every
+`BurstPolling.interval` (~30s); `exitBurstMode` cancels that `Task` and calls `scheduleBaseline`
+again. A burst that trips the ADR-0008 circuit breaker exits immediately (`.circuitOpen`) rather
+than continuing to hammer an already-broken Integration at burst cadence — the breaker's
+threshold itself is untouched by burst mode, since `pollOne`'s failure counting doesn't know or
+care which cadence called it.
+
 **Provisioning caveat found while building this:** a valid codesigning identity in the login
 keychain is not the same as Xcode having a signed-in developer account. `xcodebuild
 -allowProvisioningUpdates` still fails with "No Accounts" until the user adds their Apple ID

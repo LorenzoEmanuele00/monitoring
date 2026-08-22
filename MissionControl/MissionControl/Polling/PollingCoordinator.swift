@@ -44,6 +44,14 @@ final class PollingCoordinator {
     private var pathMonitor: NWPathMonitor?
     private let retryPolicy = RetryPolicy()
 
+    /// Burst mode (ADR-0006): while a value is present for an Integration, that Integration is
+    /// bursting under a plain `Task` at `BurstPolling.interval` instead of its baseline
+    /// `NSBackgroundActivityScheduler` activity. The value is when the current burst started,
+    /// fed to `BurstPolling.decide` for the ~20 min cap. Entering/exiting burst is decided
+    /// purely by `BurstPolling` (MCDomain) after every poll, baseline or burst alike.
+    private var burstStartedAt: [UUID: Date] = [:]
+    private var burstTasks: [UUID: Task<Void, Never>] = [:]
+
     init(
         projectRepository: ProjectRepository,
         integrationRepository: ServiceIntegrationRepository,
@@ -93,6 +101,9 @@ final class PollingCoordinator {
     private func rescheduleAll() {
         for activity in scheduledActivities.values { activity.invalidate() }
         scheduledActivities.removeAll()
+        for task in burstTasks.values { task.cancel() }
+        burstTasks.removeAll()
+        burstStartedAt.removeAll()
 
         guard let integrations = try? integrationRepository.fetchAll() else { return }
         for integration in integrations {
@@ -121,7 +132,7 @@ final class PollingCoordinator {
                 return
             }
             Task { @MainActor in
-                await self.pollOne(integrationID: integration.id)
+                await self.pollAndAdapt(integrationID: integration.id)
                 completion(.finished)
             }
         }
@@ -132,18 +143,83 @@ final class PollingCoordinator {
     func pollAllNow() {
         guard let integrations = try? integrationRepository.fetchAll() else { return }
         for integration in integrations {
-            Task { await pollOne(integrationID: integration.id) }
+            Task { await pollAndAdapt(integrationID: integration.id) }
         }
     }
 
-    private func pollOne(integrationID: UUID) async {
+    /// One poll cycle plus the ADR-0006 burst-mode decision it feeds. Shared by baseline
+    /// activities, the burst loop itself, and wake/connectivity resync so every entry point
+    /// applies the same enter/stay/exit logic (`BurstPolling.decide`, MCDomain — testable at
+    /// package level independent of this app-target scheduling code).
+    private func pollAndAdapt(integrationID: UUID) async {
+        guard let result = await pollOne(integrationID: integrationID) else { return }
+
+        let isBursting = burstStartedAt[integrationID] != nil
+        let decision = BurstPolling.decide(
+            isCurrentlyBursting: isBursting,
+            burstStartedAt: burstStartedAt[integrationID],
+            isWorkInFlight: result.isWorkInFlight,
+            isCircuitOpen: result.isCircuitOpen,
+            now: Date()
+        )
+
+        switch decision {
+        case .enterBurst:
+            enterBurstMode(integrationID: integrationID)
+        case .remainInBurst, .remainBaseline:
+            break
+        case .exitBurst(let reason):
+            exitBurstMode(integrationID: integrationID, reason: reason)
+        }
+    }
+
+    /// Tears down the baseline `NSBackgroundActivityScheduler` activity for this Integration
+    /// and replaces it with a `Task`-based ~30s poll loop (ADR-0006).
+    private func enterBurstMode(integrationID: UUID) {
+        guard burstStartedAt[integrationID] == nil else { return }
+        AppLog.polling.info("Entering burst mode: \(integrationID, privacy: .public) — work in flight, polling every ~\(Int(BurstPolling.interval), privacy: .public)s (cap ~\(Int(BurstPolling.maxDuration / 60), privacy: .public)min)")
+        burstStartedAt[integrationID] = Date()
+        scheduledActivities[integrationID]?.invalidate()
+        scheduledActivities.removeValue(forKey: integrationID)
+
+        burstTasks[integrationID] = Task { [weak self] in
+            await self?.runBurstLoop(integrationID: integrationID)
+        }
+    }
+
+    private func runBurstLoop(integrationID: UUID) async {
+        while !Task.isCancelled && burstStartedAt[integrationID] != nil {
+            try? await Task.sleep(nanoseconds: UInt64(BurstPolling.interval * 1_000_000_000))
+            guard !Task.isCancelled, burstStartedAt[integrationID] != nil else { break }
+            await pollAndAdapt(integrationID: integrationID)
+        }
+    }
+
+    /// Cancels the burst `Task` and restores the baseline `NSBackgroundActivityScheduler`
+    /// activity (ADR-0006: "reverting to baseline").
+    private func exitBurstMode(integrationID: UUID, reason: BurstExitReason) {
+        guard burstStartedAt[integrationID] != nil else { return }
+        AppLog.polling.info("Exiting burst mode (\(String(describing: reason), privacy: .public)): \(integrationID, privacy: .public) — reverting to baseline cadence")
+        burstStartedAt.removeValue(forKey: integrationID)
+        burstTasks[integrationID]?.cancel()
+        burstTasks.removeValue(forKey: integrationID)
+
+        if let integration = try? integrationRepository.fetch(id: integrationID) {
+            scheduleBaseline(for: integration)
+        }
+    }
+
+    /// One poll attempt, applying the ADR-0008 failure policy. Returns the ADR-0006 burst
+    /// signal derived from the outcome — `nil` when no poll was actually attempted (missing
+    /// integration/adapter/credential).
+    private func pollOne(integrationID: UUID) async -> PollResult? {
         guard var integration = try? integrationRepository.fetch(id: integrationID),
               let adapter = adapters[integration.providerKind] else {
-            return
+            return nil
         }
         guard let credential = try? secretStore.read(for: integrationID) else {
             AppLog.secrets.error("No credential found for integration \(integrationID, privacy: .public)")
-            return
+            return nil
         }
 
         let signpostID = signposter.makeSignpostID()
@@ -180,6 +256,12 @@ final class PollingCoordinator {
         let outcome = outcomeBox.withLock { $0 }
         integration.lastAttemptAt = Date()
 
+        // ADR-0006 burst-mode signal: `nil` unless this cycle actually confirms a work-in-
+        // flight state one way or the other (fresh success, or not-modified confirming the
+        // last-known payload). A transient/terminal failure carries no new signal — burst
+        // state is left for `BurstPolling.decide` to leave alone (ADR-0008 last-good-wins).
+        var isWorkInFlight: Bool?
+
         switch outcome {
         case .success(let payload, let newETag):
             integration.status = .connected
@@ -190,6 +272,7 @@ final class PollingCoordinator {
             try? integrationRepository.update(integration)
             await writeSnapshot(for: integration, payload: payload, generatedAt: Date())
             AppLog.polling.debug("Poll success: \(integration.providerKind.rawValue, privacy: .public) \(integration.displayName, privacy: .public)")
+            isWorkInFlight = payload.isWorkInFlight
 
         case .notModified:
             integration.status = .connected
@@ -201,6 +284,7 @@ final class PollingCoordinator {
             // current as of now, so the existing snapshot's `generatedAt` advances too.
             if let existing = snapshotStore.readSnapshot(integrationID: integration.id) {
                 await writeSnapshot(for: integration, payload: existing.payload, generatedAt: Date())
+                isWorkInFlight = existing.payload?.isWorkInFlight
             }
             AppLog.polling.debug("Poll not-modified: \(integration.providerKind.rawValue, privacy: .public)")
 
@@ -225,6 +309,8 @@ final class PollingCoordinator {
             }
             // Last-good wins (ADR-0008): Tier B snapshot is untouched on failure.
         }
+
+        return PollResult(isWorkInFlight: isWorkInFlight, isCircuitOpen: integration.isCircuitOpen)
     }
 
     private func writeSnapshot(for integration: ServiceIntegration, payload: MCDomain.IntegrationPayload?, generatedAt: Date) async {
@@ -255,4 +341,10 @@ final class PollingCoordinator {
 /// small standalone enum rather than importing anything extra into the extension.
 enum WidgetKindIdentifiers {
     static let integrationStatus = "com.lorenzoemanuele.missioncontrol.integrationStatus"
+}
+
+/// What one `pollOne` cycle hands back to `pollAndAdapt` for the ADR-0006 burst-mode decision.
+private struct PollResult {
+    let isWorkInFlight: Bool?
+    let isCircuitOpen: Bool
 }

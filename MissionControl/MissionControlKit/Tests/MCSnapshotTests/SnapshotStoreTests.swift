@@ -60,4 +60,45 @@ import Foundation
         let manifest = store.readManifest()
         #expect(manifest?.integrationIDs.contains(integrationID) == true)
     }
+
+    /// Regression for the verifier-caught bug on infrastructure-b92mn iteration 1: a snapshot
+    /// file written before `IntegrationPayload.isWorkInFlight` existed must still decode via
+    /// `readSnapshot`, per ADR-0008's last-good-wins rule. Writes the JSON directly (not via
+    /// `store.writeSnapshot`) so the fixture is exactly what a pre-field-addition snapshot on
+    /// disk looked like — no `isWorkInFlight` key anywhere in the payload object.
+    @Test func readSnapshotToleratesPayloadWrittenBeforeIsWorkInFlightExisted() throws {
+        let testGroupID = "group.mctest.\(UUID().uuidString).missioncontrol"
+        defer {
+            if let root = try? AppGroupContainer.rootURL(appGroupIdentifier: testGroupID) {
+                try? FileManager.default.removeItem(at: root)
+            }
+        }
+
+        let store = SnapshotStore(appGroupIdentifier: testGroupID)
+        let integrationID = UUID()
+        let dir = try AppGroupContainer.snapshotsURL(appGroupIdentifier: testGroupID)
+        let url = dir.appendingPathComponent("\(integrationID.uuidString).json")
+
+        let legacySnapshotJSON = """
+        {
+            "integrationID": "\(integrationID.uuidString)",
+            "projectName": "mise_pwa",
+            "providerKind": "githubRepository",
+            "displayName": "LorenzoEmanuele00/mise_pwa",
+            "status": "connected",
+            "payload": {
+                "headline": "CI passing",
+                "detail": "abc1234",
+                "isAttentionNeeded": false
+            },
+            "generatedAt": "2026-01-01T00:00:00Z",
+            "lastAttemptAt": "2026-01-01T00:00:00Z"
+        }
+        """
+        try Data(legacySnapshotJSON.utf8).write(to: url, options: .atomic)
+
+        let readBack = store.readSnapshot(integrationID: integrationID)
+        #expect(readBack?.payload?.headline == "CI passing")
+        #expect(readBack?.payload?.isWorkInFlight == false)
+    }
 }
