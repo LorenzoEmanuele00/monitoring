@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-22 17:56 -- Batch started: [infrastructure-b92mn]
+
+**Type:** Work / Batch start
+**Tasks:** infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
+**Parallel:** no (1 worker — only one task ready this batch)
+
+---
+
 ## 2026-08-22 17:55 -- Modeling / Promoted: infrastructure-b92mn - Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
 
 **Type:** Modeling / Promote

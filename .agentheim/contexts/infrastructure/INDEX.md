@@ -11,18 +11,18 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 1
-- **Todo:** 1
-- **Doing:** 0
+- **Todo:** 0
+- **Doing:** 1
 - **Done:** 10
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min) (task) — `todo/infrastructure-b92mn-burst-polling-mode.md`
 <!-- todo-list:end -->
 
 ### Doing
 <!-- doing-list:start -->
+- **infrastructure-b92mn** — Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min) (task) — `doing/infrastructure-b92mn-burst-polling-mode.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)

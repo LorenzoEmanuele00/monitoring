@@ -1,7 +1,7 @@
 ---
 id: infrastructure-b92mn
 title: Implement ADR-0006's burst polling mode (work-in-flight detection -> ~30s cadence, capped ~20min)
-status: todo
+status: doing
 type: task
 context: infrastructure
 created: 2026-08-14
