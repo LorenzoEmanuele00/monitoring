@@ -5,6 +5,22 @@ Newest entries on top.
 
 ---
 
+## 2026-08-23 16:52 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 21m (16:31 first batch start -> 16:52)
+**Completed:** 1 (first-try PASS: 1, re-dispatched: 0, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** infrastructure-pht7k: 1
+**Commits:** 3
+**Vision-conformance:** none — batch aligns with vision (implements the already-accepted ADR-0010 structured-event set, with a scoped, builder-approved amendment to its storage clause recorded as ADR-0017; touches no non-goal)
+**Batch mix:** 0% product-facing / 100% harness / 0% bookkeeping (1 task)
+**Carry-over:** `.agentheim/.dashboard/` (runtime.json, last-port.json): left behind (owner: the `/agentheim:dashboard` launcher run earlier this session — advisory runtime state, not project bookkeeping); `.agentheim/state/` (in-flight.json, whats-next.md): left behind (owner: `work`'s own Stop-hook heartbeat, ADR-0043, plus an earlier `whats-next` advisory — both advisory-write artifacts, not this session's to commit); left behind (user WIP, 1 file: `MissionControl/.DS_Store`, macOS Finder metadata, non-`.agentheim`). Note: a squash-merge conflict arose from the builder's own uncommitted `MissionControl/.gitignore` edit (adding `.env`) colliding with the worker's fuller version of the same line — stashed, merge completed, confirmed the committed result fully subsumes the stashed content (same ignore rule plus documentation), then dropped the stash. The builder's separately-created `MissionControl/.env` (real PostHog credentials) was never read, staged, or touched, and remains correctly gitignored after the merge.
+
+---
+
 ## 2026-08-23 16:51 -- Task verified and completed: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
 
 **Type:** Work / Task completion
