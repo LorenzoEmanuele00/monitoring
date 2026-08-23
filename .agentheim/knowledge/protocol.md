@@ -5,6 +5,62 @@ Newest entries on top.
 
 ---
 
+## 2026-08-23 16:52 -- Work session ended
+
+**Type:** Work / Session end
+**Duration:** 21m (16:31 first batch start -> 16:52)
+**Completed:** 1 (first-try PASS: 1, re-dispatched: 0, skipped: 0)
+**Bounced:** 0
+**Failed:** 0
+**Escalated after verification:** 0
+**Dispatches:** infrastructure-pht7k: 1
+**Commits:** 3
+**Vision-conformance:** none — batch aligns with vision (implements the already-accepted ADR-0010 structured-event set, with a scoped, builder-approved amendment to its storage clause recorded as ADR-0017; touches no non-goal)
+**Batch mix:** 0% product-facing / 100% harness / 0% bookkeeping (1 task)
+**Carry-over:** `.agentheim/.dashboard/` (runtime.json, last-port.json): left behind (owner: the `/agentheim:dashboard` launcher run earlier this session — advisory runtime state, not project bookkeeping); `.agentheim/state/` (in-flight.json, whats-next.md): left behind (owner: `work`'s own Stop-hook heartbeat, ADR-0043, plus an earlier `whats-next` advisory — both advisory-write artifacts, not this session's to commit); left behind (user WIP, 1 file: `MissionControl/.DS_Store`, macOS Finder metadata, non-`.agentheim`). Note: a squash-merge conflict arose from the builder's own uncommitted `MissionControl/.gitignore` edit (adding `.env`) colliding with the worker's fuller version of the same line — stashed, merge completed, confirmed the committed result fully subsumes the stashed content (same ignore rule plus documentation), then dropped the stash. The builder's separately-created `MissionControl/.env` (real PostHog credentials) was never read, staged, or touched, and remains correctly gitignored after the merge.
+
+---
+
+## 2026-08-23 16:51 -- Task verified and completed: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+
+**Type:** Work / Task completion
+**Task:** infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+**Summary:** Wired the real PostHog SDK (app target only) with a graceful .env-driven fallback factory, structural redaction contract, and ADR-0017 amending ADR-0010's storage clause to a gitignored build-time .env instead of MCSecrets/Keychain
+**Duration:** ~15m (16:31 dispatch -> 16:46 PASS)
+**Verification:** PASS (iteration 1)
+**Files changed:** 13
+**Tests added:** 9
+**ADRs written:** 0017
+
+---
+
+## 2026-08-23 16:31 -- Batch started: [infrastructure-pht7k]
+
+**Type:** Work / Batch start
+**Tasks:** infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+**Parallel:** no (1 worker — only one task ready this batch)
+
+---
+
+## 2026-08-23 16:30 -- Modeling / Refined: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+
+**Type:** Modeling / Refine
+**BC:** infrastructure
+**Status after:** todo
+**Summary:** Added builder-decided PostHog project setup (one shared project across monitoring/mise_pwa/mise_web, distinguished by a `system` event property) and a build-time secret-injection convention (gitignored `MissionControl/.env` + a project.yml `buildScripts` entry writing into the built Info.plist, never a committed file) to the task's Notes, so the worker doesn't have to invent the mechanism mid-task. Clarified that the acceptance criteria's live-network manual-test steps are the builder's own verification, not something the worker/verifier can execute without real credentials.
+**Split into:** none
+**ADRs written:** none
+
+---
+
+## 2026-08-23 16:14 -- Modeling / Promoted: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+
+**Type:** Modeling / Promote
+**BC:** infrastructure
+**From → To:** backlog → todo
+
+---
+
 ## 2026-08-22 18:19 -- Work session ended
 
 **Type:** Work / Session end

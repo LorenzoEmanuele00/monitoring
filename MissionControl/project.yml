@@ -45,6 +45,13 @@ settings:
 packages:
   MissionControlKit:
     path: MissionControlKit
+  # PostHog Swift SDK (ADR-0010, wired for real in infrastructure-pht7k). Linked ONLY by the
+  # MissionControl app target below — never MissionControlWidgets, per ADR-0004/ADR-0010's
+  # "extension links nothing heavy" rule. `from: 3.69.8` pins the current release tag at the
+  # time this was wired; bump deliberately, not as a side effect of some other change.
+  PostHog:
+    url: https://github.com/PostHog/posthog-ios
+    from: 3.69.8
 
 targets:
   MissionControl:
@@ -86,11 +93,74 @@ targets:
         product: MCPersistence
       - package: MissionControlKit
         product: MCProviders
+      - package: PostHog
+        product: PostHog
     info:
       path: Generated/MissionControl-Info.plist
       properties:
         CFBundleDisplayName: Mission Control
         LSApplicationCategoryType: public.app-category.developer-tools
+    # infrastructure-pht7k / ADR amending ADR-0010's storage clause: the PostHog Project API
+    # Key + ingestion host live in a gitignored `MissionControl/.env`, never in this committed
+    # file or in `Generated/MissionControl-Info.plist`.
+    #
+    # This script sources `.env` at build time and writes the two values into a standalone
+    # bundled resource, `PostHogConfig.env` (Contents/Resources/) — deliberately NOT into the
+    # app's own Info.plist. An earlier version tried the Info.plist route and hit two real
+    # build-system constraints, discovered empirically:
+    #   1. Xcode's script-phase sandbox (ENABLE_USER_SCRIPT_SANDBOXING: YES, set above) grants
+    #      a declared *input* read-only access — writing to the built Info.plist (denied by
+    #      the sandbox's blanket `CONFIGURATION_BUILD_DIR` deny-write rule) silently no-oped
+    #      instead of erroring, so the keys never actually landed.
+    #   2. Declaring the built Info.plist as this phase's *output* instead (to get write
+    #      access) collides with "ProcessInfoPlistFile" already owning that exact output path
+    #      — "Multiple commands produce ...".
+    # A path this phase alone produces sidesteps both: declaring it as `outputFiles` grants
+    # this phase read+write on exactly that path, and since no other build step touches it,
+    # there's no ownership conflict and no ordering fragility to get right.
+    # `AnalyticsEventLoggerFactory` (MissionControl/PostHogAnalyticsEventLogger.swift) reads
+    # the resource back via `Bundle.main.url(forResource:withExtension:)` and falls back to a
+    # no-op analytics logger when the resource is missing (CI, or `.env` not yet populated).
+    postBuildScripts:
+      - name: Inject PostHog config from .env
+        shell: /bin/bash
+        showEnvVars: false
+        basedOnDependencyAnalysis: false
+        inputFiles:
+          - $(SRCROOT)/.env
+        outputFiles:
+          - $(CONFIGURATION_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/PostHogConfig.env
+        script: |
+          set -e
+          ENV_FILE="${SRCROOT}/.env"
+          RESOURCES_DIR="${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+          OUT="${RESOURCES_DIR}/PostHogConfig.env"
+
+          mkdir -p "$RESOURCES_DIR"
+
+          if [ ! -f "$ENV_FILE" ]; then
+            echo "warning: MissionControl/.env not found — PostHog structured events will fall back to a no-op logger (see infrastructure BC README)"
+            rm -f "$OUT"
+            exit 0
+          fi
+
+          set -a
+          # shellcheck disable=SC1090
+          source "$ENV_FILE"
+          set +a
+
+          if [ -z "${POSTHOG_API_KEY:-}" ] || [ -z "${POSTHOG_HOST:-}" ]; then
+            echo "warning: MissionControl/.env is missing POSTHOG_API_KEY and/or POSTHOG_HOST — PostHog structured events will fall back to a no-op logger"
+            rm -f "$OUT"
+            exit 0
+          fi
+
+          # Re-emit only the two keys the app actually needs — never a verbatim copy of
+          # `.env`, so any unrelated future key stays out of the bundled resource.
+          {
+            printf 'POSTHOG_API_KEY=%s\n' "$POSTHOG_API_KEY"
+            printf 'POSTHOG_HOST=%s\n' "$POSTHOG_HOST"
+          } > "$OUT"
 
   MissionControlWidgets:
     type: app-extension
