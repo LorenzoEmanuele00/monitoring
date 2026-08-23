@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-23 16:31 -- Batch started: [infrastructure-pht7k]
+
+**Type:** Work / Batch start
+**Tasks:** infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+**Parallel:** no (1 worker — only one task ready this batch)
+
+---
+
 ## 2026-08-23 16:30 -- Modeling / Refined: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
 
 **Type:** Modeling / Refine

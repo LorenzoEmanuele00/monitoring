@@ -11,18 +11,18 @@ research touching this BC, and concept synthesis pages.
 
 <!-- task-counts:start -->
 - **Backlog:** 0
-- **Todo:** 1
-- **Doing:** 0
+- **Todo:** 0
+- **Doing:** 1
 - **Done:** 11
 <!-- task-counts:end -->
 
 ### Todo
 <!-- todo-list:start -->
-- **infrastructure-pht7k** — Wire the real PostHog SDK for the ADR-0010 structured event set (task) — `todo/infrastructure-pht7k-wire-real-posthog-sdk.md`
 <!-- todo-list:end -->
 
 ### Doing
 <!-- doing-list:start -->
+- **infrastructure-pht7k** — Wire the real PostHog SDK for the ADR-0010 structured event set (task) — `doing/infrastructure-pht7k-wire-real-posthog-sdk.md`
 <!-- doing-list:end -->
 
 ### Done (most recent first; older entries kept for prior-art search)
