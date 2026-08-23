@@ -46,23 +46,39 @@ governs:
    singleton key just to reuse a mechanism designed for a different problem.
 
 A gitignored `MissionControl/.env` (`POSTHOG_API_KEY`, `POSTHOG_HOST`) plus a `project.yml`
-`postBuildScripts` entry that sources it and writes both values into the *built* Info.plist via
-`PlistBuddy` (read back at runtime via `Bundle.main.object(forInfoDictionaryKey:)`) is this
-repo's first build-time-secret-injection pattern — future static, app-wide, non-`Integration`
-config values (if any arise) should reach for the same convention rather than re-litigating it.
+`postBuildScripts` entry that sources it and writes both values into a standalone bundled
+resource, `PostHogConfig.env` (`Contents/Resources/`), read back at runtime via
+`Bundle.main.url(forResource:withExtension:)`, is this repo's first build-time-secret-injection
+pattern — future static, app-wide, non-`Integration` config values (if any arise) should reach
+for the same convention rather than re-litigating it.
+
+The first implementation attempt wrote into the *built* Info.plist via `PlistBuddy` instead of a
+standalone resource, and failed for two build-system reasons found empirically the same day:
+Xcode's script-phase sandbox (`ENABLE_USER_SCRIPT_SANDBOXING: YES`) grants a declared script
+*input* read-only access, so writing to the Info.plist (already denied by the sandbox's blanket
+deny-write on `CONFIGURATION_BUILD_DIR`) silently no-oped instead of erroring; declaring it as
+this phase's *output* instead (to get write access) collided with "ProcessInfoPlistFile" already
+owning that exact output path ("Multiple commands produce ..."). A path this build phase alone
+produces sidesteps both — see the Decision below for the corrected mechanism.
 
 ## Decision
 
 The PostHog Project API Key and ingestion host are **not** stored via `MCSecrets`/Keychain.
 They live in a gitignored `MissionControl/.env` file the builder populates locally
 (`POSTHOG_API_KEY=phc_...`, `POSTHOG_HOST=https://us.i.posthog.com` or the EU equivalent), which
-a `project.yml`-defined `postBuildScripts` build phase reads at build time and injects into the
-*built* app bundle's `Info.plist` only — never into `Generated/MissionControl-Info.plist` or
-`project.yml` themselves, both of which stay committed and free of the actual values.
-`AnalyticsEventLoggerFactory` (`MissionControl/PostHogAnalyticsEventLogger.swift`) reads the two
-keys back via `Bundle.main.object(forInfoDictionaryKey:)` at runtime; if either is missing or
-blank (`.env` absent — CI, or before the builder has populated it — or malformed), it falls back
-to `NoOpAnalyticsEventLogger` with a logged warning rather than crashing.
+a `project.yml`-defined `postBuildScripts` build phase reads at build time and re-emits into a
+standalone bundled resource, `PostHogConfig.env` (`$(CONFIGURATION_BUILD_DIR)/
+$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/PostHogConfig.env` — i.e. `Contents/Resources/` in the
+built app) — declared as this build phase's own `outputFiles` entry, since it's the one path no
+other build step produces or owns. Never into `Generated/MissionControl-Info.plist` or
+`project.yml` themselves, both of which stay committed and free of the actual values, and
+deliberately not into the app's own `Info.plist` either (see Context above for why that path was
+tried first and abandoned). `AnalyticsEventLoggerFactory`
+(`MissionControl/PostHogAnalyticsEventLogger.swift`) reads the resource back via
+`Bundle.main.url(forResource: "PostHogConfig", withExtension: "env")` and parses its `KEY=value`
+lines at runtime; if the resource is missing (CI, or before the builder has populated `.env`) or
+either value is blank, it falls back to `NoOpAnalyticsEventLogger` with a logged warning rather
+than crashing.
 
 This amends only ADR-0010's storage-mechanism sentence for this one credential. Every other
 ADR-0010 decision (the narrow structured-event set, `os.Logger` everywhere including the widget
@@ -77,9 +93,9 @@ Service Integration provider credentials (ADR-0012) — this ADR does not reopen
   forcing an entity-scoped store to hold a single static app-wide value.
 - No Keychain prompt / access-group plumbing needed for a value that was never meant to be
   read/write-protected the way a provider PAT is.
-- Establishes a reusable convention (`.env` + `postBuildScripts` + `PlistBuddy` + Info.plist
-  read-back) for any future static, non-per-Integration config value, rather than inventing one
-  ad hoc if/when another such value shows up.
+- Establishes a reusable convention (`.env` + `postBuildScripts` writing a standalone bundled
+  resource + `Bundle.main.url(forResource:)` read-back) for any future static, non-per-Integration
+  config value, rather than inventing one ad hoc if/when another such value shows up.
 - `.gitignore`-based exclusion is simple to audit — anyone can `git log -p .env` and see it was
   never committed, no history to scrub.
 
@@ -92,8 +108,11 @@ Service Integration provider credentials (ADR-0012) — this ADR does not reopen
   silently no-op'd until the builder remembers to create it. Mitigated by the factory's logged
   warning and by this being exactly the pre-existing spike behavior (`NoOpAnalyticsEventLogger`),
   not a regression.
-- The build-time injection script is new machinery (`postBuildScripts`, `PlistBuddy`) with no
-  prior precedent in this codebase to lean on if it needs debugging.
+- The build-time injection script is new machinery (`postBuildScripts`, sandboxed
+  input/output-file declarations) with no prior precedent in this codebase to lean on if it
+  needs debugging — confirmed non-trivial in practice: the first implementation attempt
+  (writing into Info.plist) built successfully but silently failed to inject anything, only
+  caught by the builder's own manual test.
 
 ### Neutral
 - Rotating the key is a local `.env` edit + rebuild, not a Keychain operation — operationally

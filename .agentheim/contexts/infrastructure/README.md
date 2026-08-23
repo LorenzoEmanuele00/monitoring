@@ -140,11 +140,17 @@ codebase yet; that event pair lands together with whichever BC first models a de
 **Credential storage exception — PostHog Project API Key (ADR-0017):** unlike every
 `ServiceIntegration` provider credential (ADR-0007/ADR-0012, via `MCSecrets`/Keychain), the
 PostHog key is a write-only, static, app-wide value stored via a gitignored `MissionControl/.env`
-(`POSTHOG_API_KEY`, `POSTHOG_HOST`) that a `project.yml` `postBuildScripts` entry injects into
-the *built* Info.plist at build time via `PlistBuddy` — never into any committed file.
-`AnalyticsEventLoggerFactory` reads the two keys back via
-`Bundle.main.object(forInfoDictionaryKey:)`; if `.env` is absent (fresh checkout, CI) or
-malformed, it logs a warning and falls back to `NoOpAnalyticsEventLogger` rather than crashing.
+(`POSTHOG_API_KEY`, `POSTHOG_HOST`) that a `project.yml` `postBuildScripts` entry reads at build
+time and re-emits into a standalone bundled resource, `PostHogConfig.env`
+(`Contents/Resources/`) — never into any committed file, and deliberately **not** into the app's
+own `Info.plist`: an Info.plist-writing first attempt built successfully but silently failed to
+inject anything (Xcode's script sandbox grants a declared *input* read-only access; declaring
+the built Info.plist as this phase's *output* instead collides with "ProcessInfoPlistFile"
+already owning that path — see ADR-0017 for the full empirical finding). A standalone resource
+this phase alone produces sidesteps both problems. `AnalyticsEventLoggerFactory` reads the
+resource back via `Bundle.main.url(forResource: "PostHogConfig", withExtension: "env")` and
+parses its `KEY=value` lines; if the resource is absent (fresh checkout, CI) or either value is
+blank, it logs a warning and falls back to `NoOpAnalyticsEventLogger` rather than crashing.
 This is this codebase's first build-time-secret-injection pattern — reuse it for any future
 static, non-`Integration` config value rather than inventing a new mechanism.
 

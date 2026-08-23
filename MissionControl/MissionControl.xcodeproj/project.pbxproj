@@ -282,15 +282,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/.env",
 			);
 			name = "Inject PostHog config from .env";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(CONFIGURATION_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/PostHogConfig.env",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -e\nENV_FILE=\"${SRCROOT}/.env\"\nPLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\nif [ ! -f \"$ENV_FILE\" ]; then\n  echo \"warning: MissionControl/.env not found — PostHog structured events will fall back to a no-op logger (see infrastructure BC README)\"\n  exit 0\nfi\n\nset -a\n# shellcheck disable=SC1090\nsource \"$ENV_FILE\"\nset +a\n\nif [ -z \"${POSTHOG_API_KEY:-}\" ] || [ -z \"${POSTHOG_HOST:-}\" ]; then\n  echo \"warning: MissionControl/.env is missing POSTHOG_API_KEY and/or POSTHOG_HOST — PostHog structured events will fall back to a no-op logger\"\n  exit 0\nfi\n\n/usr/libexec/PlistBuddy -c \"Add :PostHogAPIKey string ${POSTHOG_API_KEY}\" \"$PLIST\" 2>/dev/null || \\\n  /usr/libexec/PlistBuddy -c \"Set :PostHogAPIKey ${POSTHOG_API_KEY}\" \"$PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :PostHogHost string ${POSTHOG_HOST}\" \"$PLIST\" 2>/dev/null || \\\n  /usr/libexec/PlistBuddy -c \"Set :PostHogHost ${POSTHOG_HOST}\" \"$PLIST\"\n";
+			shellScript = "set -e\nENV_FILE=\"${SRCROOT}/.env\"\nRESOURCES_DIR=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nOUT=\"${RESOURCES_DIR}/PostHogConfig.env\"\n\nmkdir -p \"$RESOURCES_DIR\"\n\nif [ ! -f \"$ENV_FILE\" ]; then\n  echo \"warning: MissionControl/.env not found — PostHog structured events will fall back to a no-op logger (see infrastructure BC README)\"\n  rm -f \"$OUT\"\n  exit 0\nfi\n\nset -a\n# shellcheck disable=SC1090\nsource \"$ENV_FILE\"\nset +a\n\nif [ -z \"${POSTHOG_API_KEY:-}\" ] || [ -z \"${POSTHOG_HOST:-}\" ]; then\n  echo \"warning: MissionControl/.env is missing POSTHOG_API_KEY and/or POSTHOG_HOST — PostHog structured events will fall back to a no-op logger\"\n  rm -f \"$OUT\"\n  exit 0\nfi\n\n# Re-emit only the two keys the app actually needs — never a verbatim copy of\n# `.env`, so any unrelated future key stays out of the bundled resource.\n{\n  printf 'POSTHOG_API_KEY=%s\\n' \"$POSTHOG_API_KEY\"\n  printf 'POSTHOG_HOST=%s\\n' \"$POSTHOG_HOST\"\n} > \"$OUT\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

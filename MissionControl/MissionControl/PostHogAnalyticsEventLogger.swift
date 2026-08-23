@@ -22,20 +22,22 @@ struct PostHogAnalyticsEventLogger: AnalyticsEventLogger {
     }
 }
 
-/// Composition-root factory for the ADR-0010 analytics sink. Reads the two Info.plist keys the
-/// `project.yml` `postBuildScripts` entry injects into the *built* Info.plist from the
-/// gitignored `MissionControl/.env` (see the ADR amending ADR-0010's storage clause for why this
-/// is a build-time-injected value rather than an `MCSecrets`/Keychain credential): if both are
-/// present and non-blank, sets up the real PostHog SDK and returns `PostHogAnalyticsEventLogger`;
-/// otherwise — `.env` absent at build time (CI, or before the builder has populated it) — falls
-/// back to `NoOpAnalyticsEventLogger` with a logged warning, exactly the stub behavior this
-/// replaces, so a missing `.env` degrades gracefully instead of crashing the app.
+/// Composition-root factory for the ADR-0010 analytics sink. Reads the bundled
+/// `PostHogConfig.env` resource the `project.yml` `postBuildScripts` entry writes at build
+/// time from the gitignored `MissionControl/.env` (see the ADR amending ADR-0010's storage
+/// clause for why this is a build-time-injected value rather than an `MCSecrets`/Keychain
+/// credential — and that ADR's Notes for why this reads a standalone bundled resource rather
+/// than Info.plist keys: Xcode's script sandbox denies writing into the already-owned built
+/// Info.plist). If both keys are present and non-blank, sets up the real PostHog SDK and
+/// returns `PostHogAnalyticsEventLogger`; otherwise — the resource is missing (CI, or `.env`
+/// not yet populated) or malformed — falls back to `NoOpAnalyticsEventLogger` with a logged
+/// warning, exactly the stub behavior this replaces, so a missing `.env` degrades gracefully
+/// instead of crashing the app.
 enum AnalyticsEventLoggerFactory {
     static func make(bundle: Bundle = .main) -> AnalyticsEventLogger {
-        let apiKey = bundle.object(forInfoDictionaryKey: "PostHogAPIKey") as? String
-        let host = bundle.object(forInfoDictionaryKey: "PostHogHost") as? String
+        let values = readConfigResource(bundle: bundle)
 
-        guard let configuration = AnalyticsConfiguration.resolve(apiKey: apiKey, host: host) else {
+        guard let configuration = AnalyticsConfiguration.resolve(apiKey: values["POSTHOG_API_KEY"], host: values["POSTHOG_HOST"]) else {
             AppLog.polling.info("PostHog configuration absent (MissionControl/.env not populated at build time) — structured domain events fall back to os.Logger only, see infrastructure BC README")
             return NoOpAnalyticsEventLogger()
         }
@@ -46,5 +48,24 @@ enum AnalyticsEventLoggerFactory {
         config.errorTrackingConfig.autoCapture = true
         PostHogSDK.shared.setup(config)
         return PostHogAnalyticsEventLogger()
+    }
+
+    /// Parses the bundled `PostHogConfig.env` resource — plain `KEY=value` lines, matching
+    /// `.env`'s own format — into a lookup dictionary. Missing resource or unparseable content
+    /// both simply yield an empty dictionary, letting `AnalyticsConfiguration.resolve` apply
+    /// its usual missing/blank-value fallback.
+    private static func readConfigResource(bundle: Bundle) -> [String: String] {
+        guard let url = bundle.url(forResource: "PostHogConfig", withExtension: "env"),
+              let contents = try? String(contentsOf: url, encoding: .utf8) else {
+            return [:]
+        }
+        var values: [String: String] = [:]
+        for line in contents.split(separator: "\n") {
+            guard let separatorIndex = line.firstIndex(of: "=") else { continue }
+            let key = String(line[line.startIndex..<separatorIndex])
+            let value = String(line[line.index(after: separatorIndex)...])
+            values[key] = value
+        }
+        return values
     }
 }
