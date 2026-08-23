@@ -57,6 +57,20 @@ this through `MCSecrets`/Keychain (ADR-0007 is about Service Integration provide
 the PostHog Project API Key is a write-only client key by PostHog's own design, a different
 trust category).
 
+**Amends ADR-0010's storage clause (builder-approved 2026-08-23):** ADR-0010 currently says
+"The PostHog project API key is a single app-level credential stored via `MCSecrets` (ADR-0007's
+`SecretStore`)". This task deliberately does the opposite — see the `.env` convention below —
+and that is an intentional, discussed override, not an oversight. **Write a new ADR recording
+this** (next free number under `.agentheim/knowledge/decisions/`), titled along the lines of
+"PostHog Project API Key is stored via a gitignored build-time `.env`, not `MCSecrets`/Keychain
+— amends ADR-0010's storage clause". Follow the existing precedent for a partial-override ADR
+(see `0015-staleness-thresholds-15-60-minutes.md`, whose title says "overriding ADR-0008's
+placeholder" while `supersedes`/`superseded_by` stay `[]` on both sides — a full
+supersession/deprecation is not what's happening here, just one clause changing). Justify it on
+the actual trust-category distinction (write-only client key vs. read/write per-Integration
+provider credential; one static app-wide value vs. per-Integration entity requiring a validation
+call) — not merely "the builder asked for `.env`".
+
 **Build-time injection convention:** the builder will create a gitignored `MissionControl/.env`
 holding `POSTHOG_API_KEY=<phc_...>` and `POSTHOG_HOST=<https://us.i.posthog.com or eu>` — the
 worker does not need the actual values to implement this, only the convention. Implementation
