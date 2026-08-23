@@ -37,7 +37,8 @@ final class AppEnvironment: ObservableObject {
                 projectRepository: projectRepo,
                 integrationRepository: integrationRepo,
                 secretStore: secretStore,
-                snapshotStore: snapshotStore
+                snapshotStore: snapshotStore,
+                analytics: AnalyticsEventLoggerFactory.make()
             )
         } catch {
             // ADR-0009's "first-class, user-visible state" discipline applies here too:

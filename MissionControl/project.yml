@@ -45,6 +45,13 @@ settings:
 packages:
   MissionControlKit:
     path: MissionControlKit
+  # PostHog Swift SDK (ADR-0010, wired for real in infrastructure-pht7k). Linked ONLY by the
+  # MissionControl app target below — never MissionControlWidgets, per ADR-0004/ADR-0010's
+  # "extension links nothing heavy" rule. `from: 3.69.8` pins the current release tag at the
+  # time this was wired; bump deliberately, not as a side effect of some other change.
+  PostHog:
+    url: https://github.com/PostHog/posthog-ios
+    from: 3.69.8
 
 targets:
   MissionControl:
@@ -86,11 +93,54 @@ targets:
         product: MCPersistence
       - package: MissionControlKit
         product: MCProviders
+      - package: PostHog
+        product: PostHog
     info:
       path: Generated/MissionControl-Info.plist
       properties:
         CFBundleDisplayName: Mission Control
         LSApplicationCategoryType: public.app-category.developer-tools
+    # infrastructure-pht7k / ADR amending ADR-0010's storage clause: the PostHog Project API
+    # Key + ingestion host live in a gitignored `MissionControl/.env`, never in this committed
+    # file or in `Generated/MissionControl-Info.plist`. This script sources `.env` at build
+    # time and writes the two values into the *built* Info.plist only, after
+    # GENERATE_INFOPLIST_FILE has produced it and it's been copied into the app bundle
+    # (postBuildScripts), so PlistBuddy always finds a real file to edit and Xcode's automatic
+    # codesign step (which always runs last, after every build phase) signs the final content.
+    # If `.env` is absent or incomplete (CI, or before the builder has populated it), the
+    # script logs a warning and exits 0 rather than failing the build —
+    # `AnalyticsEventLoggerFactory` (MissionControl/PostHogAnalyticsEventLogger.swift) reads
+    # these same two keys back via `Bundle.main.object(forInfoDictionaryKey:)` and falls back
+    # to a no-op analytics logger when either is missing.
+    postBuildScripts:
+      - name: Inject PostHog config from .env
+        shell: /bin/bash
+        showEnvVars: false
+        basedOnDependencyAnalysis: false
+        script: |
+          set -e
+          ENV_FILE="${SRCROOT}/.env"
+          PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+
+          if [ ! -f "$ENV_FILE" ]; then
+            echo "warning: MissionControl/.env not found — PostHog structured events will fall back to a no-op logger (see infrastructure BC README)"
+            exit 0
+          fi
+
+          set -a
+          # shellcheck disable=SC1090
+          source "$ENV_FILE"
+          set +a
+
+          if [ -z "${POSTHOG_API_KEY:-}" ] || [ -z "${POSTHOG_HOST:-}" ]; then
+            echo "warning: MissionControl/.env is missing POSTHOG_API_KEY and/or POSTHOG_HOST — PostHog structured events will fall back to a no-op logger"
+            exit 0
+          fi
+
+          /usr/libexec/PlistBuddy -c "Add :PostHogAPIKey string ${POSTHOG_API_KEY}" "$PLIST" 2>/dev/null || \
+            /usr/libexec/PlistBuddy -c "Set :PostHogAPIKey ${POSTHOG_API_KEY}" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Add :PostHogHost string ${POSTHOG_HOST}" "$PLIST" 2>/dev/null || \
+            /usr/libexec/PlistBuddy -c "Set :PostHogHost ${POSTHOG_HOST}" "$PLIST"
 
   MissionControlWidgets:
     type: app-extension

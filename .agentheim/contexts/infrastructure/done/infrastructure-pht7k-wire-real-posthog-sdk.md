@@ -1,15 +1,15 @@
 ---
 id: infrastructure-pht7k
 title: Wire the real PostHog SDK for the ADR-0010 structured event set
-status: doing
+status: done
 type: task
 context: infrastructure
 created: 2026-08-14
-completed:
+completed: 2026-08-23
 depends_on: [infrastructure-001-walking-skeleton]
 blocks: []
 tags: [walking-skeleton-followup]
-related_adrs: [0010]
+related_adrs: [0010, 0017]
 related_research: []
 prior_art: []
 ---
@@ -97,3 +97,63 @@ values — not something the worker or verifier can execute without live credent
 plumbing compiles and unit-test whatever can be tested without live credentials (e.g. redaction
 logic, the `system` property being set, graceful fallback when `.env` is absent); leave the
 live-network criteria for the builder to check by hand afterward.
+
+## Outcome
+
+Real PostHog Swift SDK (`https://github.com/PostHog/posthog-ios`, pinned `from: 3.69.8`) wired
+as a `MissionControl` app-target-only SPM dependency (`MissionControl/project.yml`'s `packages:`
++ target `dependencies:` — `MissionControlWidgets` untouched, confirmed by grep and by the
+extension's built `.appex` containing no PostHog bundle in a real `xcodebuild build`).
+
+- `MissionControl/MissionControlKit/Sources/MCDomain/AnalyticsEvent.swift` — pure,
+  PostHog-SDK-independent event shape. `AnalyticsEvent.credentialExpired`/
+  `.integrationDisconnected` stamp `system: "monitoring"` (builder's shared-project setup) and
+  accept only `providerKind`/`integrationID`, making the ADR-0010 redaction contract structural.
+- `MissionControl/MissionControlKit/Sources/MCDomain/AnalyticsConfiguration.swift` — pure
+  `.resolve(apiKey:host:)` — `nil` when either value is missing/blank, the graceful-fallback
+  signal.
+- `MissionControl/MissionControl/PostHogAnalyticsEventLogger.swift` — `PostHogAnalyticsEventLogger`
+  (real `AnalyticsEventLogger` impl, calls `PostHogSDK.shared.capture`) +
+  `AnalyticsEventLoggerFactory.make()` (reads `PostHogAPIKey`/`PostHogHost` from
+  `Bundle.main`'s Info.plist, sets up the SDK with `errorTrackingConfig.autoCapture = true` for
+  ADR-0010's unhandled-crash event, or falls back to `NoOpAnalyticsEventLogger` with a logged
+  warning). Composed into `PollingCoordinator` via `AppEnvironment.swift`.
+- `MissionControl/project.yml` — PostHog SPM package declaration, `MissionControl`-only
+  dependency entry, and a `postBuildScripts` phase that sources gitignored `MissionControl/.env`
+  and injects `POSTHOG_API_KEY`/`POSTHOG_HOST` into the *built* Info.plist via `PlistBuddy`
+  (never into the committed `Generated/MissionControl-Info.plist`); falls back to a logged
+  warning + `exit 0` when `.env` is absent/incomplete. `MissionControl/.gitignore` gained `.env`.
+  `xcodegen generate` re-run; regenerated `MissionControl.xcodeproj/project.pbxproj` committed
+  alongside per ADR-0013.
+- `.agentheim/knowledge/decisions/0017-posthog-key-via-gitignored-env-not-mcsecrets.md` — the
+  required ADR amending ADR-0010's storage clause (builder-approved 2026-08-23).
+
+**Deploy started/ended events are not wired** — no "deploy" domain concept exists anywhere in
+this codebase yet (per the task's own "What" section); that pair lands together with whichever
+BC first models a deploy. The two already-wired call sites (credential-expired,
+circuit-breaker-disconnected in `PollingCoordinator.pollOne`) now flow through the real
+`PostHogAnalyticsEventLogger` unchanged in shape.
+
+**Verification performed:**
+- `swift test --package-path MissionControl/MissionControlKit`: 70/70 passing (9 new —
+  `AnalyticsEventTests`, `AnalyticsConfigurationTests` — 0 regressions).
+- `xcodebuild build -project MissionControl.xcodeproj -scheme MissionControl -destination
+  'platform=macOS' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO`: **BUILD SUCCEEDED** (real
+  build, not just `xcodegen generate` — resolved the PostHog SPM package over the network,
+  compiled and linked both `MissionControl.app` and `MissionControlWidgets.appex`). The
+  `postBuildScripts` phase ran and correctly logged the "`.env` not found" fallback warning,
+  confirming the graceful-degradation path end-to-end at the build-system level (no `.env`
+  exists in this worktree, by design — the worker was never given real PostHog credentials, per
+  the task's own instructions).
+- The three acceptance-criteria checkboxes above were **not** hand-ticked: per the task's own
+  Notes, the "manual test" bullets (real 401 trigger, live PostHog network payload inspection)
+  require live PostHog credentials in a real `.env` and are explicitly the builder's own
+  verification to perform once populated, not something reproducible in this environment. The
+  second bullet (widget extension doesn't link PostHog) *was* independently verified above via
+  both static `project.yml` inspection and the built `.appex`'s actual contents.
+
+Environment note: the build machine's disk briefly hit `ENOSPC` mid-task (root volume at ~95-98%
+capacity) while resolving the GRDB submodule checkout; resolved by clearing the (regenerable,
+non-source) `~/Library/Developer/Xcode/DerivedData/MissionControl-*` build cache, not by
+touching anything in the repo. Not a code issue — noted here only in case disk pressure recurs
+for a future task on this machine.

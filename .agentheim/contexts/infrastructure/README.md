@@ -120,6 +120,34 @@ than continuing to hammer an already-broken Integration at burst cadence — the
 threshold itself is untouched by burst mode, since `pollOne`'s failure counting doesn't know or
 care which cadence called it.
 
+**Structured events — real PostHog wiring (infrastructure-pht7k, amends ADR-0010's storage
+clause via ADR-0017):** `AnalyticsEventLogger` (`MissionControl/Logging.swift`) now has a real
+implementation, `PostHogAnalyticsEventLogger` (`MissionControl/PostHogAnalyticsEventLogger.swift`),
+composed in by `AppEnvironment` via `AnalyticsEventLoggerFactory.make()`. Every event carries a
+`system: "monitoring"` property (builder-decided PostHog project setup, 2026-08-23): one PostHog
+project is shared across this app and the builder's other personal systems (mise_pwa, mise_web),
+distinguished by that property. `AnalyticsEvent` (MCDomain, `AnalyticsEvent.swift`) is the
+PostHog-SDK-independent event shape — its factories accept only `providerKind`/`integrationID`,
+never an error string, so the ADR-0010 redaction contract is structural and unit-testable
+(`swift test`) without needing the PostHog SDK itself, which only the `MissionControl` app
+target links (never `MissionControlWidgets`, per ADR-0004/ADR-0010 — structurally enforced via
+`project.yml`'s per-target package list, same as `MCPersistence`/`MCSecrets`/`MCProviders`).
+Unhandled crashes are PostHog's own built-in crash autocapture
+(`config.errorTrackingConfig.autoCapture = true`), not a self-managed handler. Deploy
+started/ended events are **not yet wired** — no "deploy" domain concept exists anywhere in this
+codebase yet; that event pair lands together with whichever BC first models a deploy.
+
+**Credential storage exception — PostHog Project API Key (ADR-0017):** unlike every
+`ServiceIntegration` provider credential (ADR-0007/ADR-0012, via `MCSecrets`/Keychain), the
+PostHog key is a write-only, static, app-wide value stored via a gitignored `MissionControl/.env`
+(`POSTHOG_API_KEY`, `POSTHOG_HOST`) that a `project.yml` `postBuildScripts` entry injects into
+the *built* Info.plist at build time via `PlistBuddy` — never into any committed file.
+`AnalyticsEventLoggerFactory` reads the two keys back via
+`Bundle.main.object(forInfoDictionaryKey:)`; if `.env` is absent (fresh checkout, CI) or
+malformed, it logs a warning and falls back to `NoOpAnalyticsEventLogger` rather than crashing.
+This is this codebase's first build-time-secret-injection pattern — reuse it for any future
+static, non-`Integration` config value rather than inventing a new mechanism.
+
 **Provisioning caveat found while building this:** a valid codesigning identity in the login
 keychain is not the same as Xcode having a signed-in developer account. `xcodebuild
 -allowProvisioningUpdates` still fails with "No Accounts" until the user adds their Apple ID

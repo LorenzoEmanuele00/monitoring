@@ -5,6 +5,19 @@ Newest entries on top.
 
 ---
 
+## 2026-08-23 16:51 -- Task verified and completed: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+
+**Type:** Work / Task completion
+**Task:** infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+**Summary:** Wired the real PostHog SDK (app target only) with a graceful .env-driven fallback factory, structural redaction contract, and ADR-0017 amending ADR-0010's storage clause to a gitignored build-time .env instead of MCSecrets/Keychain
+**Duration:** ~15m (16:31 dispatch -> 16:46 PASS)
+**Verification:** PASS (iteration 1)
+**Files changed:** 13
+**Tests added:** 9
+**ADRs written:** 0017
+
+---
+
 ## 2026-08-23 16:31 -- Batch started: [infrastructure-pht7k]
 
 **Type:** Work / Batch start

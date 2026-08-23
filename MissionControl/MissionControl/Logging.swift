@@ -17,19 +17,19 @@ enum AppLog {
 /// expired, deploy started/ended, Integration disconnected (circuit breaker). Not general
 /// logging, not analytics." Credential material never flows through here.
 ///
-/// **This spike stubs the real PostHog SDK wiring** (ADR-0010 explicitly allows this: "for
-/// this walking-skeleton spike, PostHog wiring is acceptable to stub/defer if it threatens
-/// the stop-loss — the mandatory piece is os.Logger"). `os.Logger` above is the mandatory,
-/// fully-wired piece; this protocol exists so the polling pipeline is already shaped to call
-/// out these events, and swapping in the real SDK later is a one-file change. See the
-/// `infrastructure` BC backlog for the follow-up task that wires the real SDK.
+/// The real PostHog-backed implementation is `PostHogAnalyticsEventLogger`
+/// (`PostHogAnalyticsEventLogger.swift`), wired in by `AnalyticsEventLoggerFactory.make()` and
+/// composed into `AppEnvironment`. `NoOpAnalyticsEventLogger` below remains the graceful
+/// fallback the factory returns when `MissionControl/.env` hasn't been populated at build time
+/// (e.g. CI) — not a stub of the whole feature anymore, just this one degraded path.
 protocol AnalyticsEventLogger: Sendable {
     func logCredentialExpired(providerKind: ProviderKind, integrationID: UUID)
     func logIntegrationDisconnected(providerKind: ProviderKind, integrationID: UUID)
 }
 
-/// No-op implementation used until the real PostHog SDK is wired (see backlog follow-up).
-/// Logs to `os.Logger` so the event isn't silently lost even while PostHog itself is stubbed.
+/// Graceful fallback when PostHog configuration is unavailable (see `AnalyticsEventLoggerFactory`
+/// in `PostHogAnalyticsEventLogger.swift`). Logs to `os.Logger` so the event isn't silently
+/// lost even while PostHog itself is unconfigured.
 struct NoOpAnalyticsEventLogger: AnalyticsEventLogger {
     func logCredentialExpired(providerKind: ProviderKind, integrationID: UUID) {
         AppLog.polling.error("[analytics-stub] credential expired: \(providerKind.rawValue, privacy: .public) \(integrationID, privacy: .public)")

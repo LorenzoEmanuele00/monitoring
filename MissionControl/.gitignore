@@ -13,3 +13,13 @@ MissionControlKit/.swiftpm/
 # requiring `xcodegen generate` first. `project.yml` stays the source of truth for
 # structural changes — regenerate with `xcodegen generate` after editing it, then commit
 # the result.
+
+# PostHog Project API Key + ingestion host (infrastructure-pht7k; see the ADR amending
+# ADR-0010's storage clause). Never committed — the `project.yml` MissionControl target's
+# postBuildScripts entry sources this at build time and injects the two values into the *built*
+# Info.plist via PlistBuddy, never into a committed file. Create this file locally with:
+#   POSTHOG_API_KEY=phc_...
+#   POSTHOG_HOST=https://us.i.posthog.com
+# Absent (e.g. CI, or before first populated): the app falls back to a no-op analytics logger,
+# see `AnalyticsEventLoggerFactory` in `MissionControl/PostHogAnalyticsEventLogger.swift`.
+.env
