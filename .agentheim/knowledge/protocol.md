@@ -5,6 +5,17 @@ Newest entries on top.
 
 ---
 
+## 2026-08-23 16:30 -- Modeling / Refined: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+
+**Type:** Modeling / Refine
+**BC:** infrastructure
+**Status after:** todo
+**Summary:** Added builder-decided PostHog project setup (one shared project across monitoring/mise_pwa/mise_web, distinguished by a `system` event property) and a build-time secret-injection convention (gitignored `MissionControl/.env` + a project.yml `buildScripts` entry writing into the built Info.plist, never a committed file) to the task's Notes, so the worker doesn't have to invent the mechanism mid-task. Clarified that the acceptance criteria's live-network manual-test steps are the builder's own verification, not something the worker/verifier can execute without real credentials.
+**Split into:** none
+**ADRs written:** none
+
+---
+
 ## 2026-08-23 16:14 -- Modeling / Promoted: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
 
 **Type:** Modeling / Promote
