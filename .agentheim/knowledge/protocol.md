@@ -5,6 +5,14 @@ Newest entries on top.
 
 ---
 
+## 2026-08-23 16:14 -- Modeling / Promoted: infrastructure-pht7k - Wire the real PostHog SDK for the ADR-0010 structured event set
+
+**Type:** Modeling / Promote
+**BC:** infrastructure
+**From → To:** backlog → todo
+
+---
+
 ## 2026-08-22 18:19 -- Work session ended
 
 **Type:** Work / Session end

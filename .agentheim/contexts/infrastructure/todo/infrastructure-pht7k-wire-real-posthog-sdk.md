@@ -1,7 +1,7 @@
 ---
 id: infrastructure-pht7k
 title: Wire the real PostHog SDK for the ADR-0010 structured event set
-status: backlog
+status: todo
 type: task
 context: infrastructure
 created: 2026-08-14
