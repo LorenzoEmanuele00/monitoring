@@ -25,7 +25,7 @@ LSREGISTER     := /System/Library/Frameworks/CoreServices.framework/Versions/Cur
 
 build:
 	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration $(CONFIGURATION) \
-		-derivedDataPath $(DERIVED_DATA) -destination 'platform=macOS' build
+		-derivedDataPath $(DERIVED_DATA) -destination 'platform=macOS' -allowProvisioningUpdates build
 
 install: build clean-registrations
 	@echo "Installing $(APP_NAME) to /Applications..."
